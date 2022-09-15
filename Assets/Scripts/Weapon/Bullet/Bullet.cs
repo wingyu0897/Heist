@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		myRigid.velocity = transform.right * 30;
+		myRigid.velocity = transform.right * 25;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

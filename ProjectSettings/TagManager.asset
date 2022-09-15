@@ -11,12 +11,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Interactable
   - Player
   - Ground
   - Bullet
   - Enemy
-  - 
+  - MovementCollider
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Back
+    uniqueID: 3467000783
+    locked: 0
+  - name: Agent
+    uniqueID: 3484114747
+    locked: 0
+  - name: Front
+    uniqueID: 3916872129
+    locked: 0
+  - name: Top
+    uniqueID: 1003193859
     locked: 0

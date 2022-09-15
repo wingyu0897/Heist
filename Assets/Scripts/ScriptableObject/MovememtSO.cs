@@ -6,7 +6,8 @@ using UnityEngine;
 public class MovememtSO : ScriptableObject
 {
     [Header("Data")]
-    public float maxSpeed = 0;
+    public float maxWalkSpeed = 0;
+    public float maxRunSpeed = 0;
     public float acceleration = 0;
     public float deAcceleration = 0;
     public float jumpPower = 0;
@@ -14,5 +15,5 @@ public class MovememtSO : ScriptableObject
     [HideInInspector]
     public float currentVelocity = 0;
     [HideInInspector]
-    public float currentDirection = 0;
+    public Vector2 currentDirection = Vector2.zero;
 }

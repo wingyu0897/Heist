@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ceb994377e4e4143a0ab651ca6347fb, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: a38674b7298220d42867a040a81f0aae, type: 3}
+  m_Name: Glock17Data
   m_EditorClassIdentifier: 
-  maxSpeed: 3
-  acceleration: 6
-  deAcceleration: 30
-  jumpPower: 4
-  jumpRate: 0.3
-  currentVelocity: 0
-  currentDirection: 0
+  gunName: Glock17
+  magSize: 8
+  maxAmmo: 64
+  currentAmmo: 64
+  reloadTime: 2
+  fireRate: 0.15
+  spreadAngle: 15
+  minAimRange: 0.5
+  gunSlerpSpeed: 0.25

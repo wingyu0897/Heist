@@ -5,20 +5,21 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-	public UnityEvent<float> OnMovementPress;
+	public UnityEvent<Vector2> OnMovementPress;
 	public UnityEvent<Vector2> OnPointerPositionChange;
 
 	private void FixedUpdate()
 	{
+		MousePosition();		
 		Movement();
-		MousePosition();
 	}
 
 	private void Movement()
 	{
 		float x = Input.GetAxisRaw("Horizontal");
+		float y = Input.GetAxisRaw("Vertical");
 
-		OnMovementPress?.Invoke(x);
+		OnMovementPress?.Invoke(new Vector2(x, y));
 	}
 
 	private void MousePosition()

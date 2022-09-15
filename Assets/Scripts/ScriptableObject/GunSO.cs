@@ -18,4 +18,7 @@ public class GunSO : ScriptableObject
     public float fireRate;
     [Range(0, 360)]
     public float spreadAngle;
+    public float minAimRange;
+    [Range(0, 1)]
+    public float gunSlerpSpeed;
 }
