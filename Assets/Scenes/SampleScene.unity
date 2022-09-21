@@ -469,9 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf65237f718bc6445a84a3710f1368e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minAimRange: 0.85
   slerpHolder: 0.15
-  slerpGun: 0.25
   muzzle: {fileID: 198080734}
   gun: {fileID: 1151703002}
   OnAttack:
@@ -1041,6 +1039,7 @@ GameObject:
   - component: {fileID: 1042721336}
   - component: {fileID: 1042721334}
   - component: {fileID: 1042721335}
+  - component: {fileID: 1042721340}
   - component: {fileID: 1042721339}
   - component: {fileID: 1042721338}
   m_Layer: 7
@@ -1226,6 +1225,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1042721340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042721333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447113d41d147bd44853af020aab6c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRunning: 0
+  canRun: 1
+  backPacks: 0
+  interactionSpeed: 1
 --- !u!1 &1109431124
 GameObject:
   m_ObjectHideFlags: 0
@@ -2370,7 +2385,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1677802028}
-  - component: {fileID: 1677802029}
   m_Layer: 0
   m_Name: GameCore
   m_TagString: Untagged
@@ -2392,22 +2406,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1677802029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1677802027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 447113d41d147bd44853af020aab6c0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRunning: 0
-  canRun: 1
-  backPacks: 0
-  interactionSpeed: 1
 --- !u!1 &2045603537
 GameObject:
   m_ObjectHideFlags: 0

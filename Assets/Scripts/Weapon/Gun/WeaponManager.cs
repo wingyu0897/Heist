@@ -36,7 +36,7 @@ public class WeaponManager : MonoBehaviour
 
 	private void Attack() //무기의 사용가능 여부 확인 및 무기를 사용
 	{
-		if (Input.GetKeyDown(KeyCode.Mouse0) && currentWeapon.TryAttack())
+		if (Input.GetKeyDown(KeyCode.Mouse0) && currentWeapon.TryAttack() && !PlayerData.Instance.isRunning)
 		{
 			currentWeapon.Attack();
 			OnAttack?.Invoke();
