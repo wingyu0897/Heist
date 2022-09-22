@@ -6,9 +6,7 @@ using TMPro;
 
 public class Gun : Weapon
 {
-	[SerializeField] 
-	private GunSO gunData;
-	public GunSO GunData { get => gunData; }
+	public GunSO WeaponData { get => weaponData; }
 	[SerializeField] 
 	private GameObject bulletPrefab;
 	[SerializeField] 
@@ -30,10 +28,11 @@ public class Gun : Weapon
 
 	private void Start()
 	{
+		weaponData.muzzle = transform.Find("Muzzle");
 		myAnimator = GetComponent<Animator>();
 		weaponHolder = transform.parent;
-		currentAmmo = gunData.currentAmmo;
-		magAmmo = gunData.magSize;
+		currentAmmo = weaponData.currentAmmo;
+		magAmmo = weaponData.magSize;
 	}
 
 	private void Update()
@@ -48,18 +47,24 @@ public class Gun : Weapon
 		GunAiming();
 	}
 
+	private void OnEnable()
+	{
+		StopAllCoroutines();
+		isReloading = false;
+	}
+
 	private void GunAiming()
 	{
 		Vector2 pointer = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		Vector3 gunDir = (Vector3)pointer - muzzle.position;
 		float gunAngle = Mathf.Atan2(gunDir.y, gunDir.x) * Mathf.Rad2Deg;
-		if (Vector3.Distance(transform.position, pointer) > GunData.minAimRange)
+		if (Vector3.Distance(transform.position, pointer) > WeaponData.minAimRange)
 		{
-			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(gunAngle, Vector3.forward), GunData.gunSlerpSpeed);
+			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(gunAngle, Vector3.forward), WeaponData.gunSlerpSpeed);
 		}
 		else
 		{
-			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.AngleAxis(0, Vector3.forward), GunData.gunSlerpSpeed);
+			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.AngleAxis(0, Vector3.forward), WeaponData.gunSlerpSpeed);
 		}
 	}
 
@@ -84,7 +89,7 @@ public class Gun : Weapon
 
 	private void Recoil() //¹Ýµ¿
 	{
-		float spread = weaponHolder.localScale.y > 0 ? GunData.spreadAngle : -GunData.spreadAngle;
+		float spread = weaponHolder.localScale.y > 0 ? WeaponData.spreadAngle : -WeaponData.spreadAngle;
 		Quaternion spreadRot = Quaternion.Euler(new Vector3(0, 0, spread));
 		transform.rotation *= spreadRot;
 	}
@@ -93,7 +98,7 @@ public class Gun : Weapon
 	{
 		if (Input.GetKeyDown(KeyCode.R))
 		{
-			if (!isReloading && magAmmo < gunData.magSize && currentAmmo > 0)
+			if (!isReloading && magAmmo < weaponData.magSize && currentAmmo > 0)
 			{
 				isReloading = true;
 				myAnimator?.SetTrigger(reloadingHash);
@@ -104,12 +109,12 @@ public class Gun : Weapon
 
 	IEnumerator Reloading()
 	{
-		yield return new WaitForSeconds(gunData.reloadTime);
+		yield return new WaitForSeconds(weaponData.reloadTime);
 
-		if (currentAmmo >= gunData.magSize - magAmmo)
+		if (currentAmmo >= weaponData.magSize - magAmmo)
 		{
-			currentAmmo -= gunData.magSize - magAmmo;
-			magAmmo = gunData.magSize;
+			currentAmmo -= weaponData.magSize - magAmmo;
+			magAmmo = weaponData.magSize;
 		}
 		else
 		{
@@ -123,7 +128,7 @@ public class Gun : Weapon
 	{
 		canShooting = false;
 
-		yield return new WaitForSeconds(gunData.fireRate);
+		yield return new WaitForSeconds(weaponData.fireRate);
 
 		canShooting = true;
 	}
@@ -131,7 +136,7 @@ public class Gun : Weapon
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, GunData.minAimRange);
+		Gizmos.DrawWireSphere(transform.position, WeaponData.minAimRange);
 		Gizmos.color = Color.white;
 	}
 }

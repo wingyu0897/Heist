@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a38674b7298220d42867a040a81f0aae, type: 3}
-  m_Name: Glock17Data
+  m_Name: AK47Data
   m_EditorClassIdentifier: 
-  gunName: Glock17
-  weaponType: 2
-  magSize: 8
-  maxAmmo: 64
-  currentAmmo: 64
-  reloadTime: 2
-  isAuto: 0
-  muzzle: {x: 0.35, y: 0.2}
-  fireRate: 0.15
+  gunName: AK47
+  weaponType: 3
+  magSize: 30
+  maxAmmo: 300
+  currentAmmo: 300
+  reloadTime: 3
+  isAuto: 1
+  muzzle: {fileID: 0}
+  fireRate: 0.1
   spreadAngle: 15
-  minAimRange: 0.5
-  gunSlerpSpeed: 0.25
+  minAimRange: 0.85
+  gunSlerpSpeed: 0.15
