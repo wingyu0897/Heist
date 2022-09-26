@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38674b7298220d42867a040a81f0aae, type: 3}
+  m_Name: AK47Data
+  m_EditorClassIdentifier: 
+  gunName: AK47
+  weaponType: 3
+  magSize: 30
+  maxAmmo: 300
+  currentAmmo: 300
+  reloadTime: 3
+  isAuto: 1
+  muzzle: {fileID: 0}
+  fireRate: 0.1
+  spreadAngle: 15
+  minAimRange: 0.85
+  gunSlerpSpeed: 0.15
+  shootClip: {fileID: 8300000, guid: b59445f00907b3b48a72a09a93ee2966, type: 3}
+  noAmmoClip: {fileID: 8300000, guid: a6f1cd015bce92340b9d5414bf92dd16, type: 3}
+  reloadClip: {fileID: 8300000, guid: b121e80e93a816742aa1253dbd9ad90a, type: 3}
