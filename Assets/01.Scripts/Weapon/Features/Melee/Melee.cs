@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Melee : Weapon
 {
-	[SerializeField]
-	private MeleeSO meleeData;
+	[SerializeField] private MeleeSO meleeData;
 
 	private bool isAttack = false;
 	private Animator animator;

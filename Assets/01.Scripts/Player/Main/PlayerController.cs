@@ -5,14 +5,24 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
+	//[SerializeField] FieldOfView fieldOfView;
+
 	public UnityEvent<Vector2> OnMovementPress;
 	public UnityEvent<Vector2> OnPointerPositionChange;
+
+	private Vector2 mousePos;
 
 	private void FixedUpdate()
 	{
 		MousePosition();		
 		Movement();
 	}
+
+	//private void Update()
+	//{
+	//	fieldOfView.SetAimDirection(((Vector3)mousePos - transform.position).normalized);
+	//	fieldOfView.SetOrigin(transform.position);
+	//}
 
 	private void Movement()
 	{
@@ -24,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
 	private void MousePosition()
 	{
-		Vector2 mousePos = Input.mousePosition;
+		mousePos = Input.mousePosition;
 		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
 		OnPointerPositionChange?.Invoke(mousePos);

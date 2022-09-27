@@ -5,10 +5,8 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
-	[SerializeField]
-	private MovememtSO moveData;
-	[SerializeField]
-	private KeyCode sprintingKeyCode;
+	[SerializeField] private MovememtSO moveData;
+	[SerializeField] private KeyCode sprintingKeyCode;
 	private Rigidbody2D myRigid;
 
 	public UnityEvent<float> OnVelocityChange;

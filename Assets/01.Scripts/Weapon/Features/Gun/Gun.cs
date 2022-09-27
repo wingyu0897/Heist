@@ -6,17 +6,12 @@ using TMPro;
 
 public class Gun : Weapon
 {
-	[SerializeField]
-	private GunSO gunData;
+	[SerializeField] private GunSO gunData;
 	public GunSO WeaponData { get => gunData; }
-	[SerializeField] 
-	private GameObject bulletPrefab;
-	[SerializeField] 
-	private Transform muzzle;
-	[SerializeField] 
-	private TextMeshProUGUI magAmmoText;
-	[SerializeField] 
-	private TextMeshProUGUI currentAmmoText;
+	[SerializeField] private GameObject bulletPrefab;
+	[SerializeField] private Transform muzzle;
+	[SerializeField] private TextMeshProUGUI magAmmoText;
+	[SerializeField] private TextMeshProUGUI currentAmmoText;
 
 	private int currentAmmo;
 	private int magAmmo;
