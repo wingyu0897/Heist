@@ -9,15 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 134af479b2963924bb98ee103dc7d4a1, type: 3}
-  m_Name: TacticalKnifeData
+  m_Script: {fileID: 11500000, guid: df4228bcde778d243af66832424fba77, type: 3}
+  m_Name: NormalBullet
   m_EditorClassIdentifier: 
-  meleeName: Tactical Knife
-  weaponType: 1
-  damage: 1000
-  minAimRange: 0.8
-  range: 0.3
-  attackDelay: 0.2
-  attackPoint: {fileID: 0}
-  weaponSlerpSpeed: 0.25
-  attackClip: {fileID: 0}
+  prefab: {fileID: 2197284621462357796, guid: e9620fa1610de114e92c26b445316b09, type: 3}
+  damage: 200
+  speed: 25
+  lifeTime: 3

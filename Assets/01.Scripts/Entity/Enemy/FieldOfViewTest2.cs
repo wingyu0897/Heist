@@ -26,40 +26,32 @@ public class FieldOfViewTest2 : MonoBehaviour
 		FindViewTargets();
 	}
 
-	private void FindViewTargets()
+	private void FindViewTargets() //플레이어 감지 함수
 	{
         Vector2 originPos = transform.position;
-        Collider2D hitedTargets = Physics2D.OverlapCircle(originPos, viewRadius, playerLayerMask);
+        Collider2D hitedTargets = Physics2D.OverlapCircle(originPos, viewRadius, playerLayerMask); //OverlapCircle을 이용해 범위 내 적을 감지
 
-        if (hitedTargets != null)
+        if (hitedTargets != null) //범위 내에 적(플레이어)이 있을 경우
 		{
             Vector2 targetPos = hitedTargets.transform.position;
             Vector2 dir = (targetPos - originPos).normalized;
-            Vector2 lookDir = AngleToDirZ(viewRotateZ);
-            
             float dirAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + viewRotateZ - 90;
 
-            Debug.Log(dirAngle);
-            float angle = Vector3.Angle(lookDir, dir);
-            angle = dirAngle > 0 || dirAngle < -180 ? -angle : angle;
+            Debug.DrawRay(originPos, AngleToDirZ(-dirAngle + viewRotateZ + 5f) * Vector2.Distance(originPos, targetPos), Color.green);
+            Debug.DrawRay(originPos, AngleToDirZ(-dirAngle + viewRotateZ - 5f) * Vector2.Distance(originPos, targetPos), Color.green);
 
-            Debug.DrawRay(originPos, AngleToDirZ(angle + viewRotateZ + 5f) * Vector2.Distance(originPos, targetPos), Color.red);
-            Debug.DrawRay(originPos, AngleToDirZ(angle + viewRotateZ - 5f) * Vector2.Distance(originPos, targetPos), Color.red);
-
-            if (Mathf.Abs(angle) <= horizontalViewHalfAngle)
+            if (Mathf.Abs(dirAngle) <= horizontalViewHalfAngle)
 			{
-                RaycastHit2D rayHitedObstacle = Physics2D.Raycast(originPos, dir, viewRadius + 1, obstacleLayerMask);
                 RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, dir, viewRadius + 1, playerLayerMask);
+                RaycastHit2D rayHitedObstacle = Physics2D.Raycast(originPos, dir, rayHitedTarget.distance, obstacleLayerMask);
 
-                rayHitedObstacle.distance = rayHitedObstacle ? rayHitedObstacle.distance : viewRadius + 1;
-
-                if (rayHitedObstacle.distance < rayHitedTarget.distance)
+                if (rayHitedObstacle)
 				{
-                    Debug.DrawLine(originPos, rayHitedObstacle.point, Color.yellow);
+                    Debug.DrawLine(originPos, rayHitedObstacle.point, Color.red);
 				}
 				else
 				{
-					Debug.DrawLine(originPos, rayHitedTarget.point, Color.red);
+					Debug.DrawLine(originPos, rayHitedTarget.point, Color.green);
                 }
             }
 		}

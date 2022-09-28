@@ -11,7 +11,7 @@ public enum WeaponType
     special
 }
 
-[CreateAssetMenu(menuName = "SO/DATA/Gun")]
+[CreateAssetMenu(menuName = "SO/DATA/WEAPON/Gun")]
 public class GunSO : ScriptableObject
 {
     [Header("Info")]
@@ -23,6 +23,7 @@ public class GunSO : ScriptableObject
     public int maxAmmo;
     public int currentAmmo;
     public float reloadTime;
+    public BulletSO bulletData;
 
     [Header("Shoot")]
     public bool isAuto;

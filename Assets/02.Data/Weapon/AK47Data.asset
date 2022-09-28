@@ -18,10 +18,11 @@ MonoBehaviour:
   maxAmmo: 300
   currentAmmo: 300
   reloadTime: 3
+  bulletData: {fileID: 11400000, guid: 938a8c57581e2c1479f08d679310b7d2, type: 2}
   isAuto: 1
   muzzle: {fileID: 0}
   fireRate: 0.1
-  spreadAngle: 15
+  spreadAngle: 30
   minAimRange: 0.85
   gunSlerpSpeed: 0.15
   shootClip: {fileID: 8300000, guid: b59445f00907b3b48a72a09a93ee2966, type: 3}

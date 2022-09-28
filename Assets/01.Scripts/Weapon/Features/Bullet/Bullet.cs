@@ -2,9 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Poolable
 {
+	private BulletSO bulletData;
+	public BulletSO BulletData
+	{
+		get => bulletData;
+		set => bulletData = value;
+	}
+
 	private Rigidbody2D myRigid;
+	private float time;
+
+	public override void Initialize()
+	{
+		myRigid.velocity = Vector2.zero;
+		time = 0;
+	}
 
 	private void Awake()
 	{
@@ -13,14 +27,26 @@ public class Bullet : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		myRigid.velocity = transform.right * 25;
+		myRigid.velocity = transform.right * bulletData.speed;
+		time += Time.fixedDeltaTime;
+
+		if (time > bulletData.lifeTime)
+		{
+			PoolManager.instance.Push(this);
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		IDamageable damageable = collision.GetComponent<IDamageable>();
-		damageable?.GetHit(100);
+		damageable?.GetHit(bulletData.damage);
 
-		Destroy(gameObject);
+		PoolManager.instance.Push(this);
+	}
+
+	public void SetPositionAndRotation(Vector3 position, Quaternion rotation)
+	{
+		transform.position = position;
+		transform.rotation = rotation;
 	}
 }
