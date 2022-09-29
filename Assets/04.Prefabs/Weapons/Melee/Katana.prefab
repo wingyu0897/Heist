@@ -241,4 +241,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minAimRange: 1
-  slerpMelee: 0.25
+  weaponSlerpSpeed: 0

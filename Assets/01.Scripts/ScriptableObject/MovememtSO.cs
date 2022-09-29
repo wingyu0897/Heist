@@ -10,10 +10,4 @@ public class MovememtSO : ScriptableObject
     public float maxRunSpeed = 0;
     public float acceleration = 0;
     public float deAcceleration = 0;
-    public float jumpPower = 0;
-    public float jumpRate = 0;
-    [HideInInspector]
-    public float currentVelocity = 0;
-    [HideInInspector]
-    public Vector2 currentDirection = Vector2.zero;
 }
