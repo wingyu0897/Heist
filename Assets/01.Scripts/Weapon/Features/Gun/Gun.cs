@@ -6,17 +6,11 @@ using TMPro;
 
 public class Gun : Weapon
 {
-	[SerializeField]
-	private GunSO gunData;
+	[SerializeField] private GunSO gunData;
 	public GunSO WeaponData { get => gunData; }
-	[SerializeField] 
-	private GameObject bulletPrefab;
-	[SerializeField] 
-	private Transform muzzle;
-	[SerializeField] 
-	private TextMeshProUGUI magAmmoText;
-	[SerializeField] 
-	private TextMeshProUGUI currentAmmoText;
+	[SerializeField] private Transform muzzle;
+	[SerializeField] private TextMeshProUGUI magAmmoText;
+	[SerializeField] private TextMeshProUGUI currentAmmoText;
 
 	private int currentAmmo;
 	private int magAmmo;
@@ -86,11 +80,18 @@ public class Gun : Weapon
 			magAmmo--;
 			gunAudio.PlayClips(gunData.shootClip);
 
-			GameObject bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
-			Destroy(bullet, 3);
+			SpawnBullet();
+
 			StartCoroutine(FireDelay());
 			Recoil();
 		}
+	}
+
+	private void SpawnBullet()
+	{
+		Bullet bullet = PoolManager.instance.Pop(gunData.bulletData.prefab.name) as Bullet;
+		bullet.SetPositionAndRotation(muzzle.position, muzzle.rotation);
+		bullet.BulletData = gunData.bulletData;
 	}
 
 	public override bool KeyPress() //무기 사용 여부를 반환하는 함수(단발, 연발과 같은 상황)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SO/DATA/Melee")]
+[CreateAssetMenu(menuName = "SO/DATA/WEAPON/Melee")]
 public class MeleeSO : ScriptableObject
 {
 	[Header("Info")]
@@ -16,6 +16,8 @@ public class MeleeSO : ScriptableObject
 	public float attackDelay;
 	[HideInInspector]
 	public Transform attackPoint;
+	[Range(0, 1)]
+	public float weaponSlerpSpeed;
 
 	[Header("AudioClip")]
 	public AudioClip attackClip;

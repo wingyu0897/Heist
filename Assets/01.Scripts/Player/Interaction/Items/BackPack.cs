@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class BackPack : MonoBehaviour, IInteractable
 {
-	[SerializeField]
-	private float interactionTime;
+	[SerializeField] private float interactionTime;
 	public float InteractionTime => interactionTime;
 	private bool canInteractive = true;
 	public bool CanInteractive { get => canInteractive; set => canInteractive = value; }

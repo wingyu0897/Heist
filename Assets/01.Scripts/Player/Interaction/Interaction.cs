@@ -5,10 +5,8 @@ using UnityEngine.UI;
 
 public class Interaction : MonoBehaviour
 {
-    [SerializeField]
-    private float interactableRange;
-	[SerializeField]
-	private GameObject interactionUI;
+    [SerializeField] private float interactableRange;
+	[SerializeField] private GameObject interactionUI;
 	private Image keyUI;
 
 	private int layerMask;

@@ -8,6 +8,15 @@ public class PlayerController : MonoBehaviour
 	public UnityEvent<Vector2> OnMovementPress;
 	public UnityEvent<Vector2> OnPointerPositionChange;
 
+	private Movement movement;
+
+	private Vector2 mousePos;
+
+	private void Awake()
+	{
+		movement = GetComponent<Movement>();
+	}
+
 	private void FixedUpdate()
 	{
 		MousePosition();		
@@ -19,12 +28,15 @@ public class PlayerController : MonoBehaviour
 		float x = Input.GetAxisRaw("Horizontal");
 		float y = Input.GetAxisRaw("Vertical");
 
-		OnMovementPress?.Invoke(new Vector2(x, y));
+		PlayerData.Instance.isRunning = Input.GetKey(KeyCode.LeftShift);
+
+		movement.IsRunning = PlayerData.Instance.isRunning;
+		movement.Move(new Vector2(x, y));
 	}
 
 	private void MousePosition()
 	{
-		Vector2 mousePos = Input.mousePosition;
+		mousePos = Input.mousePosition;
 		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
 		OnPointerPositionChange?.Invoke(mousePos);

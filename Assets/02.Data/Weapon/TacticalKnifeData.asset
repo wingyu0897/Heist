@@ -16,7 +16,8 @@ MonoBehaviour:
   weaponType: 1
   damage: 1000
   minAimRange: 0.8
-  range: 0.4
-  attackDelay: 0.5
+  range: 0.3
+  attackDelay: 0.2
   attackPoint: {fileID: 0}
+  weaponSlerpSpeed: 0.25
   attackClip: {fileID: 0}

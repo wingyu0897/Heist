@@ -4,38 +4,29 @@ using UnityEngine;
 
 public class Melee : Weapon
 {
-	[SerializeField]
-	private MeleeSO meleeData;
+	[SerializeField] private MeleeSO meleeData;
 
 	private bool isAttack = false;
+	private Collider2D myCollider;
 	private Animator animator;
 	private readonly int attackHash = Animator.StringToHash("Attack");
 
 	private void Awake()
 	{
+		myCollider = GetComponentInChildren<Collider2D>();
 		animator = GetComponent<Animator>();
 		meleeData.attackPoint = transform.Find("Point");
+		GetComponentInParent<SmoothAim>()?.SetValues(meleeData.minAimRange, meleeData.weaponSlerpSpeed);		
 	}
 
 	private void OnEnable()
 	{
 		isAttack = false;
-		transform.localPosition = new Vector3(0.4f, 0, 0);
-	}
-
-	private void FixedUpdate()
-	{
-		WeaponAiming();
+		myCollider.enabled = false;
 	}
 
 	public override void Attack()
 	{
-		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(meleeData.attackPoint.position, new Vector2(meleeData.range*2, 0.15f), transform.eulerAngles.z);
-		foreach (Collider2D collider in hitEnemies)
-		{
-			IDamageable damageable = collider.GetComponent<IDamageable>();
-			damageable?.GetHit(meleeData.damage);
-		}
 		animator.SetTrigger(attackHash);
 		StartCoroutine(AttackDelay());
 	}
@@ -59,18 +50,21 @@ public class Melee : Weapon
 		return Input.GetKeyDown(KeyCode.Mouse0);
 	}
 
-	private void WeaponAiming() //에임 시스템 함수 //WeaponHolder의 에임 시스템과 별개
+	public void OnCollider()
 	{
-		Vector2 pointer = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		Vector3 gunDir = (Vector3)pointer - transform.position;
-		float gunAngle = Mathf.Atan2(gunDir.y, gunDir.x) * Mathf.Rad2Deg;
-		if (Vector3.Distance(transform.position, pointer) > meleeData.minAimRange)
+		myCollider.enabled = true;
+	}
+
+	public void OffCollider()
+	{
+		myCollider.enabled = false;
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.TryGetComponent<IDamageable>(out IDamageable obj))
 		{
-			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(gunAngle, Vector3.forward), 0.1f);
-		}
-		else
-		{
-			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.AngleAxis(0, Vector3.forward), 0.1f);
+			obj.GetHit(meleeData.damage);
 		}
 	}
 
@@ -78,7 +72,7 @@ public class Melee : Weapon
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(transform.position, meleeData.minAimRange);
-		Gizmos.DrawRay(meleeData.attackPoint.position, transform.right * 0.4f);
+		Gizmos.DrawRay(meleeData.attackPoint.position, meleeData.attackPoint.right * meleeData.range);
 		Gizmos.color = Color.white;
 	}
 }
