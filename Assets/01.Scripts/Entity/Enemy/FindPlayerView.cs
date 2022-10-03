@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class FindPlayerView : MonoBehaviour
 {
@@ -15,10 +16,10 @@ public class FindPlayerView : MonoBehaviour
     [SerializeField] private float viewRotateZ = 0f;
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private LayerMask obstacleLayerMask;
-
     private float horizontalViewHalfAngle = 0f;
 
     [Header("Detect Player")]
+    [SerializeField] private Slider detectiveGaugeSlider;
     [SerializeField] private float detectTime;
     private bool findPlayer = false;
 
@@ -33,7 +34,9 @@ public class FindPlayerView : MonoBehaviour
 	private void Update()
 	{
 		FindViewTargets();
-	}
+        detectiveGaugeSlider.value = brain.DetectiveGauge / detectTime;
+        detectiveGaugeSlider.gameObject.SetActive(brain.DetectiveGauge > 0);
+    }
 
 	private void FindViewTargets() //플레이어 감지 함수
 	{
@@ -53,8 +56,8 @@ public class FindPlayerView : MonoBehaviour
 
             if (Mathf.Abs(angle) <= horizontalViewHalfAngle)
 			{
-                RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, AngleToDirZ(-dirAngle + viewRotateZ), viewRadius + 1, playerLayerMask);
-                RaycastHit2D rayHitedObstacle = Physics2D.Raycast(originPos, AngleToDirZ(-dirAngle + viewRotateZ), rayHitedTarget.distance, obstacleLayerMask);
+                RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, dir, viewRadius + 1, playerLayerMask);
+                RaycastHit2D rayHitedObstacle = Physics2D.Raycast(originPos, dir, rayHitedTarget.distance, obstacleLayerMask);
 
                 if (rayHitedObstacle)
 				{
@@ -64,6 +67,7 @@ public class FindPlayerView : MonoBehaviour
 				else
 				{
 					Debug.DrawLine(originPos, rayHitedTarget.point, Color.green);
+                    brain.TargetPos = brain.Target.position;
                     findPlayer = true;
                 }
             }
@@ -80,7 +84,7 @@ public class FindPlayerView : MonoBehaviour
 		}
 		else
 		{
-            brain.DetectiveGauge -= Time.deltaTime;
+            brain.DetectiveGauge -= Time.deltaTime * 0.5f;
 		}
 
         brain.DetectiveGauge = Mathf.Clamp(brain.DetectiveGauge, 0, detectTime);
@@ -94,7 +98,8 @@ public class FindPlayerView : MonoBehaviour
     public void LookAt(Vector2 targetPos)
 	{
         Vector2 dir = (targetPos - (Vector2)brain.BasePosition.position).normalized;
-        viewRotateZ = -(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90);
+        float targetAngle = -(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90);
+        viewRotateZ = Mathf.Lerp(viewRotateZ, targetAngle, 0.1f);
     }
 
     private Vector3 AngleToDirZ(float degreeAngle)
@@ -118,7 +123,6 @@ public class FindPlayerView : MonoBehaviour
             Vector3 lookDir = AngleToDirZ(viewRotateZ);
 
             Debug.DrawRay(originPos, horizontalLeftDir * viewRadius, Color.cyan);
-            Debug.DrawRay(originPos, lookDir * viewRadius, Color.green);
             Debug.DrawRay(originPos, horizontalRightDir * viewRadius, Color.cyan);
         }
     }

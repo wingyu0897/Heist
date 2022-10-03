@@ -16,10 +16,10 @@ TagManager:
   - Ground
   - Bullet
   - Enemy
-  - MovementCollider
+  - EnemyMovementCollider
   - FrontWall
   - BackWall
-  - 
+  - PlayerMovementCollider
   - 
   - 
   - 

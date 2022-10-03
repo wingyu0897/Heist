@@ -11,7 +11,7 @@ public class ActionLookAtTarget : AIAction
 
 	public override void TakeAction()
 	{
-		brain.MoveTo(Vector2.zero, brain.Target.position);
+		brain.MoveTo(Vector2.zero, brain.TargetPos);
 	}
 
 	public override void ExitAction()

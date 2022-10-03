@@ -11,9 +11,7 @@ public class ActionChase : AIAction
 
 	public override void TakeAction()
 	{
-		Vector2 direction = brain.Target.position - transform.position;
-
-		brain.MoveTo(direction, brain.Target.position);
+		brain.MoveToTarget(new Vector2Int(Mathf.RoundToInt(brain.TargetPos.x), Mathf.RoundToInt(brain.TargetPos.y)), brain.TargetPos);
 	}
 
 	public override void ExitAction()
