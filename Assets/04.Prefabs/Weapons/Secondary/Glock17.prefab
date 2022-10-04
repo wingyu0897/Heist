@@ -84,7 +84,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -148,7 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: ace60370c33fef94588f742b802d424e, type: 2}
-  bulletPrefab: {fileID: 2197284621462357796, guid: e9620fa1610de114e92c26b445316b09, type: 3}
   muzzle: {fileID: 6527779179978009775}
   magAmmoText: {fileID: 0}
   currentAmmoText: {fileID: 0}

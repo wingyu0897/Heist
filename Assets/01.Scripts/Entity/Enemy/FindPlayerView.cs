@@ -22,6 +22,7 @@ public class FindPlayerView : MonoBehaviour
     [SerializeField] private Slider detectiveGaugeSlider;
     [SerializeField] private float detectTime;
     private bool findPlayer = false;
+    private GameObject spotLight;
 
     public UnityEvent OnDetectionPlayer;
 
@@ -29,6 +30,7 @@ public class FindPlayerView : MonoBehaviour
 	{
 		horizontalViewHalfAngle = horizontalViewAngle * 0.5f;
         brain = GetComponent<AIBrain>();
+        spotLight = transform.Find("MovementCollider").Find("Light").gameObject;
     }
 
 	private void Update()
@@ -99,7 +101,8 @@ public class FindPlayerView : MonoBehaviour
 	{
         Vector2 dir = (targetPos - (Vector2)brain.BasePosition.position).normalized;
         float targetAngle = -(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90);
-        viewRotateZ = Mathf.Lerp(viewRotateZ, targetAngle, 0.1f);
+        viewRotateZ = Mathf.LerpAngle(viewRotateZ, targetAngle, 0.2f);
+        spotLight.transform.localRotation = Quaternion.Euler(0, 0, -viewRotateZ);
     }
 
     private Vector3 AngleToDirZ(float degreeAngle)
@@ -120,7 +123,6 @@ public class FindPlayerView : MonoBehaviour
 
             Vector3 horizontalRightDir = AngleToDirZ(-horizontalViewHalfAngle + viewRotateZ);
             Vector3 horizontalLeftDir = AngleToDirZ(horizontalViewHalfAngle + viewRotateZ);
-            Vector3 lookDir = AngleToDirZ(viewRotateZ);
 
             Debug.DrawRay(originPos, horizontalLeftDir * viewRadius, Color.cyan);
             Debug.DrawRay(originPos, horizontalRightDir * viewRadius, Color.cyan);
