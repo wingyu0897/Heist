@@ -44,8 +44,11 @@ TagManager:
   - name: Back
     uniqueID: 3467000783
     locked: 0
-  - name: Agent
+  - name: AgentFront
     uniqueID: 3484114747
+    locked: 0
+  - name: AgentBack
+    uniqueID: 193288169
     locked: 0
   - name: Front
     uniqueID: 3916872129

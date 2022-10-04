@@ -12,8 +12,9 @@ public class NodeScan : MonoBehaviour
 	public int sizeY;
 	public Node[,] nodeArray;
 
-	[Header("Path / 지나갈 수 있는 노드")]
 	[Header("NodeDesign")]
+	[SerializeField] private bool drawGizmos = true;
+	[Header("Path / 지나갈 수 있는 노드")]
 	[SerializeField] private Color pathNodeColor;
 	[SerializeField] private Vector2 pathNodeSize;
 	[Header("Wall / 지나갈 수 없는 노드")]
@@ -52,23 +53,26 @@ public class NodeScan : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		for (int i = 0; i < sizeX; i++)
+		if (drawGizmos)
 		{
-			for (int j = 0; j < sizeY; j++)
+			for (int i = 0; i < sizeX; i++)
 			{
-				Vector2 position = new Vector2(nodeArray[i, j].x, nodeArray[i, j].y);
-				Gizmos.DrawWireCube(position, new Vector2(1f, 1f));
-				if (nodeArray[i, j].isWall)
+				for (int j = 0; j < sizeY; j++)
 				{
-					Gizmos.color = wallNodeColor;
-					Gizmos.DrawCube(position, wallNodeSize);
-					Gizmos.color = Color.white;
-				}
-				else
-				{
-					Gizmos.color = pathNodeColor;
-					Gizmos.DrawCube(position, pathNodeSize);
-					Gizmos.color = Color.white;
+					Vector2 position = new Vector2(nodeArray[i, j].x, nodeArray[i, j].y);
+					Gizmos.DrawWireCube(position, new Vector2(1f, 1f));
+					if (nodeArray[i, j].isWall)
+					{
+						Gizmos.color = wallNodeColor;
+						Gizmos.DrawCube(position, wallNodeSize);
+						Gizmos.color = Color.white;
+					}
+					else
+					{
+						Gizmos.color = pathNodeColor;
+						Gizmos.DrawCube(position, pathNodeSize);
+						Gizmos.color = Color.white;
+					}
 				}
 			}
 		}
