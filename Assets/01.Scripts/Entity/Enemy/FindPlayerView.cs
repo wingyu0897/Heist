@@ -30,7 +30,7 @@ public class FindPlayerView : MonoBehaviour
 	{
 		horizontalViewHalfAngle = horizontalViewAngle * 0.5f;
         brain = GetComponent<AIBrain>();
-        spotLight = transform.Find("MovementCollider").Find("Light").gameObject;
+        spotLight = transform.Find("Light").gameObject;
     }
 
 	private void Update()
@@ -42,7 +42,7 @@ public class FindPlayerView : MonoBehaviour
 
 	private void FindViewTargets() //플레이어 감지 함수
 	{
-        Vector2 originPos = brain.BasePosition.position;
+        Vector2 originPos = transform.position;
         Collider2D hitedTargets = Physics2D.OverlapCircle(originPos, viewRadius, playerLayerMask); //OverlapCircle을 이용해 범위 내 적을 감지
         findPlayer = false;
 
@@ -101,7 +101,7 @@ public class FindPlayerView : MonoBehaviour
 	{
         Vector2 dir = (targetPos - (Vector2)brain.BasePosition.position).normalized;
         float targetAngle = -(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90);
-        viewRotateZ = Mathf.LerpAngle(viewRotateZ, targetAngle, 0.2f);
+        viewRotateZ = Mathf.LerpAngle(viewRotateZ, targetAngle, 0.1f);
         spotLight.transform.localRotation = Quaternion.Euler(0, 0, -viewRotateZ);
     }
 
@@ -117,7 +117,7 @@ public class FindPlayerView : MonoBehaviour
         {
             horizontalViewHalfAngle = horizontalViewAngle * 0.5f;
 
-            Vector3 originPos = transform.GetComponent<AIBrain>().BasePosition.position;
+            Vector3 originPos = transform.position;
 
             Gizmos.DrawWireSphere(originPos, viewRadius);
 

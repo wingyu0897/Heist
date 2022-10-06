@@ -12,4 +12,5 @@ public class BulletSO : ScriptableObject
 	public int damage;
 	public float speed;
 	public float lifeTime;
+	public LayerMask targetLayer;
 }

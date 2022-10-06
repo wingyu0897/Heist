@@ -8,6 +8,7 @@ public class MeleeSO : ScriptableObject
 	[Header("Info")]
 	public string meleeName;
 	public WeaponType weaponType;
+	public GameObject prefab;
 
 	[Header("Attack")]
 	public int damage;

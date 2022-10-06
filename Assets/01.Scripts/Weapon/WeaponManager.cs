@@ -1,92 +1,84 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class WeaponManager : MonoBehaviour
 {
-	[SerializeField][Range(0, 1)][Tooltip("GunHolder의 Slerp 값")]
-	private float slerpHolder;
-	private Weapon currentWeapon;
-	private WeaponRenderer weaponRenderer;
+	[SerializeField] private List<Weapon> weapons = new List<Weapon>();
+	[SerializeField] private Weapon currentWeapon;
+	[SerializeField] private Transform basePosition;
+	[Range(0, 1)][Tooltip("GunHolder의 Slerp 값")]
+	[SerializeField] private float slerpHolder;
 
-	private int currentWeaponNumber;
+	private WeaponRenderer weaponRenderer;
 
 	public UnityEvent OnAttack;
 
 	private void Start()
 	{
-		currentWeaponNumber = 2;
+		currentWeapon?.Init();
+	}
+
+	public void SetWeapon(Weapon primary = null, Weapon secondary = null, Weapon melee = null)
+	{
+		primary.Init();
+		secondary.Init();
+		melee.Init();
+
+		weapons.Add(primary);
+		weapons.Add(secondary);
+		weapons.Add(melee);
+
 		AssignWeapon(0);
 	}
 
-	private void Update()
+	public void AssignWeapon(int weaponNum) //현재 무기의 WeaponRenderer 가져오기
 	{
-		Attack();
-		ChangeWeapon();
-	}
+		foreach (Weapon we in weapons)
+		{
+			we.gameObject.SetActive(false);
+		}
 
-	private void AssignWeapon(int weaponNum) //현재 무기의 WeaponRenderer 가져오기
-	{
-		currentWeaponNumber = weaponNum;
-		PlayerData.Instance.primaryGun?.gameObject.SetActive(false);
-		PlayerData.Instance.secondaryGun?.gameObject.SetActive(false);
-		PlayerData.Instance.melee?.gameObject.SetActive(false);
-		switch (currentWeaponNumber)
+		if (weaponNum <= weapons.Count - 1)
 		{
-			case 0:
-				currentWeapon = PlayerData.Instance?.primaryGun;
-				break;
-			case 1:
-				currentWeapon = PlayerData.Instance?.secondaryGun;
-				break;
-			case 2:
-				currentWeapon = PlayerData.Instance?.melee;
-				break;
-			default:
-				currentWeapon = PlayerData.Instance?.primaryGun;
-				break;
-		}
-		currentWeapon.gameObject.SetActive(true);
-		weaponRenderer = currentWeapon.gameObject.GetComponent<WeaponRenderer>();
-	}
-
-	private void ChangeWeapon()
-	{
-		if (Input.GetKeyDown(KeyCode.C))
-		{
-			AssignWeapon(currentWeaponNumber < 2 ? ++currentWeaponNumber : 0);
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-		{
-			AssignWeapon(0);
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			AssignWeapon(1);
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			AssignWeapon(2);
+			currentWeapon = weapons[weaponNum];
+			currentWeapon.gameObject.SetActive(true);
+			weaponRenderer = currentWeapon.transform.GetComponent<WeaponRenderer>();
+			weaponRenderer.Init();
 		}
 	}
 
-	private void Attack() //무기의 사용가능 여부 확인 및 무기를 사용
+	public void StartAttack() //무기의 사용가능 여부 확인 및 무기를 사용
 	{
-		if (currentWeapon.KeyPress() && currentWeapon.TryAttack() && !PlayerData.Instance.isRunning)
+		if (currentWeapon.TryAttack())
 		{
-			currentWeapon.Attack();
+			currentWeapon?.StartAttack();
 			OnAttack?.Invoke();
 		}
 	}
 
-	public void Aiming(Vector2 pointPos) //WeaponHolder 조준 함수
+	public void StopAttack()
 	{
-		Vector3 holderDir = (Vector3)pointPos - transform.position;
+		currentWeapon?.StopAttack();
+	}
+
+	public void Reload()
+	{
+		currentWeapon?.Reload();
+	}
+
+	public void HolderAiming(Vector2 pointPos) //WeaponHolder 조준 함수
+	{
+		Vector3 holderDir = (Vector3)pointPos - basePosition.position;
 		float holderAngle = Mathf.Atan2(holderDir.y, holderDir.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(holderAngle, Vector3.forward), slerpHolder);
 		FlipScale();
 		AdjustWeaponRendering();
+	}
+
+	public void WeaponAiming(Vector2 pointerPos)
+	{
+		currentWeapon?.Aiming(pointerPos);
 	}
 
 	private void FlipScale()
@@ -98,6 +90,6 @@ public class WeaponManager : MonoBehaviour
 
 	private void AdjustWeaponRendering()
 	{
-		weaponRenderer.LayerOrder(transform.eulerAngles.z);
+		weaponRenderer?.LayerOrder(transform.eulerAngles.z);
 	}
 }

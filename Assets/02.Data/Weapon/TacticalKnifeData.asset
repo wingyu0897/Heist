@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeName: Tactical Knife
   weaponType: 1
+  prefab: {fileID: 1684641025057267756, guid: 9be13ab12d5dfcf4b94f5a4055db34cc, type: 3}
   damage: 1000
   minAimRange: 0.8
   range: 0.3
   attackDelay: 0.2
-  attackPoint: {fileID: 0}
+  attackPoint: {fileID: 1684641025474270760, guid: 9be13ab12d5dfcf4b94f5a4055db34cc, type: 3}
   weaponSlerpSpeed: 0.25
   attackClip: {fileID: 0}

@@ -16,3 +16,6 @@ MonoBehaviour:
   damage: 200
   speed: 25
   lifeTime: 3
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 13568

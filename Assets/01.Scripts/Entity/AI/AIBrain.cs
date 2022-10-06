@@ -8,24 +8,26 @@ public class AIBrain : MonoBehaviour
 	public AIState currentAction;
 	public AIState CurrentAction { get => currentAction; set => currentAction = value; }
 
-	[SerializeField] private Transform target;
-	public Transform Target { get => target; set => target = value; }
-	[SerializeField] private Vector2 targetPos;
-	public Vector2 TargetPos { get => targetPos; set => targetPos = value; }
 	[SerializeField] private Transform basePosition;
+	[SerializeField] private Transform target;
+	[SerializeField] private Vector2 targetPos;
 	public Transform BasePosition { get => basePosition; }
+	public Transform Target { get => target; set => target = value; }
+	public Vector2 TargetPos { get => targetPos; set => targetPos = value; }
 
 	private Enemy enemy;
-	public Enemy Enemy { get => enemy; }
 	private float detectiveGauge = 0f;
-	public float DetectiveGauge { get => detectiveGauge; set => detectiveGauge = value; }
 	private bool findPlayer = false;
+	public Enemy Enemy { get => enemy; }
+	public float DetectiveGauge { get => detectiveGauge; set => detectiveGauge = value; }
 	public bool FindPlayer { get => findPlayer; set => findPlayer = value; }
 
 	public UnityEvent<Vector2> OnMovementKeyPress;
 	public UnityEvent<Vector2> OnPointerPositionChanged;
-	public UnityEvent OnFireButtonPress;
-	public UnityEvent OnFireButtonRelease;
+	public UnityEvent<Vector2> OnFindPlayer;
+	public UnityEvent OnAttackButtonPressed;
+	public UnityEvent OnAttackButtonReleased;
+	public UnityEvent OnReloadWeapon;
 
 	private AIPathFinding pathFinding;
 
@@ -60,5 +62,25 @@ public class AIBrain : MonoBehaviour
 	public void MoveToTarget(Vector2Int targetPos, Vector2 point)
 	{
 		pathFinding.MoveToTarget(targetPos, point);
+	}
+
+	public void AimAtTarget(Vector2 targetPoint)
+	{
+		OnFindPlayer?.Invoke(targetPoint);
+	}
+
+	public void StartAttack()
+	{
+		OnAttackButtonPressed?.Invoke();
+	}
+
+	public void StopAttack()
+	{
+		OnAttackButtonReleased?.Invoke();
+	}
+
+	public void ReloadWeapon()
+	{
+		OnReloadWeapon?.Invoke();
 	}
 }

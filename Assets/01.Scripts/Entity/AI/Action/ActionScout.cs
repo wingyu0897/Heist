@@ -18,6 +18,7 @@ public class ActionScout : AIAction
 
 	public override void EnterAction()
 	{
+		move = true;
 		currentTargetPoint = scoutPoints[0];
 	}
 
@@ -51,5 +52,14 @@ public class ActionScout : AIAction
 		yield return new WaitForSeconds(Random.Range(scoutDelayMin, scoutDelayMax));
 
 		move = true;
+	}
+
+	private void OnDrawGizmos()
+	{
+		for (int i = 0; i < scoutPoints.Count; i++)
+		{
+			Gizmos.color = Color.magenta;
+			Gizmos.DrawLine((Vector2)scoutPoints[i], (Vector2)scoutPoints[i == 0 ? scoutPoints.Count - 1 : i - 1]);
+		}
 	}
 }

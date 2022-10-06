@@ -38,10 +38,13 @@ public class Bullet : Poolable
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		IDamageable damageable = collision.GetComponent<IDamageable>();
-		damageable?.GetHit(bulletData.damage);
+		if ((bulletData.targetLayer & (1 << collision.gameObject.layer)) > 0)
+		{
+			IDamageable damageable = collision.GetComponent<IDamageable>();
+			damageable?.GetHit(bulletData.damage);
 
-		PoolManager.instance.Push(this);
+			PoolManager.instance.Push(this);
+		}
 	}
 
 	public void SetPositionAndRotation(Vector3 position, Quaternion rotation)

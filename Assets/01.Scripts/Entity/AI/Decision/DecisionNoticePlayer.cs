@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DecisionFindTarget : AIDecision
+/// <summary>
+/// 플레이어의 침입을 감지했을 경우 (침입을 알아챔)
+/// </summary>
+public class DecisionNoticePlayer : AIDecision
 {
 	public override bool DecisionResult()
 	{
-		if (brain.DetectiveGauge > 0)
+		if (brain.FindPlayer == true)
 		{
 			return true;
 		}
