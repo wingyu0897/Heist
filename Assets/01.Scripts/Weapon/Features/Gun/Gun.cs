@@ -22,6 +22,7 @@ public class Gun : Weapon, IWeaponinfo
 
 	public string MainInfo => currentAmmo.ToString();
 	public string SubInfo => magAmmo.ToString();
+	public Texture2D WeaponImage => gunData.weaponSprite;
 
 	private Transform weaponHolder;
 	private WeaponAudio gunAudio;
@@ -50,12 +51,12 @@ public class Gun : Weapon, IWeaponinfo
 		}
 	}
 
-	public override void Aiming(Vector2 direction) //에임 시스템 함수 //WeaponHolder의 에임 시스템과 별개
+	public override void Aiming(Vector2 pointerPos) //에임 시스템 함수 //WeaponHolder의 에임 시스템과 별개
 	{
-		Vector3 gunDir = (Vector3)direction - muzzle.position;
+		Vector3 gunDir = (Vector3)pointerPos - muzzle.position;
 		float gunAngle = Mathf.Atan2(gunDir.y, gunDir.x) * Mathf.Rad2Deg;
 
-		if (Vector3.Distance(transform.position, direction) > gunData.minAimRange)
+		if (Vector3.Distance(transform.position, pointerPos) > gunData.minAimRange)
 		{
 			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(gunAngle, Vector3.forward), gunData.gunSlerpSpeed);
 		}

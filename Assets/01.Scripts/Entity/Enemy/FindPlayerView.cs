@@ -36,7 +36,7 @@ public class FindPlayerView : MonoBehaviour
 	private void Update()
 	{
 		FindViewTargets();
-        detectiveGaugeSlider.value = brain.DetectiveGauge / detectTime;
+        detectiveGaugeSlider.value = brain.isNotice ? (brain.DetectiveGauge = detectTime) / detectTime : brain.DetectiveGauge / detectTime;
         detectiveGaugeSlider.gameObject.SetActive(brain.DetectiveGauge > 0);
     }
 
@@ -71,7 +71,12 @@ public class FindPlayerView : MonoBehaviour
 					Debug.DrawLine(originPos, rayHitedTarget.point, Color.green);
                     brain.TargetPos = brain.Target.position;
                     findPlayer = true;
-                }
+
+					if (rayHitedTarget.distance < 3f)
+					{
+						brain.isNotice = true;
+					}
+				}
             }
 		}
 
@@ -83,17 +88,19 @@ public class FindPlayerView : MonoBehaviour
         if (findPlayer == true)
 		{
             brain.DetectiveGauge += Time.deltaTime;
+            brain.IsPlayerInView = true;
 		}
 		else
 		{
             brain.DetectiveGauge -= Time.deltaTime * 0.5f;
+            brain.IsPlayerInView = false;
 		}
 
         brain.DetectiveGauge = Mathf.Clamp(brain.DetectiveGauge, 0, detectTime);
 
-        if (brain.DetectiveGauge == detectTime)
+		if (brain.DetectiveGauge >= detectTime)
 		{
-            brain.FindPlayer = true;
+			brain.isNotice = true;
 		}
 	}
 

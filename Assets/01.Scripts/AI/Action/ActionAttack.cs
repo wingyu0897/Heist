@@ -21,7 +21,15 @@ public class ActionAttack : AIAction
 
 	public override void TakeAction()
 	{
-		brain.AimAtTarget(brain.Target.position + new Vector3(randomAim, randomAim, 0));
+		if (Vector2.Distance(brain.Target.position, transform.position) > 3)
+		{
+			brain.AimAtTarget(brain.Target.position + new Vector3(randomAim, randomAim, 0));
+		}
+		else
+		{
+			brain.AimAtTarget(brain.Target.position);
+		}
+		brain.MoveTo(Vector2.zero, Vector2.zero);
 
 		if (canAttack)
 		{
@@ -45,7 +53,7 @@ public class ActionAttack : AIAction
 		}
 		else
 		{
-			randomAim = Random.Range(-2f, 2f);
+			randomAim = Random.Range(-1f, 1f);
 		}
 		canAttack = true;
 		brain.StartAttack();

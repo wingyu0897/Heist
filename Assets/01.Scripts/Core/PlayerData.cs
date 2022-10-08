@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerData : MonoBehaviour
 {
@@ -21,9 +22,12 @@ public class PlayerData : MonoBehaviour
 	[SerializeField] private int currentWeaponNum = 0;
 	[SerializeField] private TextMeshProUGUI mainText;
 	[SerializeField] private TextMeshProUGUI subText;
+	[SerializeField] private Image weaponImage; 
 	[SerializeField] private Transform weaponParent;
 	public int MaxHealth { get => maxHealth; set => maxHealth = Mathf.Clamp(value, 0, int.MaxValue); }
 	public int CurrentWeaponNum { get => currentWeaponNum; set => currentWeaponNum = value; }
+
+	private Material weaponMaterial;
 
 	private void Awake()
 	{
@@ -38,6 +42,7 @@ public class PlayerData : MonoBehaviour
 
 		CreateWeaponGameObject();
 		currentWeapon = primaryWeapon;
+		weaponMaterial = weaponImage.material;
 	}
 
 	public void SetWeapon(Weapon primary = null, Weapon secondary = null, Weapon melee = null)
@@ -54,12 +59,23 @@ public class PlayerData : MonoBehaviour
 		melee = Instantiate(melee.GetPrefab(), weaponParent).GetComponent<Weapon>();
 	}
 
+	public void SetCurrentWeapon(Weapon weapon)
+	{
+		currentWeapon = weapon;
+	}
+
 	private void FixedUpdate()
 	{
 		if (currentWeapon.TryGetComponent(out IWeaponinfo currentInfo))
 		{
 			mainText.text = currentInfo.MainInfo;
 			subText.text = currentInfo.SubInfo;
+			weaponMaterial.SetTexture("_MainTexture", currentInfo.WeaponImage);
+		}
+		else
+		{
+			mainText.text = "00";
+			subText.text = "000";
 		}
 	}
 }

@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 플레이어를 일정한 시간 이상 탐지했을 경우
+/// 플레이어의 침입을 감지했을 경우 (침입을 알아챔)
 /// </summary>
-public class DecisionMove2Target : AIDecision
+public class DecisionNoticePlayer : AIDecision
 {
-	[SerializeField] private float targetTime;
-
 	public override bool DecisionResult()
 	{
-		if (brain.DetectiveGauge >= targetTime)
+		if (brain.isNotice == true)
 		{
 			return true;
 		}

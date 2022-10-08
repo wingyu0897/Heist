@@ -8,9 +8,11 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private PoolingListSO poolingList;
 
+	public bool isDetected = false;
+
 	private void Awake()
 	{
-		if (instance != null || instance != this)
+		if (instance != null && instance != this)
 		{
 			Destroy(this);
 		}

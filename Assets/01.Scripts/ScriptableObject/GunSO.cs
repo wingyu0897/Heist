@@ -18,6 +18,7 @@ public class GunSO : ScriptableObject
     public string gunName;
     public WeaponType weaponType;
     public GameObject prefab;
+    public Texture2D weaponSprite;
 
     [Header("Ammo")]
     public int magSize;

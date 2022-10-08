@@ -13,6 +13,7 @@ public class WeaponManager : MonoBehaviour
 	private WeaponRenderer weaponRenderer;
 
 	public UnityEvent OnAttack;
+	public UnityEvent<Weapon> OnChangeWeapon;
 
 	private void Start()
 	{
@@ -46,6 +47,8 @@ public class WeaponManager : MonoBehaviour
 			weaponRenderer = currentWeapon.transform.GetComponent<WeaponRenderer>();
 			weaponRenderer.Init();
 		}
+
+		OnChangeWeapon?.Invoke(currentWeapon);
 	}
 
 	public void StartAttack() //무기의 사용가능 여부 확인 및 무기를 사용

@@ -21,32 +21,35 @@ public class AIState : MonoBehaviour
 			ac.TakeAction();
 		}
 
-		foreach (AITransition tr in transitions) //모든 변경 조건을 체크
+		if (brain.canTransition)
 		{
-			bool result = false;
-			foreach (AIDecision de in tr.decisions)
+			foreach (AITransition tr in transitions) //모든 변경 조건을 체크
 			{
-				result = de.DecisionResult();
-				if (!result)
+				bool result = false;
+				foreach (AIDecision de in tr.decisions)
 				{
-					break;
+					result = de.DecisionResult();
+					if (!result)
+					{
+						break;
+					}
 				}
-			}
 
-			if (result == true) //result가 참일 때 transition의 positiveState로 상태를 변경, positiveState가 없을 경우 아무 수행 없음
-			{
-				if (tr.postiveState != null)
+				if (result == true) //result가 참일 때 transition의 positiveState로 상태를 변경, positiveState가 없을 경우 아무 수행 없음
 				{
-					brain.ChangeState(tr.postiveState);
-					return;
+					if (tr.postiveState != null)
+					{
+						brain.ChangeState(tr.postiveState);
+						return;
+					}
 				}
-			}
-			else //result가 거짓일 때 transition의 negativeState로 상태를 변경, negativeState가 없을 경우 아무 수행 없음
-			{
-				if (tr.negativeState != null)
+				else //result가 거짓일 때 transition의 negativeState로 상태를 변경, negativeState가 없을 경우 아무 수행 없음
 				{
-					brain.ChangeState(tr.negativeState);
-					return;
+					if (tr.negativeState != null)
+					{
+						brain.ChangeState(tr.negativeState);
+						return;
+					}
 				}
 			}
 		}

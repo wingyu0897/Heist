@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
+	[SerializeField] private Slider healthSlider;
+
 	public UnityEvent<Vector2> OnMovementPress;
 	public UnityEvent<Vector2> OnPointerPositionChange;
 
@@ -15,6 +18,9 @@ public class PlayerController : MonoBehaviour
 
 	private Movement movement;
 	private Vector2 mousePos;
+	private float health;
+
+	public int Health { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
 	private void Awake()
 	{
@@ -24,12 +30,14 @@ public class PlayerController : MonoBehaviour
 	private void Start()
 	{		
 		transform.Find("WeaponHolder").GetComponent<WeaponManager>().SetWeapon(PlayerData.Instance.primaryWeapon, PlayerData.Instance.secondaryWeapon, PlayerData.Instance.melee);
+		health = PlayerData.Instance.MaxHealth;
+		healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
 	}
 
 	private void FixedUpdate()
 	{
-		MousePosition();		
 		Movement();
+		MousePosition();		
 	}
 
 	private void Update()
@@ -93,5 +101,12 @@ public class PlayerController : MonoBehaviour
 		{
 			OnReloadWeapon?.Invoke();
 		}
+	}
+
+	public void GetHit(int damage)
+	{
+		health -= damage;
+
+		healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
 	}
 }

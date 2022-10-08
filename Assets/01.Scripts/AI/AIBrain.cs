@@ -16,11 +16,14 @@ public class AIBrain : MonoBehaviour
 	public Vector2 TargetPos { get => targetPos; set => targetPos = value; }
 
 	private Enemy enemy;
-	private float detectiveGauge = 0f;
-	private bool findPlayer = false;
 	public Enemy Enemy { get => enemy; }
+	private float detectiveGauge = 0f;
 	public float DetectiveGauge { get => detectiveGauge; set => detectiveGauge = value; }
-	public bool FindPlayer { get => findPlayer; set => findPlayer = value; }
+	private bool isPlayerInView = false;
+	public bool IsPlayerInView { get => isPlayerInView; set => isPlayerInView = value; }
+
+	public bool isNotice = false;
+	public bool canTransition = true;
 
 	public UnityEvent<Vector2> OnMovementKeyPress;
 	public UnityEvent<Vector2> OnPointerPositionChanged;
@@ -36,11 +39,14 @@ public class AIBrain : MonoBehaviour
 		enemy = GetComponent<Enemy>();
 		pathFinding = GetComponent<AIPathFinding>();
 		basePosition = transform.Find("MovementCollider").transform;
+		currentAction?.StartState();
 	}
 
 	private void Update()
 	{
 		currentAction?.UpdateState(); //현재 액션을 계속 실행한다
+		isNotice = GameManager.instance.isDetected ? true : isNotice;
+		if (isNotice || GameManager.instance.isDetected) print("Notice!");
 	}
 
 	public void ChangeState(AIState nextAction) //액션을 받아 전환하는 함수
@@ -72,6 +78,7 @@ public class AIBrain : MonoBehaviour
 	public void StartAttack()
 	{
 		OnAttackButtonPressed?.Invoke();
+		GameManager.instance.isDetected = true;
 	}
 
 	public void StopAttack()

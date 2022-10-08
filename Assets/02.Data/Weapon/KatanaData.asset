@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 134af479b2963924bb98ee103dc7d4a1, type: 3}
-  m_Name: Katana
+  m_Name: KatanaData
   m_EditorClassIdentifier: 
   meleeName: Katana
   weaponType: 1
-  prefab: {fileID: 7170824191219779434, guid: 6cbccfe89c118324e9cf206cd0970157, type: 3}
+  prefab: {fileID: 2110972720984953569, guid: e797c25d09e8eb0469c401412c0a272c, type: 3}
+  weaponSprite: {fileID: 2800000, guid: 36c21c0fb8239da428e7e086e95db32c, type: 3}
   damage: 1000
   minAimRange: 1.5
   range: 0.8
