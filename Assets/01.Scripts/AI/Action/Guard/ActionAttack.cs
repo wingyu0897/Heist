@@ -29,7 +29,7 @@ public class ActionAttack : AIAction
 		{
 			brain.AimAtTarget(brain.Target.position);
 		}
-		brain.MoveTo(Vector2.zero, Vector2.zero);
+		brain.MoveByDirection(Vector2.zero, Vector2.zero);
 
 		if (canAttack)
 		{

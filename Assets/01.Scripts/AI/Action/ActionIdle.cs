@@ -15,7 +15,14 @@ public class ActionIdle : AIAction
 
 	public override void TakeAction()
 	{
-		brain.MoveTo(Vector2.zero, Vector2.zero);
+		if (brain.isNotice)
+		{
+			brain.MoveByDirection(Vector2.zero, brain.Target.position);
+		}
+		else
+		{
+			brain.MoveByDirection(Vector2.zero, Vector2.zero);
+		}
 	}
 
 	public override void ExitAction()

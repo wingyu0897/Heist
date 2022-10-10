@@ -13,11 +13,11 @@ public class ActionChase : AIAction
 	{
 		if (brain.isNotice)
 		{
-			brain.MoveToTarget(new Vector2Int(Mathf.RoundToInt(brain.Target.position.x), Mathf.RoundToInt(brain.Target.position.y)), brain.Target.position);
+			brain.MoveByNode(new Vector2Int(Mathf.RoundToInt(brain.Target.position.x), Mathf.RoundToInt(brain.Target.position.y)), brain.Target.position);
 		}
 		else
 		{
-			brain.MoveToTarget(new Vector2Int(Mathf.RoundToInt(brain.TargetPos.x), Mathf.RoundToInt(brain.TargetPos.y)), brain.TargetPos);
+			brain.MoveByNode(new Vector2Int(Mathf.RoundToInt(brain.TargetPos.x), Mathf.RoundToInt(brain.TargetPos.y)), brain.TargetPos);
 		}
 	}
 
@@ -25,4 +25,6 @@ public class ActionChase : AIAction
 	{
 
 	}
+
+	//private void 
 }

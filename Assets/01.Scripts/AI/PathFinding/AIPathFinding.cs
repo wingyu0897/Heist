@@ -64,12 +64,12 @@ public class AIPathFinding : MonoBehaviour
 		if (finalNodeList.Count > 1)
 		{
 			Vector2 direction = new Vector2(finalNodeList[1].x, finalNodeList[1].y) - (Vector2)brain.BasePosition.position;
-			brain.MoveTo(direction, point == Vector2.zero ? new Vector2(finalNodeList[1].x, finalNodeList[1].y) : point);
+			brain.MoveByDirection(direction, point == Vector2.zero ? new Vector2(finalNodeList[1].x, finalNodeList[1].y) : point);
 			Debug.DrawRay(new Vector2(finalNodeList[finalNodeList.Count - 1].x, finalNodeList[finalNodeList.Count - 1].y), targetPos - new Vector2(finalNodeList[finalNodeList.Count - 1].x, finalNodeList[finalNodeList.Count - 1].y), Color.yellow);
 		}
 		else
 		{
-			brain.MoveTo(Vector2.zero, Vector2.zero);
+			brain.MoveByDirection(Vector2.zero, Vector2.zero);
 		}
 	}
 

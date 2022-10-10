@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour, IDamageable
 		health -= damage;
 		if (health <= 0)
 		{
-			Destroy(gameObject);
+			brain.Dead();
 		}
 	}
 }

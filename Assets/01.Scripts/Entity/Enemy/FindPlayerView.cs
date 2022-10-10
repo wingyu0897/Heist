@@ -16,6 +16,8 @@ public class FindPlayerView : MonoBehaviour
     [SerializeField] private float viewRotateZ = 0f;
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private LayerMask obstacleLayerMask;
+    [Range(0, 1)]
+    [SerializeField] private float lookAtLerp;
     private float horizontalViewHalfAngle = 0f;
 
     [Header("Detect Player")]
@@ -30,7 +32,7 @@ public class FindPlayerView : MonoBehaviour
 	{
 		horizontalViewHalfAngle = horizontalViewAngle * 0.5f;
         brain = GetComponent<AIBrain>();
-        spotLight = transform.Find("Light").gameObject;
+        spotLight = transform.Find("Light")?.gameObject;
     }
 
 	private void Update()
@@ -74,7 +76,7 @@ public class FindPlayerView : MonoBehaviour
 
 					if (rayHitedTarget.distance < 3f)
 					{
-						brain.isNotice = true;
+						brain.Notice();
 					}
 				}
             }
@@ -100,7 +102,7 @@ public class FindPlayerView : MonoBehaviour
 
 		if (brain.DetectiveGauge >= detectTime)
 		{
-			brain.isNotice = true;
+			brain.Notice();
 		}
 	}
 
@@ -108,7 +110,7 @@ public class FindPlayerView : MonoBehaviour
 	{
         Vector2 dir = (targetPos - (Vector2)brain.BasePosition.position).normalized;
         float targetAngle = -(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90);
-        viewRotateZ = Mathf.LerpAngle(viewRotateZ, targetAngle, 0.1f);
+        viewRotateZ = Mathf.LerpAngle(viewRotateZ, targetAngle, lookAtLerp);
         spotLight.transform.localRotation = Quaternion.Euler(0, 0, -viewRotateZ);
     }
 
