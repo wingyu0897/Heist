@@ -13,7 +13,7 @@ public class Interaction : MonoBehaviour
 	private float time = 0;
 	private Vector2 pointer;
 	private RaycastHit2D hit;
-	private IInteractable interactable;
+	private Interactable interactable;
 
 	private void Start()
 	{
@@ -31,20 +31,20 @@ public class Interaction : MonoBehaviour
 		hit = Physics2D.Raycast(pointer, Vector2.zero, 10, layerMask);
 		if (Vector3.Distance(transform.position, pointer) <= interactableRange && hit.collider != null)
 		{
-			interactable = hit.collider.GetComponent<IInteractable>();
+			interactable = hit.collider.GetComponent<Interactable>();
 			keyUI.fillAmount = time / interactable.InteractionTime;
-			if (hit.collider.gameObject != interactable?.Objectgame)
+			if (hit.collider.gameObject != interactable?.gameObject)
 			{
 				time = 0;
 			}
-			if (interactable.CanInteractive == true)
+			if (interactable.CanInteractable() == true)
 			{
 				if (Input.GetKey(KeyCode.F))
 				{
 					time += Time.deltaTime;
 					if (time >= interactable.InteractionTime)
 					{
-						interactable.Action();
+						interactable.OnInteraction();
 						time = 0;
 					}
 				}

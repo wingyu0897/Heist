@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private PoolingListSO poolingList;
 
 	public bool isDetected = false;
+	public bool isLoud = false;
 
 	private void Awake()
 	{
@@ -24,6 +26,10 @@ public class GameManager : MonoBehaviour
 
 		PoolManager.instance = new PoolManager(transform);
 		CreatePool();
+		if (SceneManager.GetActiveScene().buildIndex == 0)
+		{
+			SceneManager.LoadScene(2);
+		}
 	}
 
 	private void CreatePool()

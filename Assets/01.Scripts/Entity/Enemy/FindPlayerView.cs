@@ -23,6 +23,7 @@ public class FindPlayerView : MonoBehaviour
     [Header("Detect Player")]
     [SerializeField] private Slider detectiveGaugeSlider;
     [SerializeField] private float detectTime;
+    [SerializeField] private float minDistance;
     private bool findPlayer = false;
     private GameObject spotLight;
 
@@ -74,7 +75,7 @@ public class FindPlayerView : MonoBehaviour
                     brain.TargetPos = brain.Target.position;
                     findPlayer = true;
 
-					if (rayHitedTarget.distance < 3f)
+					if (rayHitedTarget.distance < minDistance)
 					{
 						brain.Notice();
 					}

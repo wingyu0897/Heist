@@ -87,12 +87,15 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 	private void UseWeapon()
 	{
-		if (Input.GetKeyDown(KeyCode.Mouse0))
+		if (!PlayerData.Instance.isRunning)
 		{
-			OnAttackButtonPressed?.Invoke();
-		}
+			if (Input.GetKeyDown(KeyCode.Mouse0))
+			{
+				OnAttackButtonPressed?.Invoke();
+			}
 		
-		if (Input.GetKeyUp(KeyCode.Mouse0))
+		}
+		if (Input.GetKeyUp(KeyCode.Mouse0) || PlayerData.Instance.isRunning)
 		{
 			OnAttackButtonReleased?.Invoke();
 		}
