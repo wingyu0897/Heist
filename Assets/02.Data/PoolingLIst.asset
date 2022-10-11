@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   list:
   - prefab: {fileID: 3799187614846981820, guid: e9620fa1610de114e92c26b445316b09, type: 3}
-    count: 100
+    count: 30

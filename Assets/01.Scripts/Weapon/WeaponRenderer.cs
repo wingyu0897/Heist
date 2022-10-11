@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class WeaponRenderer : MonoBehaviour
 {
 	[Header("Order in Layer")]
@@ -15,20 +14,23 @@ public class WeaponRenderer : MonoBehaviour
 
 	private SpriteRenderer mySpriteRenderer;
 
-	private void Awake()
+	public void Init()
 	{
-		mySpriteRenderer = GetComponent<SpriteRenderer>();
+		mySpriteRenderer = GetComponentInChildren<SpriteRenderer>();
 	}
 
 	public void LayerOrder(float angle) //angle에 맞추어 스프라이트의 위치를 앞, 뒤로 이동
 	{
-		if (angle > minAngle && angle < maxAngle)
+		if (mySpriteRenderer != null)
 		{
-			mySpriteRenderer.sortingOrder = playerLayer - 1;
-		}
-		else
-		{
-			mySpriteRenderer.sortingOrder = playerLayer + 1;
+			if (angle > minAngle && angle < maxAngle)
+			{
+				mySpriteRenderer.sortingOrder = playerLayer - 1;
+			}
+			else
+			{
+				mySpriteRenderer.sortingOrder = playerLayer + 1;
+			}
 		}
 	}
 }

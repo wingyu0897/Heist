@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DecisionMoved2TargetPos : AIDecision
+public class DecisionPlayerInView : AIDecision
 {
 	public override bool DecisionResult()
 	{
-		if (Vector2.Distance(brain.BasePosition.position, brain.TargetPos) < 0.5f)
+		if (brain.IsPlayerInView)
 		{
 			return true;
 		}

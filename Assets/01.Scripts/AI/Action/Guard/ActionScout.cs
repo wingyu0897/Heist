@@ -18,6 +18,7 @@ public class ActionScout : AIAction
 
 	public override void EnterAction()
 	{
+		move = true;
 		currentTargetPoint = scoutPoints[0];
 	}
 
@@ -26,7 +27,7 @@ public class ActionScout : AIAction
 		//목표 지점과의 거리가 0.5보다 멀면서 move가 활성화 되어있을 때 목표 지점으로 이동
 		if (Vector2.Distance(brain.BasePosition.position, currentTargetPoint) > 0.5f && move == true)
 		{
-			brain.MoveToTarget(currentTargetPoint, Vector2.zero);
+			brain.MoveByNode(currentTargetPoint, Vector2.zero);
 		}
 		else if (move == true) //목표 지점에 도달했으며 move가 활성화 되어있을 때 다음 목표 지점 선택
 		{
@@ -35,7 +36,7 @@ public class ActionScout : AIAction
 		}
 		else //move가 비활성화 되어있을 때 멈춤
 		{
-			brain.MoveTo(Vector2.zero, Vector2.zero);
+			brain.MoveByDirection(Vector2.zero, Vector2.zero);
 		}
 	}
 
@@ -51,5 +52,15 @@ public class ActionScout : AIAction
 		yield return new WaitForSeconds(Random.Range(scoutDelayMin, scoutDelayMax));
 
 		move = true;
+	}
+
+	private void OnDrawGizmos()
+	{
+		for (int i = 0; i < scoutPoints.Count; i++)
+		{
+			Gizmos.color = Color.magenta;
+			Gizmos.DrawWireSphere((Vector2)scoutPoints[i], 0.5f);
+			Gizmos.DrawLine((Vector2)scoutPoints[i], (Vector2)scoutPoints[i == 0 ? scoutPoints.Count - 1 : i - 1]);
+		}
 	}
 }

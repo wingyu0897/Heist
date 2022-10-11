@@ -16,6 +16,8 @@ public class FindPlayerView : MonoBehaviour
     [SerializeField] private float viewRotateZ = 0f;
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private LayerMask obstacleLayerMask;
+    [Range(0, 1)]
+    [SerializeField] private float lookAtLerp;
     private float horizontalViewHalfAngle = 0f;
 
     [Header("Detect Player")]
@@ -30,19 +32,19 @@ public class FindPlayerView : MonoBehaviour
 	{
 		horizontalViewHalfAngle = horizontalViewAngle * 0.5f;
         brain = GetComponent<AIBrain>();
-        spotLight = transform.Find("MovementCollider").Find("Light").gameObject;
+        spotLight = transform.Find("Light")?.gameObject;
     }
 
 	private void Update()
 	{
 		FindViewTargets();
-        detectiveGaugeSlider.value = brain.DetectiveGauge / detectTime;
+        detectiveGaugeSlider.value = brain.isNotice ? (brain.DetectiveGauge = detectTime) / detectTime : brain.DetectiveGauge / detectTime;
         detectiveGaugeSlider.gameObject.SetActive(brain.DetectiveGauge > 0);
     }
 
 	private void FindViewTargets() //플레이어 감지 함수
 	{
-        Vector2 originPos = brain.BasePosition.position;
+        Vector2 originPos = transform.position;
         Collider2D hitedTargets = Physics2D.OverlapCircle(originPos, viewRadius, playerLayerMask); //OverlapCircle을 이용해 범위 내 적을 감지
         findPlayer = false;
 
@@ -71,7 +73,12 @@ public class FindPlayerView : MonoBehaviour
 					Debug.DrawLine(originPos, rayHitedTarget.point, Color.green);
                     brain.TargetPos = brain.Target.position;
                     findPlayer = true;
-                }
+
+					if (rayHitedTarget.distance < 3f)
+					{
+						brain.Notice();
+					}
+				}
             }
 		}
 
@@ -83,17 +90,19 @@ public class FindPlayerView : MonoBehaviour
         if (findPlayer == true)
 		{
             brain.DetectiveGauge += Time.deltaTime;
+            brain.IsPlayerInView = true;
 		}
 		else
 		{
             brain.DetectiveGauge -= Time.deltaTime * 0.5f;
+            brain.IsPlayerInView = false;
 		}
 
         brain.DetectiveGauge = Mathf.Clamp(brain.DetectiveGauge, 0, detectTime);
 
-        if (brain.DetectiveGauge == detectTime)
+		if (brain.DetectiveGauge >= detectTime)
 		{
-            brain.FindPlayer = true;
+			brain.Notice();
 		}
 	}
 
@@ -101,7 +110,7 @@ public class FindPlayerView : MonoBehaviour
 	{
         Vector2 dir = (targetPos - (Vector2)brain.BasePosition.position).normalized;
         float targetAngle = -(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90);
-        viewRotateZ = Mathf.LerpAngle(viewRotateZ, targetAngle, 0.2f);
+        viewRotateZ = Mathf.LerpAngle(viewRotateZ, targetAngle, lookAtLerp);
         spotLight.transform.localRotation = Quaternion.Euler(0, 0, -viewRotateZ);
     }
 
@@ -117,7 +126,7 @@ public class FindPlayerView : MonoBehaviour
         {
             horizontalViewHalfAngle = horizontalViewAngle * 0.5f;
 
-            Vector3 originPos = transform.GetComponent<AIBrain>().BasePosition.position;
+            Vector3 originPos = transform.position;
 
             Gizmos.DrawWireSphere(originPos, viewRadius);
 

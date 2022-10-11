@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6527779180966069163
 Transform:
   m_ObjectHideFlags: 0
@@ -149,8 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: ace60370c33fef94588f742b802d424e, type: 2}
   muzzle: {fileID: 6527779179978009775}
-  magAmmoText: {fileID: 0}
-  currentAmmoText: {fileID: 0}
+  doRecoil: 1
 --- !u!114 &6527779180966069167
 MonoBehaviour:
   m_ObjectHideFlags: 0

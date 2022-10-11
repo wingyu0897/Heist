@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionChase : AIAction
+public class ActionLookAtTarget : AIAction
 {
 	public override void EnterAction()
 	{
@@ -11,7 +11,8 @@ public class ActionChase : AIAction
 
 	public override void TakeAction()
 	{
-		brain.MoveToTarget(new Vector2Int(Mathf.RoundToInt(brain.TargetPos.x), Mathf.RoundToInt(brain.TargetPos.y)), brain.TargetPos);
+		brain.MoveByDirection(Vector2.zero, brain.TargetPos);
+		brain.AimAtTarget(brain.TargetPos);
 	}
 
 	public override void ExitAction()
