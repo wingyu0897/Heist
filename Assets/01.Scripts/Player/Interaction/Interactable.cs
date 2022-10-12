@@ -9,7 +9,6 @@ public abstract class Interactable : MonoBehaviour
 	public virtual void Awake()
 	{
 		gameObject.layer = LayerMask.NameToLayer("Interactable");
-		backPackHolder = GameObject.Find("BackPackHolder").transform;
 	}
 
 	public abstract float InteractionTime { get; }

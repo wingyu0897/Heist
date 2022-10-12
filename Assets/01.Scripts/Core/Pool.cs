@@ -45,4 +45,13 @@ public class Pool<T> where T : Poolable
 
 		return obj;
 	}
+
+	public void DestroyPool()
+	{
+		foreach (T item in pool)
+		{
+			Object.Destroy(item.gameObject);
+		}
+		pool.Clear();
+	}
 }

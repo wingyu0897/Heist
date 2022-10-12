@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class Interaction : MonoBehaviour
 {
     [SerializeField] private float interactableRange;
-	[SerializeField] private GameObject interactionUI;
 	private Image keyUI;
 
-	private int layerMask;
+	[SerializeField] private int layerMask;
 	private float time = 0;
 	private Vector2 pointer;
 	private RaycastHit2D hit;
@@ -17,7 +16,7 @@ public class Interaction : MonoBehaviour
 
 	private void Start()
 	{
-		keyUI = interactionUI.transform.GetComponentInChildren<Image>();
+		keyUI = PlayerData.Instance.interactionUI.transform.GetComponentInChildren<Image>();
 		layerMask = 1 << LayerMask.NameToLayer("Interactable");
 	}
 
@@ -52,18 +51,18 @@ public class Interaction : MonoBehaviour
 				{
 					time = 0;
 				}
-				interactionUI.SetActive(true);
-				interactionUI.transform.position = Camera.main.WorldToScreenPoint(pointer);
+				keyUI.gameObject.SetActive(true);
+				keyUI.gameObject.transform.position = Camera.main.WorldToScreenPoint(pointer);
 			}
 			else
 			{
-				interactionUI.SetActive(false);
+				keyUI.gameObject.SetActive(false);
 				time = 0;
 			}
 		}
 		else
 		{
-			interactionUI.SetActive(false);
+			keyUI.gameObject.SetActive(false);
 			time = 0;
 		}
 	}

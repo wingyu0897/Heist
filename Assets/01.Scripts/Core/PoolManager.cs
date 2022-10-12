@@ -36,12 +36,21 @@ public class PoolManager
 	{
 		if (pools.ContainsKey(objName) == false)
 		{
-			Debug.LogError($"Pop Error: {objName}이라는 풀은 없습니다.");
+			Debug.Log($"Pop Error: {objName}이라는 풀은 없습니다.");
 			return null;
 		}
 
 		Poolable item = pools[objName].Pop();
 		item.Initialize();
 		return item;
+	}
+
+	public void DestroyPools()
+	{
+		foreach (Pool<Poolable> item in pools.Values)
+		{
+			item.DestroyPool();
+		}
+		pools.Clear();
 	}
 }

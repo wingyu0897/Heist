@@ -8,24 +8,26 @@ public class PlayerData : MonoBehaviour
 {
     public static PlayerData Instance;
 
+	[Header("Properties")]
 	public bool isRunning = false;
 	public bool canRun = true;
 	public int backPacks = 0;
 	public int interactionSpeed = 1;
+	public Slider healthSlider;
+	public GameObject interactionUI;
 
+	[Header("Weapon")]
 	public Weapon currentWeapon;
 	public Weapon primaryWeapon;
 	public Weapon secondaryWeapon;
-	public Weapon melee;
+	public Weapon meleeWeapon;
 
 	[SerializeField] private int maxHealth = 1000;
-	[SerializeField] private int currentWeaponNum = 0;
 	[SerializeField] private TextMeshProUGUI mainText;
 	[SerializeField] private TextMeshProUGUI subText;
 	[SerializeField] private Image weaponImage; 
 	[SerializeField] private Transform weaponParent;
 	public int MaxHealth { get => maxHealth; set => maxHealth = Mathf.Clamp(value, 0, int.MaxValue); }
-	public int CurrentWeaponNum { get => currentWeaponNum; set => currentWeaponNum = value; }
 
 	private Material weaponMaterial;
 
@@ -39,24 +41,40 @@ public class PlayerData : MonoBehaviour
 		{
 			Instance = this;
 		}
+	}
 
-		CreateWeaponGameObject();
+	public void ReadyGame()
+	{
+		weaponParent = GameManager.instance.Player.transform?.Find("WeaponHolder");
 		currentWeapon = primaryWeapon;
 		weaponMaterial = weaponImage.material;
 	}
 
-	public void SetWeapon(Weapon primary = null, Weapon secondary = null, Weapon melee = null)
+	public void StartGame()
+	{
+		CreateWeaponGameObject();
+	}
+
+	public void SetPrimaryWeapon(Weapon primary = null)
 	{
 		primaryWeapon = primary == null ? primaryWeapon : primary;
+	}
+	
+	public void SetSecondaryWeapon(Weapon secondary = null)
+	{
 		secondaryWeapon = secondary == null ? secondaryWeapon : secondary;
-		this.melee = melee == null ? this.melee : melee;
+	}
+	
+	public void SetMeleeWeapon(Weapon melee = null)
+	{
+		meleeWeapon = melee == null ? meleeWeapon : melee;
 	}
 
 	public void CreateWeaponGameObject()
 	{
-		primaryWeapon =  Instantiate(primaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
+		primaryWeapon = Instantiate(primaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
 		secondaryWeapon = Instantiate(secondaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
-		melee = Instantiate(melee.GetPrefab(), weaponParent).GetComponent<Weapon>();
+		meleeWeapon = Instantiate(meleeWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
 	}
 
 	public void SetCurrentWeapon(Weapon weapon)

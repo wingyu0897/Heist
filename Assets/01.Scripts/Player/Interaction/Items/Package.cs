@@ -26,6 +26,7 @@ public class Package : Interactable
 
 	public override void Initialization() //√ ±‚»≠
 	{
+		backPackHolder = GameManager.instance.Player.transform.Find("BackPackHolder").transform;
 		transform.parent = null;
 		transform.localRotation = Quaternion.identity;
 		spriteRenderer.sprite = defaultSprite;

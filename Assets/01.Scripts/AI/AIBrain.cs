@@ -39,15 +39,11 @@ public class AIBrain : MonoBehaviour
 	public UnityEvent OnAttackButtonReleased;
 	public UnityEvent OnReloadWeapon;
 
-	private void Awake()
+	private void Start()
 	{
 		enemy = GetComponent<Enemy>();
 		pathFinding = GetComponent<AIPathFinding>();
-		target = GameObject.FindGameObjectWithTag("Player").transform;
-	}
-
-	private void Start()
-	{
+		target = GameManager.instance.Player.transform;
 		currentAction?.StartState();
 	}
 

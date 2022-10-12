@@ -29,6 +29,6 @@ public class EntityRenderer : MonoBehaviour
 
 	public void Animation(float speed)
 	{
-		animator.SetFloat(speedHash, speed);
+		animator?.SetFloat(speedHash, speed);
 	}
 }
