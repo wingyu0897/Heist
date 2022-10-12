@@ -21,6 +21,7 @@ public class AIBrain : MonoBehaviour
 	private Enemy enemy;
 	private float detectiveGauge = 0f;
 	private bool isPlayerInView = false;
+	private bool isDead = false;
 	public LayerMask ObstacleLayer => obstacleLayer;
 	public Transform BasePosition => basePosition;
 	public Transform Target { get => target; set => target = value; }
@@ -28,6 +29,7 @@ public class AIBrain : MonoBehaviour
 	public Enemy Enemy => enemy;
 	public float DetectiveGauge { get => detectiveGauge; set => detectiveGauge = value; }
 	public bool IsPlayerInView { get => isPlayerInView; set => isPlayerInView = value; }
+	public bool IsDead { get => isDead; set => isDead = value; }
 
 	[Header("Events")]
 	public UnityEvent<Vector2> OnMovementKeyPress;
@@ -37,18 +39,19 @@ public class AIBrain : MonoBehaviour
 	public UnityEvent OnAttackButtonReleased;
 	public UnityEvent OnReloadWeapon;
 
-	private void Awake()
+	private void Start()
 	{
 		enemy = GetComponent<Enemy>();
 		pathFinding = GetComponent<AIPathFinding>();
+		target = GameManager.instance.Player.transform;
 		currentAction?.StartState();
 	}
 
 	private void Update()
 	{
 		currentAction?.UpdateState(); //현재 액션을 계속 실행한다
-		isNotice = GameManager.instance.isDetected ? true : isNotice;
-		if (isNotice || GameManager.instance.isDetected) print("Notice!");
+		isNotice = GameManager.instance.isLoud ? true : isNotice;
+		if (GameManager.instance.isLoud) print("Louded!");
 	}
 
 	public void ChangeState(AIState nextAction) //액션을 받아 전환하는 함수
@@ -95,6 +98,7 @@ public class AIBrain : MonoBehaviour
 
 	public void Dead()
 	{
+		StopAllCoroutines();
 		Destroy(gameObject);
 	}
 
@@ -112,7 +116,7 @@ public class AIBrain : MonoBehaviour
 	{
 		yield return new WaitForSeconds(4f);
 
-		GameManager.instance.isDetected = true;
+		GameManager.instance.isLoud = true;
 		print("Reported!");
 	}
 }

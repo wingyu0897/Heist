@@ -6,18 +6,17 @@ using UnityEngine.UI;
 public class Interaction : MonoBehaviour
 {
     [SerializeField] private float interactableRange;
-	[SerializeField] private GameObject interactionUI;
 	private Image keyUI;
 
-	private int layerMask;
+	[SerializeField] private int layerMask;
 	private float time = 0;
 	private Vector2 pointer;
 	private RaycastHit2D hit;
-	private IInteractable interactable;
+	private Interactable interactable;
 
 	private void Start()
 	{
-		keyUI = interactionUI.transform.GetComponentInChildren<Image>();
+		keyUI = PlayerData.Instance.interactionUI.transform.GetComponentInChildren<Image>();
 		layerMask = 1 << LayerMask.NameToLayer("Interactable");
 	}
 
@@ -31,20 +30,20 @@ public class Interaction : MonoBehaviour
 		hit = Physics2D.Raycast(pointer, Vector2.zero, 10, layerMask);
 		if (Vector3.Distance(transform.position, pointer) <= interactableRange && hit.collider != null)
 		{
-			interactable = hit.collider.GetComponent<IInteractable>();
+			interactable = hit.collider.GetComponent<Interactable>();
 			keyUI.fillAmount = time / interactable.InteractionTime;
-			if (hit.collider.gameObject != interactable?.Objectgame)
+			if (hit.collider.gameObject != interactable?.gameObject)
 			{
 				time = 0;
 			}
-			if (interactable.CanInteractive == true)
+			if (interactable.CanInteractable() == true)
 			{
 				if (Input.GetKey(KeyCode.F))
 				{
 					time += Time.deltaTime;
 					if (time >= interactable.InteractionTime)
 					{
-						interactable.Action();
+						interactable.OnInteraction();
 						time = 0;
 					}
 				}
@@ -52,18 +51,18 @@ public class Interaction : MonoBehaviour
 				{
 					time = 0;
 				}
-				interactionUI.SetActive(true);
-				interactionUI.transform.position = Camera.main.WorldToScreenPoint(pointer);
+				keyUI.gameObject.SetActive(true);
+				keyUI.gameObject.transform.position = Camera.main.WorldToScreenPoint(pointer);
 			}
 			else
 			{
-				interactionUI.SetActive(false);
+				keyUI.gameObject.SetActive(false);
 				time = 0;
 			}
 		}
 		else
 		{
-			interactionUI.SetActive(false);
+			keyUI.gameObject.SetActive(false);
 			time = 0;
 		}
 	}

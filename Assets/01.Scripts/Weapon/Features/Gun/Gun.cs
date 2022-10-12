@@ -103,8 +103,11 @@ public class Gun : Weapon, IWeaponinfo
 	private void SpawnBullet() //풀매니징으로 총알 생성
 	{
 		Bullet bullet = PoolManager.instance.Pop(gunData.bulletData.prefab.name) as Bullet;
-		bullet.BulletData = gunData.bulletData;
-		bullet.SetPositionAndRotation(muzzle.position, muzzle.rotation);
+		if (bullet)
+		{
+			bullet.BulletData = gunData?.bulletData;
+			bullet.SetPositionAndRotation(muzzle.position, muzzle.rotation);
+		}
 	}
 
 	public override bool TryAttack() //공격 가능 여부를 확인하는 함수

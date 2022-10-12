@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
-	[SerializeField] private Slider healthSlider;
-
 	public UnityEvent<Vector2> OnMovementPress;
 	public UnityEvent<Vector2> OnPointerPositionChange;
 
@@ -29,9 +27,9 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 	private void Start()
 	{		
-		transform.Find("WeaponHolder").GetComponent<WeaponManager>().SetWeapon(PlayerData.Instance.primaryWeapon, PlayerData.Instance.secondaryWeapon, PlayerData.Instance.melee);
+		transform.Find("WeaponHolder").GetComponent<WeaponManager>().SetWeapon(PlayerData.Instance.primaryWeapon, PlayerData.Instance.secondaryWeapon, PlayerData.Instance.meleeWeapon);
 		health = PlayerData.Instance.MaxHealth;
-		healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
+		PlayerData.Instance.healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
 	}
 
 	private void FixedUpdate()
@@ -67,32 +65,31 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 	private void ChangeWeapon()
 	{
-		if (Input.GetKeyDown(KeyCode.C))
-		{
-			OnChangeWeapon?.Invoke(PlayerData.Instance.CurrentWeaponNum < 2 ? ++PlayerData.Instance.CurrentWeaponNum : PlayerData.Instance.CurrentWeaponNum = 0);
-		}
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
-			OnChangeWeapon?.Invoke(PlayerData.Instance.CurrentWeaponNum = 0);
+			OnChangeWeapon?.Invoke(0);
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha2))
 		{
-			OnChangeWeapon?.Invoke(PlayerData.Instance.CurrentWeaponNum = 1);
+			OnChangeWeapon?.Invoke(1);
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha3))
 		{
-			OnChangeWeapon?.Invoke(PlayerData.Instance.CurrentWeaponNum = 2);
+			OnChangeWeapon?.Invoke(2);
 		}
 	}
 
 	private void UseWeapon()
 	{
-		if (Input.GetKeyDown(KeyCode.Mouse0))
+		if (!PlayerData.Instance.isRunning)
 		{
-			OnAttackButtonPressed?.Invoke();
-		}
+			if (Input.GetKeyDown(KeyCode.Mouse0))
+			{
+				OnAttackButtonPressed?.Invoke();
+			}
 		
-		if (Input.GetKeyUp(KeyCode.Mouse0))
+		}
+		if (Input.GetKeyUp(KeyCode.Mouse0) || PlayerData.Instance.isRunning)
 		{
 			OnAttackButtonReleased?.Invoke();
 		}
@@ -107,6 +104,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 	{
 		health -= damage;
 
-		healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
+		PlayerData.Instance.healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
 	}
 }

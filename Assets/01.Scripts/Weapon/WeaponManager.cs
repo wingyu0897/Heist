@@ -46,6 +46,7 @@ public class WeaponManager : MonoBehaviour
 			currentWeapon.gameObject.SetActive(true);
 			weaponRenderer = currentWeapon.transform.GetComponent<WeaponRenderer>();
 			weaponRenderer.Init();
+			PlayerData.Instance.currentWeapon = currentWeapon;
 		}
 
 		OnChangeWeapon?.Invoke(currentWeapon);

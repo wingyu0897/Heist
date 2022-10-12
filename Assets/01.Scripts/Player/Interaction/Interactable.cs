@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInteractable
+public abstract class Interactable : MonoBehaviour
 {
-    public GameObject Objectgame { get; }
-    public float InteractionTime { get; }
-    public bool CanInteractive { get; set; }
+	protected Transform backPackHolder;
 
-    public void Init();
-    public void Action();
+	public virtual void Awake()
+	{
+		gameObject.layer = LayerMask.NameToLayer("Interactable");
+	}
+
+	public abstract float InteractionTime { get; }
+
+	public abstract void Initialization();
+
+	public abstract void OnInteraction();
+
+	public abstract bool CanInteractable();
 }

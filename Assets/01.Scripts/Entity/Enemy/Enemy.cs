@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
 	public void GetHit(int damage)
 	{
-		brain.isNotice = true;
+		brain.Notice();
 
 		health -= damage;
 		if (health <= 0)

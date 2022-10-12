@@ -215,7 +215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4888783444236498664
 Transform:
   m_ObjectHideFlags: 0
@@ -372,7 +372,7 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 12544
-  lookAtLerp: 0.005
+  lookAtLerp: 0.03
   detectiveGaugeSlider: {fileID: 0}
   detectTime: 2
   OnDetectionPlayer:

@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
 	private Rigidbody2D myRigid;
 
 	public UnityEvent<float> OnVelocityChange;
+	public UnityEvent<Vector2> OnDirectionChange;
 
 	private void Awake()
 	{
@@ -24,6 +25,8 @@ public class Movement : MonoBehaviour
 	private void FixedUpdate()
 	{
 		myRigid.velocity = currentVelocity * currentDirection;
+
+		OnVelocityChange?.Invoke(currentVelocity);
 	}
 
 	public void Move(Vector2 moveInput)
@@ -35,11 +38,10 @@ public class Movement : MonoBehaviour
 				currentVelocity = 0;
 			}
 			currentDirection = moveInput.normalized;
+			OnDirectionChange?.Invoke(currentDirection);
 		}
 
 		currentVelocity = SetSpeed(moveInput);
-
-		OnVelocityChange?.Invoke(currentVelocity);
 	}
 
 	private float SetSpeed(Vector2 velocity)

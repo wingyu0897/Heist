@@ -42,7 +42,7 @@ public class AIPathFinding : MonoBehaviour
 	private void Start()
 	{
 		brain = GetComponent<AIBrain>();
-		node = GameObject.Find("GameCore").GetComponent<NodeScan>();
+		node = GameObject.Find("Map").GetComponent<NodeScan>();
 		bottomLeft = node.bottomLeft;
 		topRight = node.topRight;
 	}
@@ -94,7 +94,7 @@ public class AIPathFinding : MonoBehaviour
 			currentNode = openList[0];
 			for (int i = 0; i < openList.Count; i++)
 			{
-				if (openList[i].F <= currentNode.F && openList[i].h < currentNode.h)
+				if (openList[i].F <= currentNode.F && openList[i].h <= currentNode.h)
 				{
 					currentNode = openList[i];
 				}
@@ -137,7 +137,7 @@ public class AIPathFinding : MonoBehaviour
 			{
 				for (int j = targetNode.y - bottomLeft.y - 3; j < targetNode.y - bottomLeft.y + 3; j++)
 				{
-					if (node.nodeArray[i, j].parentNode != null)
+					if (node.nodeArray[i, j]?.parentNode != null)
 					{
 						RaycastHit2D hit = Physics2D.Raycast(new Vector2(node.nodeArray[i, j].x, node.nodeArray[i, j].y), targetPos - new Vector2(node.nodeArray[i, j].x, node.nodeArray[i, j].y), 1f, node.obstacleLayer);
 						if (node.nodeArray[i, j].h <= currentNode.h && hit.collider == null)
