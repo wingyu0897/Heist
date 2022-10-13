@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
 			if (SceneManager.GetActiveScene().buildIndex == 0)
 			{
-				StartGame();
+				SceneManager.LoadScene(1);
 			}
 		}
 	}
