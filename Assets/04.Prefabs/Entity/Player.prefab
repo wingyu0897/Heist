@@ -519,7 +519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42ebc264ffbaac4fb2fd4bed334e88b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSlider: {fileID: 0}
   OnMovementPress:
     m_PersistentCalls:
       m_Calls: []
@@ -740,5 +739,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableRange: 1.5
-  interactionUI: {fileID: 0}
   layerMask: 6

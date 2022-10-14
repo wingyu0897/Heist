@@ -6,17 +6,19 @@ using UnityEngine.UI;
 public class Interaction : MonoBehaviour
 {
     [SerializeField] private float interactableRange;
-	private Image keyUI;
-
 	[SerializeField] private int layerMask;
+
 	private float time = 0;
 	private Vector2 pointer;
 	private RaycastHit2D hit;
+	private Image interactionImage;
+	private GameObject interactionObject;
 	private Interactable interactable;
 
 	private void Start()
 	{
-		keyUI = PlayerData.Instance.interactionUI.transform.GetComponentInChildren<Image>();
+		interactionImage = PlayerData.Instance.interactionUI.transform.GetComponentInChildren<Image>();
+		interactionObject = interactionImage.transform.parent.gameObject;
 		layerMask = 1 << LayerMask.NameToLayer("Interactable");
 	}
 
@@ -31,7 +33,7 @@ public class Interaction : MonoBehaviour
 		if (Vector3.Distance(transform.position, pointer) <= interactableRange && hit.collider != null)
 		{
 			interactable = hit.collider.GetComponent<Interactable>();
-			keyUI.fillAmount = time / interactable.InteractionTime;
+			interactionImage.fillAmount = time / interactable.InteractionTime;
 			if (hit.collider.gameObject != interactable?.gameObject)
 			{
 				time = 0;
@@ -51,18 +53,18 @@ public class Interaction : MonoBehaviour
 				{
 					time = 0;
 				}
-				keyUI.gameObject.SetActive(true);
-				keyUI.gameObject.transform.position = Camera.main.WorldToScreenPoint(pointer);
+				interactionObject.SetActive(true);
+				interactionObject.transform.position = Camera.main.WorldToScreenPoint(pointer);
 			}
 			else
 			{
-				keyUI.gameObject.SetActive(false);
+				interactionObject.SetActive(false);
 				time = 0;
 			}
 		}
 		else
 		{
-			keyUI.gameObject.SetActive(false);
+			interactionObject.SetActive(false);
 			time = 0;
 		}
 	}

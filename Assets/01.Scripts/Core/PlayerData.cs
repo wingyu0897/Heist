@@ -84,16 +84,19 @@ public class PlayerData : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (currentWeapon.TryGetComponent(out IWeaponinfo currentInfo))
+		if (currentWeapon)
 		{
-			mainText.text = currentInfo.MainInfo;
-			subText.text = currentInfo.SubInfo;
-			weaponMaterial.SetTexture("_MainTexture", currentInfo.WeaponImage);
-		}
-		else
-		{
-			mainText.text = "00";
-			subText.text = "000";
+			if (currentWeapon.TryGetComponent(out IWeaponinfo currentInfo))
+			{
+				mainText.text = currentInfo.MainInfo;
+				subText.text = currentInfo.SubInfo;
+				weaponMaterial.SetTexture("_MainTexture", currentInfo.WeaponImage);
+			}
+			else
+			{
+				mainText.text = "00";
+				subText.text = "000";
+			}
 		}
 	}
 }

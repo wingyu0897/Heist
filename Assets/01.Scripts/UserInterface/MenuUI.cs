@@ -8,4 +8,9 @@ public class MenuUI : MonoBehaviour
 	{
 		Application.Quit();
 	}
+
+	public void StartGame()
+	{
+		GameManager.instance.StartGame();
+	}
 }

@@ -47,11 +47,6 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	private void Start()
-	{
-		ReadyGame();
-	}
-
 	private void CreatePool()
 	{
 		foreach (PoolingSet ps in poolingList.list)
@@ -67,16 +62,13 @@ public class GameManager : MonoBehaviour
 
 	public void ReadyGame()
 	{
-		if (SceneManager.GetActiveScene().buildIndex == 2)
-		{
-			currentGameState = GameState.Ready;
-			player = Instantiate(player, null);
-			player.name = "Player";
-			player?.SetActive(false);
-			GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
-			PlayerData.Instance.ReadyGame();
-			CreatePool();
-		}
+		currentGameState = GameState.Ready;
+		player = Instantiate(player, null);
+		player.name = "Player";
+		player?.SetActive(false);
+		GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
+		PlayerData.Instance.ReadyGame();
+		CreatePool();
 	}
 
 	public void RunningGame()
