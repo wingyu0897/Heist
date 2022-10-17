@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NodeScan : MonoBehaviour
 {
+	[Header("--Settings--")]
 	public Vector2Int bottomLeft;
 	public Vector2Int topRight;
 	public LayerMask obstacleLayer;
@@ -12,11 +13,15 @@ public class NodeScan : MonoBehaviour
 	public int sizeY;
 	public Node[,] nodeArray;
 
-	[Header("NodeDesign")]
+
+	[Header("--NodeDesign--")]
+	[Tooltip("기즈모 그리기")]
 	[SerializeField] private bool drawGizmos = true;
+
 	[Header("Path / 지나갈 수 있는 노드")]
 	[SerializeField] private Color pathNodeColor;
 	[SerializeField] private Vector2 pathNodeSize;
+
 	[Header("Wall / 지나갈 수 없는 노드")]
 	[SerializeField] private Color wallNodeColor;
 	[SerializeField] private Vector2 wallNodeSize;

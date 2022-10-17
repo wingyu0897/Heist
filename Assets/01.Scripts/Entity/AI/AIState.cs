@@ -28,7 +28,7 @@ public class AIState : MonoBehaviour
 				bool result = false;
 				foreach (AIDecision de in tr.decisions)
 				{
-					result = de.DecisionResult();
+					result = de.Result();
 					if (!result)
 					{
 						break;

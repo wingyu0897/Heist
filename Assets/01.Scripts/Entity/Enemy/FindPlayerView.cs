@@ -29,7 +29,7 @@ public class FindPlayerView : MonoBehaviour
 
     public UnityEvent OnDetectionPlayer;
 
-	private void Awake()
+	private void Start()
 	{
 		horizontalViewHalfAngle = horizontalViewAngle * 0.5f;
         brain = GetComponent<AIBrain>();
@@ -39,8 +39,8 @@ public class FindPlayerView : MonoBehaviour
 	private void Update()
 	{
 		FindViewTargets();
-        detectiveGaugeSlider.value = brain.isNotice ? (brain.DetectiveGauge = detectTime) / detectTime : brain.DetectiveGauge / detectTime;
-        detectiveGaugeSlider.gameObject.SetActive(brain.DetectiveGauge > 0);
+        //detectiveGaugeSlider.value = brain.isNotice ? (brain.DetectiveGauge = detectTime) / detectTime : brain.DetectiveGauge / detectTime;
+        //detectiveGaugeSlider?.gameObject.SetActive(brain.DetectiveGauge > 0);
     }
 
 	private void FindViewTargets() //플레이어 감지 함수
@@ -88,6 +88,8 @@ public class FindPlayerView : MonoBehaviour
 
     private void FindPlayer()
 	{
+        brain.DetectiveGauge = brain.isNotice ? detectTime : brain.DetectiveGauge;
+
         if (findPlayer == true)
 		{
             brain.DetectiveGauge += Time.deltaTime;

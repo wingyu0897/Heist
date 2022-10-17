@@ -2084,11 +2084,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0825583041120d3418b7a750fb1964e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readyOnAwake: 0
   poolingList: {fileID: 11400000, guid: e0605354e116f074084945eed0da4e42, type: 2}
   player: {fileID: 1658280653777805849, guid: 44677f815dbe07f4587aacf7d55d15bb, type: 3}
   currentGameState: 0
-  isDetected: 0
-  isLoud: 0
 --- !u!114 &1423142111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3847,7 +3846,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_TargetDisplay: 0
 --- !u!1 &2183100243930848336
 GameObject:

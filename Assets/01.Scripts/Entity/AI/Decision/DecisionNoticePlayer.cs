@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 플레이어를 발견했을 경우
+/// 플레이어의 침입을 감지했을 경우 (침입을 알아챔)
 /// </summary>
-public class DecisionDetectiveTarget : AIDecision
+public class DecisionNoticePlayer : AIDecision
 {
-	public override bool DecisionResult()
+	public override bool Result()
 	{
-		if (brain.DetectiveGauge > 0)
+		if (brain.isNotice == true)
 		{
 			return true;
 		}

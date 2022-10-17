@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DecisionNotNoticePlayer : AIDecision
+public class DecisionPlayerNotInView : AIDecision
 {
-	public override bool DecisionResult()
+	public override bool Result()
 	{
-		if (!brain.isNotice == true)
+		if (!brain.IsPlayerInView)
 		{
 			return true;
 		}

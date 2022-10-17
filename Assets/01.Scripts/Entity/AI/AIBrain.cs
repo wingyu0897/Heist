@@ -14,22 +14,22 @@ public class AIBrain : MonoBehaviour
 	public bool isNotice = false;
 	public bool canTransition = true;
 
-	[SerializeField] private LayerMask obstacleLayer;
 	[SerializeField] private Transform basePosition;
-	[SerializeField] private Transform target;
-	[SerializeField] private Vector2 targetPos;
-	private Enemy enemy;
-	private float detectiveGauge = 0f;
-	private bool isPlayerInView = false;
-	private bool isDead = false;
-	public LayerMask ObstacleLayer => obstacleLayer;
 	public Transform BasePosition => basePosition;
+	[SerializeField] private Transform target;
 	public Transform Target { get => target; set => target = value; }
+	[SerializeField] private Vector2 targetPos;
 	public Vector2 TargetPos { get => targetPos; set => targetPos = value; }
-	public Enemy Enemy => enemy;
-	public float DetectiveGauge { get => detectiveGauge; set => detectiveGauge = value; }
+	[SerializeField] private LayerMask obstacleLayer;
+	public LayerMask ObstacleLayer => obstacleLayer;
+	private bool isPlayerInView = false;
 	public bool IsPlayerInView { get => isPlayerInView; set => isPlayerInView = value; }
+	private bool isDead = false;
 	public bool IsDead { get => isDead; set => isDead = value; }
+	private float detectiveGauge = 0f;
+	public float DetectiveGauge { get => detectiveGauge; set => detectiveGauge = value; }
+	private Enemy enemy;
+	public Enemy Enemy => enemy;
 
 	[Header("Events")]
 	public UnityEvent<Vector2> OnMovementKeyPress;
@@ -43,15 +43,15 @@ public class AIBrain : MonoBehaviour
 	{
 		enemy = GetComponent<Enemy>();
 		pathFinding = GetComponent<AIPathFinding>();
-		target = GameManager.instance.Player.transform;
+		target = GameManager.Instance.Player.transform;
 		currentAction?.StartState();
 	}
 
 	private void Update()
 	{
 		currentAction?.UpdateState(); //현재 액션을 계속 실행한다
-		isNotice = GameManager.instance.isLoud ? true : isNotice;
-		if (GameManager.instance.isLoud) print("Louded!");
+		isNotice = MissionData.Instance.isLoud ? true : isNotice;
+		if (MissionData.Instance.isLoud) print("Louded!");
 	}
 
 	public void ChangeState(AIState nextAction) //액션을 받아 전환하는 함수
@@ -83,7 +83,7 @@ public class AIBrain : MonoBehaviour
 	public void StartAttack()
 	{
 		OnAttackButtonPressed?.Invoke();
-		GameManager.instance.isDetected = true;
+		MissionData.Instance.isDetected = true;
 	}
 
 	public void StopAttack()
@@ -105,7 +105,7 @@ public class AIBrain : MonoBehaviour
 	public void Notice()
 	{
 
-		if (!GameManager.instance.isDetected && !isNotice)
+		if (!MissionData.Instance.isDetected && !isNotice)
 		{
 			isNotice = true;
 			StartCoroutine(Report());
@@ -116,7 +116,7 @@ public class AIBrain : MonoBehaviour
 	{
 		yield return new WaitForSeconds(4f);
 
-		GameManager.instance.isLoud = true;
+		MissionData.Instance.isLoud = true;
 		print("Reported!");
 	}
 }

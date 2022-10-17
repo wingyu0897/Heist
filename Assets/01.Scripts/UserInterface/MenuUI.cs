@@ -11,6 +11,6 @@ public class MenuUI : MonoBehaviour
 
 	public void StartGame()
 	{
-		GameManager.instance.StartGame();
+		GameManager.Instance.StartGame();
 	}
 }

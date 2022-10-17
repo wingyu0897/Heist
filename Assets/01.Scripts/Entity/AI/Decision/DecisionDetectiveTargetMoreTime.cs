@@ -9,7 +9,7 @@ public class DecisionDetectiveTargetMoreTime : AIDecision
 {
 	[SerializeField] private float targetTime;
 
-	public override bool DecisionResult()
+	public override bool Result()
 	{
 		if (brain.DetectiveGauge >= targetTime)
 		{

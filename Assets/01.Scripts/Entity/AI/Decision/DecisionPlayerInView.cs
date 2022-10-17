@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DecisionPlayerInView : AIDecision
 {
-	public override bool DecisionResult()
+	public override bool Result()
 	{
 		if (brain.IsPlayerInView)
 		{

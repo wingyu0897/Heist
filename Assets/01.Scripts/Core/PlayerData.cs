@@ -35,7 +35,7 @@ public class PlayerData : MonoBehaviour
 	{
 		if (Instance != null)
 		{
-			Debug.LogError("ERROR: Multiple PlayerData is running");
+			Destroy(this);
 		}
 		else
 		{
@@ -43,48 +43,9 @@ public class PlayerData : MonoBehaviour
 		}
 	}
 
-	public void ReadyGame()
-	{
-		weaponParent = GameManager.instance.Player.transform?.Find("WeaponHolder");
-		currentWeapon = primaryWeapon;
-		weaponMaterial = weaponImage.material;
-	}
-
-	public void StartGame()
-	{
-		CreateWeaponGameObject();
-	}
-
-	public void SetPrimaryWeapon(Weapon primary = null)
-	{
-		primaryWeapon = primary == null ? primaryWeapon : primary;
-	}
-	
-	public void SetSecondaryWeapon(Weapon secondary = null)
-	{
-		secondaryWeapon = secondary == null ? secondaryWeapon : secondary;
-	}
-	
-	public void SetMeleeWeapon(Weapon melee = null)
-	{
-		meleeWeapon = melee == null ? meleeWeapon : melee;
-	}
-
-	public void CreateWeaponGameObject()
-	{
-		primaryWeapon = Instantiate(primaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
-		secondaryWeapon = Instantiate(secondaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
-		meleeWeapon = Instantiate(meleeWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
-	}
-
-	public void SetCurrentWeapon(Weapon weapon)
-	{
-		currentWeapon = weapon;
-	}
-
 	private void FixedUpdate()
 	{
-		if (currentWeapon)
+		if (currentWeapon) //무기 정보 설정
 		{
 			if (currentWeapon.TryGetComponent(out IWeaponinfo currentInfo))
 			{
@@ -94,9 +55,50 @@ public class PlayerData : MonoBehaviour
 			}
 			else
 			{
-				mainText.text = "00";
-				subText.text = "000";
+				mainText.text = "--";
+				subText.text = "---";
 			}
 		}
+	}
+
+	public void ReadyGame()
+	{
+		weaponParent = GameManager.Instance.Player.transform?.Find("WeaponHolder");
+		currentWeapon = primaryWeapon;
+		weaponMaterial = weaponImage.material;
+	}
+
+	public void RunGame()
+	{
+		CreateWeaponGameObject();
+	}
+
+	#region #Setting
+	public void SetPrimaryWeapon(Weapon primary = null) //주무기 설정
+	{
+		primaryWeapon = primary == null ? primaryWeapon : primary;
+	}
+	
+	public void SetSecondaryWeapon(Weapon secondary = null) //보조무기 설정
+	{
+		secondaryWeapon = secondary == null ? secondaryWeapon : secondary;
+	}
+	
+	public void SetMeleeWeapon(Weapon melee = null) //근접무기 설정
+	{
+		meleeWeapon = melee == null ? meleeWeapon : melee;
+	}
+
+	public void SetCurrentWeapon(Weapon weapon) //현재 무기 설정
+	{
+		currentWeapon = weapon;
+	}
+	#endregion
+
+	public void CreateWeaponGameObject() //무기 생성
+	{
+		primaryWeapon = Instantiate(primaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
+		secondaryWeapon = Instantiate(secondaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
+		meleeWeapon = Instantiate(meleeWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
 	}
 }

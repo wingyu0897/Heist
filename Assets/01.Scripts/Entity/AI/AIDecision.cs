@@ -11,5 +11,5 @@ public abstract class AIDecision : MonoBehaviour
         brain = transform.parent.parent.parent.GetComponent<AIBrain>();
 	}
 
-    public abstract bool DecisionResult(); //상태 변경 조건 함수
+    public abstract bool Result(); //상태 변경 조건 함수
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class DecisionMoved2TargetPos : AIDecision
 {
-	public override bool DecisionResult()
+	public override bool Result()
 	{
 		if (Vector2.Distance(brain.BasePosition.position, brain.TargetPos) < 1f)
 		{

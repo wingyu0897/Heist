@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7640394066848208513}
   - component: {fileID: 7640394066848208514}
   m_Layer: 0
-  m_Name: Money
+  m_Name: PackageCash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,6 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8135c0167d8c744a87d008c57a8185c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionTime: 2
-  defaultSprite: {fileID: 21300000, guid: 4da118a8502bd8d47ad11911fa7b02af, type: 3}
-  packedSprite: {fileID: 21300000, guid: e6e75cb56960e5d42958f58239632446, type: 3}
+  packageData: {fileID: 11400000, guid: 704b2d479573b064b8d21d6e182d66a4, type: 2}
+  canInteract: 1
+  isHolding: 0

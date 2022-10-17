@@ -30,19 +30,23 @@ public class Interaction : MonoBehaviour
 	private void Interactive()
 	{
 		hit = Physics2D.Raycast(pointer, Vector2.zero, 10, layerMask);
+
 		if (Vector3.Distance(transform.position, pointer) <= interactableRange && hit.collider != null)
 		{
 			interactable = hit.collider.GetComponent<Interactable>();
 			interactionImage.fillAmount = time / interactable.InteractionTime;
+
 			if (hit.collider.gameObject != interactable?.gameObject)
 			{
 				time = 0;
 			}
+
 			if (interactable.CanInteractable() == true)
 			{
 				if (Input.GetKey(KeyCode.F))
 				{
 					time += Time.deltaTime;
+
 					if (time >= interactable.InteractionTime)
 					{
 						interactable.OnInteraction();

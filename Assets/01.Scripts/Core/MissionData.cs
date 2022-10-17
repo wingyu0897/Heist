@@ -1,10 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MissionData : MonoBehaviour
 {
 	public static MissionData Instance;
+
+	[Header("--Properties--")]
+	public bool isSilencer = false;
+	public bool isDetected = false;
+	public bool isLoud = false;
+
+	[Header("--Datas--")]
+	public List<Package> gainPackages;
+
+	[Header("--Events--")]
+	public UnityEvent OnRunGame;
+	public UnityEvent OnEndGame;
 
 	private void Awake()
 	{
@@ -16,6 +29,18 @@ public class MissionData : MonoBehaviour
 		{
 			Instance = this;
 		}
-		GameManager.instance?.ReadyGame();
+		GameManager.Instance?.ReadyGame();
+	}
+
+	public void RunTheGame()
+	{
+		gainPackages = new List<Package>();
+
+		OnRunGame?.Invoke();
+	}
+
+	public void EndTheGame()
+	{
+		OnEndGame?.Invoke();
 	}
 }

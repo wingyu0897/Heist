@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SO/DATA/Movement")]
+[CreateAssetMenu(menuName = "SO/DATA/ENTITY/Movement")]
 public class MovememtSO : ScriptableObject
 {
     [Header("Data")]

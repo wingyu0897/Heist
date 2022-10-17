@@ -739,4 +739,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableRange: 1.5
+  interactionDelay: 0.5
   layerMask: 6

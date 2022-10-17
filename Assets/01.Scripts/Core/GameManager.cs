@@ -15,7 +15,9 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
+
+	public bool readyOnAwake = false;
 
 	[Header("Reference")]
 	[SerializeField] private PoolingListSO poolingList;
@@ -24,18 +26,16 @@ public class GameManager : MonoBehaviour
 
 	[Header("Properties")]
 	public GameState currentGameState = GameState.None;
-	public bool isDetected = false;
-	public bool isLoud = false;
 
 	private void Awake()
 	{
-		if (instance != null && instance != this)
+		if (Instance != null && Instance != this)
 		{
-			Destroy(this);
+			Destroy(gameObject);
 		}
 		else
 		{
-			instance = this;
+			Instance = this;
 			DontDestroyOnLoad(gameObject);
 
 			PoolManager.instance = new PoolManager(transform);
@@ -44,6 +44,11 @@ public class GameManager : MonoBehaviour
 			{
 				SceneManager.LoadScene(1);
 			}
+		}
+
+		if (readyOnAwake)
+		{
+			ReadyGame();
 		}
 	}
 
@@ -76,12 +81,16 @@ public class GameManager : MonoBehaviour
 		currentGameState = GameState.Runnding;
 		player?.SetActive(true);
 		transform.Find("PlayerCanvas").gameObject.SetActive(true);
-		PlayerData.Instance.StartGame();
+		PlayerData.Instance.RunGame();
+		MissionData.Instance?.RunTheGame();
 	}
 
 	public void EndGame()
 	{
 		currentGameState = GameState.Ended;
-		GameObject.FindGameObjectWithTag("Entity").SetActive(false);
+		GameObject.FindGameObjectWithTag("Entity")?.SetActive(false);
+		player.SetActive(false);
+		transform.Find("PlayerCanvas").gameObject.SetActive(false);
+		MissionData.Instance?.EndTheGame();
 	}
 }

@@ -6,16 +6,20 @@ using UnityEngine;
 public class Package : Interactable
 {
 	[Header("Reference")]
-	[SerializeField] private float interactionTime;
-	[SerializeField] private Sprite defaultSprite;
-	[SerializeField] private Sprite packedSprite;
-	public override float InteractionTime => interactionTime;
+	[SerializeField] private PackageSO packageData;
+	public int Price => packageData.price;
+	public bool canInteract = true;
+	public bool isHolding = false;
+
+	public override float InteractionTime => packageData.interactiveTime;
 
 	private SpriteRenderer spriteRenderer;
+	private Collider2D mCollider;
 
 	private void Start()
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		mCollider = GetComponent<Collider2D>();
 		Initialization();
 	}
 
@@ -26,15 +30,17 @@ public class Package : Interactable
 
 	public override void Initialization() //초기화
 	{
-		backPackHolder = GameManager.instance.Player.transform.Find("BackPackHolder").transform;
+		backPackHolder = GameManager.Instance.Player.transform.Find("BackPackHolder").transform;
 		transform.parent = null;
 		transform.localRotation = Quaternion.identity;
-		spriteRenderer.sprite = defaultSprite;
+		spriteRenderer.sprite = packageData.defaultSprite;
+		isHolding = false;
+		mCollider.enabled = true;
 	}
 
 	public override bool CanInteractable() //상호작용 가능 여부
 	{
-		return transform.parent != null ? false : PlayerData.Instance.backPacks == 0 ? true : false;
+		return !isHolding && canInteract && (transform.parent != null ? false : PlayerData.Instance.backPacks == 0 ? true : false);
 	}
 
 	public override void OnInteraction() //상호작용할 시
@@ -43,7 +49,9 @@ public class Package : Interactable
 		transform.SetParent(backPackHolder);
 		transform.localPosition = Vector3.zero;
 		transform.localRotation = Quaternion.identity;
-		spriteRenderer.sprite = packedSprite;
+		spriteRenderer.sprite = packageData.packedSprite;
+		isHolding = true;
+		mCollider.enabled = false;
 	}
 
 	private void Drop() //가방 내려놓기
@@ -54,6 +62,8 @@ public class Package : Interactable
 			transform.parent = null;
 			transform.position = transform.localPosition - new Vector3(0, 0.5f, 0);
 			transform.localRotation = Quaternion.identity;
+			isHolding = false;
+			mCollider.enabled = true;
 		}
 	}
 }
