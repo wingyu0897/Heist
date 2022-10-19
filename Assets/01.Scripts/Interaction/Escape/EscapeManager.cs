@@ -36,7 +36,7 @@ public class EscapeManager : Interactable
 
 	public override void OnInteraction()
 	{
-		GameManager.Instance.EndGame();
+		GameManager.Instance.EndGame(true);
 		canInteract = false;
 	}
 }

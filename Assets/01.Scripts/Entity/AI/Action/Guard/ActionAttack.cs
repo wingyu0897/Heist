@@ -31,7 +31,7 @@ public class ActionAttack : AIAction
 		}
 		brain.MoveByDirection(Vector2.zero, Vector2.zero);
 
-		if (canAttack)
+		if (canAttack && brain.Target.gameObject.activeInHierarchy)
 		{
 			canAttack = false;
 			StartCoroutine(Attack());

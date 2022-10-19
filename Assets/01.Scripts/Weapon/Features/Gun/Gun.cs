@@ -102,7 +102,7 @@ public class Gun : Weapon, IWeaponinfo
 
 	private void SpawnBullet() //Ç®¸Å´ÏÂ¡À¸·Î ÃÑ¾Ë »ý¼º
 	{
-		Bullet bullet = PoolManager.instance.Pop(gunData.bulletData.prefab.name) as Bullet;
+		Bullet bullet = PoolManager.Instance.Pop(gunData.bulletData.prefab.name) as Bullet;
 		if (bullet)
 		{
 			bullet.BulletData = gunData?.bulletData;

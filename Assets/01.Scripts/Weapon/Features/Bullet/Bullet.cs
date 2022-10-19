@@ -32,7 +32,7 @@ public class Bullet : Poolable
 
 		if (time > bulletData.lifeTime)
 		{
-			PoolManager.instance.Push(this);
+			PoolManager.Instance.Push(this);
 		}
 	}
 
@@ -43,7 +43,7 @@ public class Bullet : Poolable
 			IDamageable damageable = collision.GetComponent<IDamageable>();
 			damageable?.GetHit(bulletData.damage);
 
-			PoolManager.instance.Push(this);
+			PoolManager.Instance.Push(this);
 		}
 	}
 

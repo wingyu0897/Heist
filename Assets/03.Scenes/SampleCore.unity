@@ -2086,7 +2086,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   readyOnAwake: 0
   poolingList: {fileID: 11400000, guid: e0605354e116f074084945eed0da4e42, type: 2}
-  player: {fileID: 1658280653777805849, guid: 44677f815dbe07f4587aacf7d55d15bb, type: 3}
+  playerPrefab: {fileID: 1658280653777805849, guid: 44677f815dbe07f4587aacf7d55d15bb, type: 3}
+  player: {fileID: 0}
   currentGameState: 0
 --- !u!114 &1423142111
 MonoBehaviour:
@@ -2107,6 +2108,9 @@ MonoBehaviour:
   healthSlider: {fileID: 2183100242507913474}
   interactionUI: {fileID: 2183100243154102963}
   currentWeapon: {fileID: 0}
+  primaryDefault: {fileID: 3802506562545740530, guid: 97e12b2b803101747bea7560d0998807, type: 3}
+  secondaryDefault: {fileID: 6527779180966069162, guid: 5161bb3ba82949c4d8f86707a897a03c, type: 3}
+  meleeDefault: {fileID: 1684641025057267745, guid: 9be13ab12d5dfcf4b94f5a4055db34cc, type: 3}
   primaryWeapon: {fileID: 3802506562545740530, guid: 97e12b2b803101747bea7560d0998807, type: 3}
   secondaryWeapon: {fileID: 6527779180966069162, guid: 5161bb3ba82949c4d8f86707a897a03c, type: 3}
   meleeWeapon: {fileID: 1684641025057267745, guid: 9be13ab12d5dfcf4b94f5a4055db34cc, type: 3}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PoolManager
 {
-    public static PoolManager instance;
+    public static PoolManager Instance;
 
     private Dictionary<string, Pool<Poolable>> pools = new Dictionary<string, Pool<Poolable>>();
 
@@ -28,7 +28,8 @@ public class PoolManager
 		}
 		else 
 		{ 
-			Debug.LogError($"{obj.gameObject.name}은 풀에 존재하지 않습니다."); 
+			Debug.Log($"ERROR:PoolManager: {obj.gameObject.name}은 풀에 존재하지 않습니다.");
+			obj.gameObject.SetActive(false);
 		}
 	}
 
@@ -36,7 +37,7 @@ public class PoolManager
 	{
 		if (pools.ContainsKey(objName) == false)
 		{
-			Debug.Log($"Pop Error: {objName}이라는 풀은 없습니다.");
+			Debug.Log($"Error:PoolManager: {objName}이라는 풀은 없습니다.");
 			return null;
 		}
 

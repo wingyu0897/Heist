@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public enum GameState
@@ -10,27 +11,34 @@ public enum GameState
 	Menu,
 	Ready,
 	Runnding,
-	Ended
+	End
 }
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+	//[Header("--Setting--")]
 
-	public bool readyOnAwake = false;
-
-	[Header("Reference")]
+	[Header("--Reference--")]
 	[SerializeField] private PoolingListSO poolingList;
+	[SerializeField] private GameObject playerPrefab;
 	[SerializeField] private GameObject player;
 	public GameObject Player => player;
 
-	[Header("Properties")]
+	[Header("--Properties--")]
 	public GameState currentGameState = GameState.None;
+
+	[Header("--Event--")]
+	public UnityEvent OnStartGame;
+	public UnityEvent OnReadyGame;
+	public UnityEvent OnRunningGame;
+	public UnityEvent OnEndGame;
 
 	private void Awake()
 	{
-		if (Instance != null && Instance != this)
+		if (Instance != null)
 		{
+			Destroy(this);
 			Destroy(gameObject);
 		}
 		else
@@ -38,16 +46,16 @@ public class GameManager : MonoBehaviour
 			Instance = this;
 			DontDestroyOnLoad(gameObject);
 
-			PoolManager.instance = new PoolManager(transform);
-
 			if (SceneManager.GetActiveScene().buildIndex == 0)
 			{
 				SceneManager.LoadScene(1);
 			}
-		}
 
-		if (readyOnAwake)
-		{
+			if (PoolManager.Instance == null)
+			{
+				PoolManager.Instance = new PoolManager(transform);
+			}
+
 			ReadyGame();
 		}
 	}
@@ -56,41 +64,53 @@ public class GameManager : MonoBehaviour
 	{
 		foreach (PoolingSet ps in poolingList.list)
 		{
-			PoolManager.instance.CreatePool(ps.prefab, ps.count);
+			PoolManager.Instance.CreatePool(ps.prefab, ps.count);
 		}
 	}
 
 	public void StartGame()
 	{
 		SceneManager.LoadScene(2);
+		OnStartGame?.Invoke();
 	}
 
 	public void ReadyGame()
 	{
 		currentGameState = GameState.Ready;
-		player = Instantiate(player, null);
+
+		player = Instantiate(playerPrefab, null);
 		player.name = "Player";
-		player?.SetActive(false);
+		player.SetActive(false);
+		transform.Find("GameReadyCanvas").gameObject.SetActive(true);
 		GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
 		PlayerData.Instance.ReadyGame();
+
 		CreatePool();
+		OnReadyGame?.Invoke();
 	}
 
 	public void RunningGame()
 	{
 		currentGameState = GameState.Runnding;
-		player?.SetActive(true);
+
+		player.SetActive(true);
 		transform.Find("PlayerCanvas").gameObject.SetActive(true);
 		PlayerData.Instance.RunGame();
 		MissionData.Instance?.RunTheGame();
+
+		OnRunningGame?.Invoke();
 	}
 
-	public void EndGame()
+	public void EndGame(bool isSuccess)
 	{
-		currentGameState = GameState.Ended;
-		GameObject.FindGameObjectWithTag("Entity")?.SetActive(false);
+		currentGameState = GameState.End;
+
 		player.SetActive(false);
+		player = null;
 		transform.Find("PlayerCanvas").gameObject.SetActive(false);
-		MissionData.Instance?.EndTheGame();
+		PoolManager.Instance.DestroyPools();
+		MissionData.Instance?.EndTheGame(isSuccess);
+
+		OnEndGame?.Invoke();
 	}
 }

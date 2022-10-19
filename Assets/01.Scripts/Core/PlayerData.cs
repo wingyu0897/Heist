@@ -8,7 +8,18 @@ public class PlayerData : MonoBehaviour
 {
     public static PlayerData Instance;
 
-	[Header("Properties")]
+	[Header("--References--")]
+	[SerializeField] private TextMeshProUGUI moneyText;
+
+	[Header("--Data--")]
+	[SerializeField] private int money;
+	public int Money 
+	{
+		get => money;
+		set => money = Mathf.Clamp(value, 0, 999999999);
+	}
+
+	[Header("--Properties--")]
 	public bool isRunning = false;
 	public bool canRun = true;
 	public int backPacks = 0;
@@ -16,8 +27,12 @@ public class PlayerData : MonoBehaviour
 	public Slider healthSlider;
 	public GameObject interactionUI;
 
-	[Header("Weapon")]
+	[Header("--Weapon--")]
 	public Weapon currentWeapon;
+	public Weapon primaryDefault;
+	public Weapon secondaryDefault;
+	public Weapon meleeDefault;
+
 	public Weapon primaryWeapon;
 	public Weapon secondaryWeapon;
 	public Weapon meleeWeapon;
@@ -40,6 +55,7 @@ public class PlayerData : MonoBehaviour
 		else
 		{
 			Instance = this;
+			AddMoney(0);
 		}
 	}
 
@@ -66,6 +82,10 @@ public class PlayerData : MonoBehaviour
 		weaponParent = GameManager.Instance.Player.transform?.Find("WeaponHolder");
 		currentWeapon = primaryWeapon;
 		weaponMaterial = weaponImage.material;
+
+		primaryWeapon = primaryDefault;
+		secondaryWeapon = secondaryDefault;
+		meleeWeapon = meleeDefault;
 	}
 
 	public void RunGame()
@@ -100,5 +120,11 @@ public class PlayerData : MonoBehaviour
 		primaryWeapon = Instantiate(primaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
 		secondaryWeapon = Instantiate(secondaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
 		meleeWeapon = Instantiate(meleeWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
+	}
+
+	public void AddMoney(int value)
+	{
+		Money = money + value;
+		moneyText.text = string.Format("{0:#,##0$}", money);
 	}
 }

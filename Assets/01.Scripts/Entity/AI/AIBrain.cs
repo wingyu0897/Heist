@@ -116,7 +116,7 @@ public class AIBrain : MonoBehaviour
 	{
 		yield return new WaitForSeconds(4f);
 
-		MissionData.Instance.isLoud = true;
+		MissionData.Instance.Louded();
 		print("Reported!");
 	}
 }

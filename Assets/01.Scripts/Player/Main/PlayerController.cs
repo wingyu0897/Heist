@@ -105,5 +105,10 @@ public class PlayerController : MonoBehaviour, IDamageable
 		health -= damage;
 
 		PlayerData.Instance.healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
+
+		if (health <= 0)
+		{
+			GameManager.Instance.EndGame(false);
+		}
 	}
 }
