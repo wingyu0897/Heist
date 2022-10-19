@@ -1,37 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class obtion : MonoBehaviour
 {
-    public GameObject penel;
-    public bool menu_On_Off;
+    public GameObject panel;
+    public bool optionBool;
 
-    private void Start()
+    private void Awake()
     {
+        optionBool = false;
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (menu_On_Off == true)
+            if (optionBool)
             {
-                menu_On_Off = false;
+                optionBool = false;
+                panel.SetActive(false);
             }
-            if (menu_On_Off == false)
+            else
             {
-                menu_On_Off = true;
+                optionBool  =true;
+                panel.SetActive(true);
             }
         }
-
-        if (menu_On_Off)
-        {
-            penel.SetActive(false);
-        }
-        if (!menu_On_Off)
-        {
-            penel.SetActive(true);
-        }
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
