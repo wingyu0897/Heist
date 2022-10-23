@@ -24,11 +24,13 @@ public class WeaponBundle : Bundle
 
 	private void Awake()
 	{
+		isEquiped = false;
 		equipChecker = transform.Find("Image")?.GetComponent<Image>();
 	}
 
 	public override void OnEquip()
 	{
+		isEquiped = true;
 		equipChecker.color = Color.white;
 		PlayerData.Instance?.SetPrimaryWeapon(weaponPrimary);
 		PlayerData.Instance?.SetSecondaryWeapon(weaponSecondary);
@@ -37,6 +39,7 @@ public class WeaponBundle : Bundle
 
 	public override void OnUnEquip()
 	{
+		isEquiped = false;
 		equipChecker.color = Color.grey;
 	}
 

@@ -17,7 +17,8 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-	//[Header("--Setting--")]
+	[Header("--Flags--")]
+	[SerializeField] private bool readyOnAwake;
 
 	[Header("--Reference--")]
 	[SerializeField] private PoolingListSO poolingList;
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
 				PoolManager.Instance = new PoolManager(transform);
 			}
 
-			ReadyGame();
+			if (readyOnAwake) ReadyGame();
 		}
 	}
 
@@ -68,9 +69,9 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void StartGame()
+	public void StartGame(string scene)
 	{
-		SceneManager.LoadScene(2);
+		SceneManager.LoadScene(scene);
 		OnStartGame?.Invoke();
 	}
 

@@ -2,27 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.Events;
 
 public class WeaponSelect : MonoBehaviour
 {
 	[Header("--Reference--")]
 	[SerializeField] private Image bundleImage;
 	[SerializeField] private WeaponBundle defaultBundle;
-	[SerializeField] private SilencerBundle silencerBundle;
+	[SerializeField] private TextMeshProUGUI equipButtonText;
 
 	[Header("--Variables--")]
 	[SerializeField] private WeaponBundle currentWeaponBundle;
     [SerializeField] private Bundle currentSelection;
 
-	private void Start()
-	{
-		Initialize();
-	}
+	[Header("--Events--")]
+	public UnityEvent OnInitialize;
 
 	public void Initialize()
 	{
 		currentSelection = defaultBundle;
-		silencerBundle?.Initialize();
+		bundleImage.sprite = currentSelection.BundleImage;
+		OnInitialize?.Invoke();
 		Equip();
 	}
 
@@ -31,6 +32,7 @@ public class WeaponSelect : MonoBehaviour
 		currentSelection = bundle;
 		currentSelection.OnSelection();
 		bundleImage.sprite = currentSelection.BundleImage;
+		equipButtonText.text = currentSelection.IsEquiped ? "EQUIPED" : "EQUIP";
 	}
 
 	public void Equip()
@@ -39,8 +41,10 @@ public class WeaponSelect : MonoBehaviour
 		{
 			currentWeaponBundle?.OnUnEquip();
 			currentWeaponBundle = currentWeapon;
+
 		}
 
 		currentSelection?.OnEquip();
+		equipButtonText.text = currentSelection.IsEquiped ? "EQUIPED" : "EQUIP";
 	}
 }

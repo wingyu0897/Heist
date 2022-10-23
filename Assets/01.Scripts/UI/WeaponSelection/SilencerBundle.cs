@@ -20,11 +20,6 @@ public class SilencerBundle : Bundle
 		equipChecker = transform.Find("Image")?.GetComponent<Image>();
 	}
 
-	private void Start()
-	{
-		Initialize();
-	}
-
 	public void Initialize()
 	{
 		isEquiped = false;

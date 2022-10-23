@@ -35,7 +35,15 @@ public class MissionData : MonoBehaviour
 		else
 		{
 			Instance = this;
-			GameManager.Instance?.ReadyGame();
+
+			try
+			{
+				GameManager.Instance.ReadyGame();
+			}
+			catch
+			{
+				Debug.Log("ERROR:MissionData: Missing GameManager");
+			}
 		}
 	}
 
