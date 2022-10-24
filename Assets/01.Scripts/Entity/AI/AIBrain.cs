@@ -43,7 +43,7 @@ public class AIBrain : MonoBehaviour
 	{
 		enemy = GetComponent<Enemy>();
 		pathFinding = GetComponent<AIPathFinding>();
-		target = GameManager.Instance.Player.transform;
+		target = MissionData.Instance.player.transform;
 		currentAction?.StartState();
 	}
 

@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 	}
 
 	private void Start()
-	{		
+	{
+		print("Start");
 		transform.Find("WeaponHolder").GetComponent<WeaponManager>().SetWeapon(PlayerData.Instance.primaryWeapon, PlayerData.Instance.secondaryWeapon, PlayerData.Instance.meleeWeapon);
 		health = PlayerData.Instance.MaxHealth;
 		PlayerData.Instance.healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;

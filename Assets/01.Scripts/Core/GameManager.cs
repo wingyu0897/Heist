@@ -20,12 +20,6 @@ public class GameManager : MonoBehaviour
 	[Header("--Flags--")]
 	[SerializeField] private bool readyOnAwake;
 
-	[Header("--Reference--")]
-	[SerializeField] private PoolingListSO poolingList;
-	[SerializeField] private GameObject playerPrefab;
-	[SerializeField] private GameObject player;
-	public GameObject Player => player;
-
 	[Header("--Properties--")]
 	public GameState currentGameState = GameState.None;
 
@@ -52,20 +46,7 @@ public class GameManager : MonoBehaviour
 				SceneManager.LoadScene(1);
 			}
 
-			if (PoolManager.Instance == null)
-			{
-				PoolManager.Instance = new PoolManager(transform);
-			}
-
 			if (readyOnAwake) ReadyGame();
-		}
-	}
-
-	private void CreatePool()
-	{
-		foreach (PoolingSet ps in poolingList.list)
-		{
-			PoolManager.Instance.CreatePool(ps.prefab, ps.count);
 		}
 	}
 
@@ -79,14 +60,9 @@ public class GameManager : MonoBehaviour
 	{
 		currentGameState = GameState.Ready;
 
-		player = Instantiate(playerPrefab, null);
-		player.name = "Player";
-		player.SetActive(false);
 		transform.Find("GameReadyCanvas").gameObject.SetActive(true);
-		GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
 		PlayerData.Instance.ReadyGame();
 
-		CreatePool();
 		OnReadyGame?.Invoke();
 	}
 
@@ -94,7 +70,6 @@ public class GameManager : MonoBehaviour
 	{
 		currentGameState = GameState.Runnding;
 
-		player.SetActive(true);
 		transform.Find("PlayerCanvas").gameObject.SetActive(true);
 		PlayerData.Instance.RunGame();
 		MissionData.Instance?.RunTheGame();
@@ -106,10 +81,7 @@ public class GameManager : MonoBehaviour
 	{
 		currentGameState = GameState.End;
 
-		player.SetActive(false);
-		player = null;
 		transform.Find("PlayerCanvas").gameObject.SetActive(false);
-		PoolManager.Instance.DestroyPools();
 		MissionData.Instance?.EndTheGame(isSuccess);
 
 		OnEndGame?.Invoke();

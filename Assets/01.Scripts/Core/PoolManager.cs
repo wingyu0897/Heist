@@ -5,7 +5,6 @@ using UnityEngine;
 public class PoolManager
 {
     public static PoolManager Instance;
-
     private Dictionary<string, Pool<Poolable>> pools = new Dictionary<string, Pool<Poolable>>();
 
     private Transform parent;

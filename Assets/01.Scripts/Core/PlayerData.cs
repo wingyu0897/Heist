@@ -79,7 +79,7 @@ public class PlayerData : MonoBehaviour
 
 	public void ReadyGame()
 	{
-		weaponParent = GameManager.Instance.Player.transform?.Find("WeaponHolder");
+		weaponParent = MissionData.Instance.player.transform?.Find("WeaponHolder");
 		currentWeapon = primaryWeapon;
 		weaponMaterial = weaponImage.material;
 

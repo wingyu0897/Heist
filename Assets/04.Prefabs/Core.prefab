@@ -257,8 +257,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   readyOnAwake: 0
   poolingList: {fileID: 11400000, guid: e0605354e116f074084945eed0da4e42, type: 2}
-  playerPrefab: {fileID: 1658280653777805849, guid: 44677f815dbe07f4587aacf7d55d15bb, type: 3}
-  player: {fileID: 0}
   currentGameState: 0
   OnStartGame:
     m_PersistentCalls:
@@ -2362,7 +2360,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bundleImage: {fileID: 8050588566644259618}
   defaultBundle: {fileID: 8050588566262649367}
-  silencerBundle: {fileID: 8050588566273813692}
   equipButtonText: {fileID: 8050588565902097214}
   currentWeaponBundle: {fileID: 0}
   currentSelection: {fileID: 0}
