@@ -26,9 +26,6 @@ public class PlayerData : MonoBehaviour
 	public bool isRunning = false;
 	public bool canRun = true;
 	public int backPacks = 0;
-	public int interactionSpeed = 1;
-	public Slider healthSlider;
-	public GameObject interactionUI;
 
 	//[Header("--Weapon--")]
 	//public Weapon currentWeapon;
@@ -41,13 +38,8 @@ public class PlayerData : MonoBehaviour
 	//public Weapon meleeWeapon;
 
 	[SerializeField] private int maxHealth = 1000;
-	//[SerializeField] private TextMeshProUGUI mainText;
-	//[SerializeField] private TextMeshProUGUI subText;
-	//[SerializeField] private Image weaponImage; 
 	//[SerializeField] private Transform weaponParent;
 	public int MaxHealth { get => maxHealth; set => maxHealth = Mathf.Clamp(value, 0, int.MaxValue); }
-
-	//private Material weaponMaterial;
 
 	private void Awake()
 	{
@@ -61,24 +53,6 @@ public class PlayerData : MonoBehaviour
 			AddMoney(0);
 		}
 	}
-
-	//private void FixedUpdate()
-	//{
-	//	if (currentWeapon) //무기 정보 설정
-	//	{
-	//		if (currentWeapon.TryGetComponent(out IWeaponinfo currentInfo))
-	//		{
-	//			mainText.text = currentInfo.MainInfo;
-	//			subText.text = currentInfo.SubInfo;
-	//			weaponMaterial.SetTexture("_MainTexture", currentInfo.WeaponImage);
-	//		}
-	//		else
-	//		{
-	//			mainText.text = "--";
-	//			subText.text = "---";
-	//		}
-	//	}
-	//}
 
 	public void ReadyGame()
 	{
@@ -117,13 +91,6 @@ public class PlayerData : MonoBehaviour
 	//	currentWeapon = weapon;
 	//}
 	#endregion
-
-	//public void CreateWeaponGameObject() //무기 생성
-	//{
-	//	primaryWeapon = Instantiate(primaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
-	//	secondaryWeapon = Instantiate(secondaryWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
-	//	meleeWeapon = Instantiate(meleeWeapon.GetPrefab(), weaponParent).GetComponent<Weapon>();
-	//}
 
 	public void AddMoney(int value)
 	{

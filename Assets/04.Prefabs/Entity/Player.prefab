@@ -1216,7 +1216,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.72
+  m_Value: 0.75
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1863,6 +1863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42ebc264ffbaac4fb2fd4bed334e88b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthSlider: {fileID: 1817865045}
   OnMovementPress:
     m_PersistentCalls:
       m_Calls: []

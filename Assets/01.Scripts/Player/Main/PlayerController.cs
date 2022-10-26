@@ -6,6 +6,13 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
+	private Movement movement;
+	private Vector2 mousePos;
+	[SerializeField] private Slider healthSlider;
+	private float health;
+	public int Health { get => (int)health; set => health = value; }
+
+	[Header("--Events--")]
 	public UnityEvent<Vector2> OnMovementPress;
 	public UnityEvent<Vector2> OnPointerPositionChange;
 
@@ -13,12 +20,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 	public UnityEvent OnAttackButtonReleased;
 	public UnityEvent OnReloadWeapon;
 	public UnityEvent<int> OnChangeWeapon;
-
-	private Movement movement;
-	private Vector2 mousePos;
-	private float health;
-
-	public int Health { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
 	private void Awake()
 	{
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 	{
 		//transform.Find("WeaponHolder").GetComponent<WeaponManager>().SetWeapon(PlayerData.Instance.primaryWeapon, PlayerData.Instance.secondaryWeapon, PlayerData.Instance.meleeWeapon);
 		health = PlayerData.Instance.MaxHealth;
-		PlayerData.Instance.healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
+		healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
 	}
 
 	private void FixedUpdate()
@@ -103,8 +104,9 @@ public class PlayerController : MonoBehaviour, IDamageable
 	public void GetHit(int damage)
 	{
 		health -= damage;
+		healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
 
-		PlayerData.Instance.healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
+		print((PlayerData.Instance.MaxHealth));
 
 		if (health <= 0)
 		{
