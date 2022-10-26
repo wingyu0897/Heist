@@ -5,21 +5,21 @@ using UnityEngine.UI;
 
 public class Interaction : MonoBehaviour
 {
+	[Header("--References--")]
     [SerializeField] private float interactableRange;
-	[SerializeField] private int layerMask;
+	[SerializeField] private int interactableLayer;
+	[SerializeField] private Image interactionImage;
 
 	private float time = 0;
 	private Vector2 pointer;
 	private RaycastHit2D hit;
-	private Image interactionImage;
 	private GameObject interactionObject;
 	private Interactable interactable;
 
 	private void Start()
 	{
-		interactionImage = PlayerData.Instance.interactionUI.transform.GetComponentInChildren<Image>();
 		interactionObject = interactionImage.transform.parent.gameObject;
-		layerMask = 1 << LayerMask.NameToLayer("Interactable");
+		interactableLayer = 1 << LayerMask.NameToLayer("Interactable");
 	}
 
 	private void Update()
@@ -29,7 +29,7 @@ public class Interaction : MonoBehaviour
 
 	private void Interactive()
 	{
-		hit = Physics2D.Raycast(pointer, Vector2.zero, 10, layerMask);
+		hit = Physics2D.Raycast(pointer, Vector2.zero, 10, interactableLayer);
 
 		if (Vector3.Distance(transform.position, pointer) <= interactableRange && hit.collider != null)
 		{

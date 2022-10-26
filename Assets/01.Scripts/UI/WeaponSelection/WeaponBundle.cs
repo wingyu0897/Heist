@@ -32,9 +32,9 @@ public class WeaponBundle : Bundle
 	{
 		isEquiped = true;
 		equipChecker.color = Color.white;
-		PlayerData.Instance?.SetPrimaryWeapon(weaponPrimary);
-		PlayerData.Instance?.SetSecondaryWeapon(weaponSecondary);
-		PlayerData.Instance?.SetMeleeWeapon(weaponMelee);
+		//PlayerData.Instance?.SetPrimaryWeapon(weaponPrimary);
+		//PlayerData.Instance?.SetSecondaryWeapon(weaponSecondary);
+		//PlayerData.Instance?.SetMeleeWeapon(weaponMelee);
 	}
 
 	public override void OnUnEquip()

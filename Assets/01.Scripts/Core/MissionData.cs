@@ -11,8 +11,9 @@ public class MissionData : MonoBehaviour
 
 	[Header("--References--")]
 	[SerializeField] private PoolingListSO poolingList;
-	[SerializeField] private GameObject resultPanel;
 	[SerializeField] private CinemachineVirtualCamera playerCamera;
+	[SerializeField] private TextMeshProUGUI earnMoney;
+	[SerializeField] private TextMeshProUGUI moneyText;
 
 	[Header("--Properties--")]
 	public GameObject player;
@@ -25,6 +26,7 @@ public class MissionData : MonoBehaviour
 
 	[Header("--Events--")]
 	public UnityEvent OnLouded;
+	public UnityEvent OnReadyGame;
 	public UnityEvent OnRunGame;
 	public UnityEvent OnEndGame;
 
@@ -58,6 +60,7 @@ public class MissionData : MonoBehaviour
 	{
 		CreatePool();
 		player.SetActive(false);
+		OnReadyGame?.Invoke();
 	}
 
 	private void CreatePool()
@@ -66,6 +69,11 @@ public class MissionData : MonoBehaviour
 		{
 			PoolManager.Instance.CreatePool(ps.prefab, ps.count);
 		}
+	}
+
+	private void FixedUpdate()
+	{
+		moneyText.text = string.Format("{0:#,##0$}", PlayerData.Instance.Money);
 	}
 
 	public void Louded()
@@ -77,8 +85,10 @@ public class MissionData : MonoBehaviour
 		}
 	}
 
-	public void RunTheGame()
+	public void StartGame()
 	{
+		GameManager.Instance.StartGame();
+
 		player.SetActive(true);
 		playerCamera.Priority = 11;
 
@@ -94,17 +104,20 @@ public class MissionData : MonoBehaviour
 
 		player.SetActive(false);
 		playerCamera.Priority = 9;
+
+		earnMoney.text = $"Earn Money : {string.Format("{0:#,##0}", EarnedMoney())}";
+		OnEndGame?.Invoke();
+	}
+
+	public int EarnedMoney()
+	{
 		int money = 0;
 
-		if (isSuccess)
+		foreach (Package elem in gains)
 		{
-			foreach (Package elem in gains)
-			{
-				money += elem.Price;
-			}
+			money += elem.Price;
 		}
 
-		resultPanel.transform.Find("ResultPanel").Find("EarnMoney").GetComponent<TextMeshProUGUI>().text = $"Earn Money : {string.Format("{0:#,##0}", money)}";
-		OnEndGame?.Invoke();
+		return money;
 	}
 }

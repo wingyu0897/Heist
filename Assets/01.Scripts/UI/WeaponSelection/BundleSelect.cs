@@ -5,11 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
 
-public class WeaponSelect : MonoBehaviour
+public class BundleSelect : MonoBehaviour
 {
 	[Header("--Reference--")]
 	[SerializeField] private Image bundleImage;
-	[SerializeField] private WeaponBundle defaultBundle;
+	[SerializeField] private WeaponBundle defaultWeaponBundle;
 	[SerializeField] private TextMeshProUGUI equipButtonText;
 
 	[Header("--Variables--")]
@@ -21,7 +21,7 @@ public class WeaponSelect : MonoBehaviour
 
 	public void Initialize()
 	{
-		currentSelection = defaultBundle;
+		currentSelection = defaultWeaponBundle;
 		bundleImage.sprite = currentSelection.BundleImage;
 		OnInitialize?.Invoke();
 		Equip();
@@ -37,11 +37,10 @@ public class WeaponSelect : MonoBehaviour
 
 	public void Equip()
 	{
-		if (currentSelection.gameObject.TryGetComponent(out WeaponBundle currentWeapon))
+		if (currentSelection.TryGetComponent(out WeaponBundle currentWeapon))
 		{
 			currentWeaponBundle?.OnUnEquip();
 			currentWeaponBundle = currentWeapon;
-
 		}
 
 		currentSelection?.OnEquip();

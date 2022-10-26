@@ -4,8 +4,14 @@ using UnityEngine.Events;
 
 public class WeaponManager : MonoBehaviour
 {
+	[Header("--Weapon--")]
 	[SerializeField] private List<Weapon> weapons = new List<Weapon>();
-	[SerializeField] private Weapon currentWeapon;
+	public Weapon currentWeapon;
+	[SerializeField] Weapon primaryWeapon;
+	[SerializeField] Weapon secondaryWeapon;
+	[SerializeField] Weapon meleeWeapon;
+
+	[Header("--Properties--")]
 	[SerializeField] private Transform basePosition;
 	[Range(0, 1)][Tooltip("GunHolder의 Slerp 값")]
 	[SerializeField] private float slerpHolder;
@@ -15,6 +21,11 @@ public class WeaponManager : MonoBehaviour
 	public UnityEvent OnAttack;
 	public UnityEvent<Weapon> OnChangeWeapon;
 
+	private void Awake()
+	{
+		SetWeapon(primaryWeapon, secondaryWeapon, meleeWeapon);		
+	}
+
 	private void Start()
 	{
 		currentWeapon?.Init();
@@ -22,9 +33,9 @@ public class WeaponManager : MonoBehaviour
 
 	public void SetWeapon(Weapon primary = null, Weapon secondary = null, Weapon melee = null)
 	{
-		primary.Init();
-		secondary.Init();
-		melee.Init();
+		primary?.Init();
+		secondary?.Init();
+		melee?.Init();
 
 		weapons.Add(primary);
 		weapons.Add(secondary);
@@ -35,9 +46,9 @@ public class WeaponManager : MonoBehaviour
 
 	public void AssignWeapon(int weaponNum) //현재 무기의 WeaponRenderer 가져오기
 	{
-		foreach (Weapon we in weapons)
+		foreach (Weapon item in weapons)
 		{
-			we.gameObject.SetActive(false);
+			item?.gameObject.SetActive(false);
 		}
 
 		if (weaponNum <= weapons.Count - 1)
@@ -46,7 +57,6 @@ public class WeaponManager : MonoBehaviour
 			currentWeapon.gameObject.SetActive(true);
 			weaponRenderer = currentWeapon.transform.GetComponent<WeaponRenderer>();
 			weaponRenderer.Init();
-			PlayerData.Instance.currentWeapon = currentWeapon;
 		}
 
 		OnChangeWeapon?.Invoke(currentWeapon);

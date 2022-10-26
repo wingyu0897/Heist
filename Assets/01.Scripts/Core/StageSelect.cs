@@ -29,6 +29,6 @@ public class StageSelect : MonoBehaviour
 
 	public void StartGame()
 	{
-		GameManager.Instance?.StartGame(currentStage.stageName);
+		GameManager.Instance?.LoadGame(currentStage.stageName);
 	}
 }

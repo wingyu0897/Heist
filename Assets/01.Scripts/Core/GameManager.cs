@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void StartGame(string scene)
+	public void LoadGame(string scene)
 	{
 		SceneManager.LoadScene(scene);
 		OnStartGame?.Invoke();
@@ -60,19 +60,16 @@ public class GameManager : MonoBehaviour
 	{
 		currentGameState = GameState.Ready;
 
-		transform.Find("GameReadyCanvas").gameObject.SetActive(true);
 		PlayerData.Instance.ReadyGame();
 
 		OnReadyGame?.Invoke();
 	}
 
-	public void RunningGame()
+	public void StartGame()
 	{
 		currentGameState = GameState.Runnding;
 
-		transform.Find("PlayerCanvas").gameObject.SetActive(true);
 		PlayerData.Instance.RunGame();
-		MissionData.Instance?.RunTheGame();
 
 		OnRunningGame?.Invoke();
 	}
@@ -81,7 +78,6 @@ public class GameManager : MonoBehaviour
 	{
 		currentGameState = GameState.End;
 
-		transform.Find("PlayerCanvas").gameObject.SetActive(false);
 		MissionData.Instance?.EndTheGame(isSuccess);
 
 		OnEndGame?.Invoke();
