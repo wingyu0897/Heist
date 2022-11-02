@@ -12,6 +12,8 @@ public class PickUpPackage : Interactable
 	public bool isHolding = false;
 
 	public override float InteractionTime => packageData.interactiveTime;
+	[SerializeField] private string infoText = "Hold [F] To Grab Package";
+	public override string InfoText => infoText;
 
 	private SpriteRenderer spriteRenderer;
 	private Collider2D mCollider;

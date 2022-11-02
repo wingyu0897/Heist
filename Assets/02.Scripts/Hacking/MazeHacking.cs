@@ -33,6 +33,7 @@ public class MazeHacking : Hacking
 	private bool canMove = true;
 	private bool isClear = false;
 
+	[Header("--Events--")]
 	public UnityEvent OnSuccessHacking;
 	public UnityEvent OnFailureHacking;
 
@@ -54,16 +55,13 @@ public class MazeHacking : Hacking
 
 	private void FixedUpdate()
 	{
-		if (isActive)
+		if (canMove && isActive)
 		{
-			if (canMove)
-			{
-				playerMovement.Move(direction);
-			}
-			else
-			{
-				playerMovement.Move(Vector2.zero);
-			}
+			playerMovement.Move(direction);
+		}
+		else
+		{
+			playerMovement.Move(Vector2.zero);
 		}
 	}
 
@@ -81,6 +79,7 @@ public class MazeHacking : Hacking
 	public override void StartHacking()
 	{
 		isActive = true;
+		canMove = true;
 	}
 
 	public void FailureHacking()
@@ -97,10 +96,10 @@ public class MazeHacking : Hacking
 	public void MoveToNextLevel()
 	{
 		maps[currentLevel-1].targetSprite.color = Color.green;
-		canMove = false;
 
 		if (currentLevel < maps.Count)
 		{
+			isActive = true;
 			StartCoroutine(ActiveNextLevel());
 		}
 		else
@@ -115,13 +114,14 @@ public class MazeHacking : Hacking
 	{
 		if (isActive)
 		{
+			canMove = false;
+			isActive = false;
 			if (collision.gameObject.layer == LayerMask.NameToLayer(targetLayer))
 			{
 				MoveToNextLevel();
 			}
 			else
 			{
-				canMove = false;
 				FailureHacking();
 			}
 		}

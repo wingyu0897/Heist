@@ -6,6 +6,9 @@ public class StartHacking : Interactable
 {
 	[SerializeField] private float interactionTime;
 	public override float InteractionTime => interactionTime;
+	[SerializeField] private string infoText = "Hold [F] To Start Hacking";
+	public override string InfoText => infoText;
+
 	[SerializeField] private Hacking hacking;
 
 	private bool isClosed = false;

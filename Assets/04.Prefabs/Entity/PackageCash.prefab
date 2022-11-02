@@ -115,3 +115,4 @@ MonoBehaviour:
   packageData: {fileID: 11400000, guid: 704b2d479573b064b8d21d6e182d66a4, type: 2}
   canInteract: 1
   isHolding: 0
+  infoText: Hold [F] To Grab Package

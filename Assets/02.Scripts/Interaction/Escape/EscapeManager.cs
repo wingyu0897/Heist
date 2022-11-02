@@ -6,6 +6,9 @@ public class EscapeManager : Interactable
 {
 	[SerializeField] private float interactionTime;
 	public override float InteractionTime => interactionTime;
+	[SerializeField] private string infoText = "Hold [F] To Escape";
+	public override string InfoText => infoText;
+
 	[SerializeField] private List<EscapeCondition> decisionsFirst;
 	[SerializeField] private List<EscapeCondition> decisionsSecond;
 

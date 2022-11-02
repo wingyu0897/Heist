@@ -12,6 +12,7 @@ public abstract class Interactable : MonoBehaviour
 	}
 
 	public abstract float InteractionTime { get; }
+	public abstract string InfoText { get; }
 
 	public abstract void Initialization();
 

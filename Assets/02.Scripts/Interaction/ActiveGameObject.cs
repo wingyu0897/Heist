@@ -6,8 +6,10 @@ using UnityEngine.Events;
 public class ActiveGameObject : Interactable
 {
 	[SerializeField] private float interactionTime;
-	[SerializeField] private bool canMultipleInteraction;
 	public override float InteractionTime => interactionTime;
+	[SerializeField] private string infoText = "Hold [F] To Active Object";
+	public override string InfoText => infoText;
+	[SerializeField] private bool canMultipleInteraction;
 
 	private bool canInteract = true;
 
