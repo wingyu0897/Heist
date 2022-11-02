@@ -34,4 +34,9 @@ public class obtion : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+    public void Back()// ¸Þ´ºÃ¢ ´Ý±â
+    {
+        optionBool = false;
+        panel.SetActive(false);
+    }
 }
