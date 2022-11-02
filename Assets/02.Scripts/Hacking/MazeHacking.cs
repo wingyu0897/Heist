@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+
+[System.Serializable]
+public class Map
+{
+	public GameObject mapObj;
+	public Image targetSprite;
+}
 
 public class MazeHacking : Hacking
 {
 	[Header("--Reference--")]
 	[SerializeField] private Movement playerMovement;
-	[SerializeField] private List<GameObject> maps = new List<GameObject>();
+	[SerializeField] private List<Map> maps = new List<Map>();
 
 	[Header("--Setting--")]
 	[SerializeField] private Vector2 basePosition;
@@ -61,12 +69,13 @@ public class MazeHacking : Hacking
 
 	public override void Initialize() //√ ±‚»≠
 	{
-		playerMovement.transform.localPosition = basePosition;
+		StopAllCoroutines();
 		isClear = false;
 		isActive = false;
 		canMove = true;
-		direction = Vector2.right;
 		currentLevel = 1;
+		direction = Vector2.right;
+		playerMovement.transform.localPosition = basePosition;
 	}
 
 	public override void StartHacking()
@@ -77,6 +86,7 @@ public class MazeHacking : Hacking
 	public void FailureHacking()
 	{
 		OnFailureHacking?.Invoke();
+		StartCoroutine(OnClear());
 	}
 
 	public void SuccessHacking()
@@ -86,20 +96,18 @@ public class MazeHacking : Hacking
 
 	public void MoveToNextLevel()
 	{
+		maps[currentLevel-1].targetSprite.color = Color.green;
+		canMove = false;
+
 		if (currentLevel < maps.Count)
 		{
-			maps[currentLevel-1].SetActive(false);
-			maps[currentLevel].SetActive(true);
-			currentLevel++;
-
-			playerMovement.transform.localPosition = basePosition;
-			direction = Vector2.right;
+			StartCoroutine(ActiveNextLevel());
 		}
 		else
 		{
-			canMove = false;
 			isClear = true;
 			OnSuccessHacking?.Invoke();
+			StartCoroutine(OnClear());
 		}
 	}
 
@@ -117,5 +125,25 @@ public class MazeHacking : Hacking
 				FailureHacking();
 			}
 		}
+	}
+
+	private IEnumerator OnClear()
+	{
+		yield return new WaitForSeconds(1f);
+
+		gameObject.SetActive(false);
+	}
+
+	private IEnumerator ActiveNextLevel()
+	{
+		yield return new WaitForSeconds(1f);
+
+		maps[currentLevel - 1].mapObj.SetActive(false);
+		maps[currentLevel].mapObj.SetActive(true);
+		currentLevel++;
+
+		playerMovement.transform.localPosition = basePosition;
+		direction = Vector2.right;
+		canMove = true;
 	}
 }

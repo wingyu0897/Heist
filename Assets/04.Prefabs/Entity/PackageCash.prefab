@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 7640394066848208512}
   - component: {fileID: 7640394066848208519}
   - component: {fileID: 7640394066848208513}
-  - component: {fileID: 7640394066848208514}
+  - component: {fileID: 8150720959648657118}
   m_Layer: 0
   m_Name: PackageCash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7640394066848208512
 Transform:
@@ -100,7 +100,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 2.285, y: 1}
   m_Direction: 1
---- !u!114 &7640394066848208514
+--- !u!114 &8150720959648657118
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7640394066848208518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8135c0167d8c744a87d008c57a8185c, type: 3}
+  m_Script: {fileID: 11500000, guid: 02340ec89e9c78e44a337f8ae8dc3019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   packageData: {fileID: 11400000, guid: 704b2d479573b064b8d21d6e182d66a4, type: 2}
