@@ -34,6 +34,12 @@ public class WeaponManager : MonoBehaviour
 
 	public void SetWeapon(Weapon primary = null, Weapon secondary = null, Weapon melee = null)
 	{
+		for (int i = 0; i < 3; i++)
+		{
+			if (weapons.Count > i && weapons[i]) //기존에 존재하는 무기를 비활성화
+				weapons[i]?.gameObject?.SetActive(false);
+		}
+
 		primaryWeapon = primary;
 		secondaryWeapon = secondary;
 		meleeWeapon = melee;
