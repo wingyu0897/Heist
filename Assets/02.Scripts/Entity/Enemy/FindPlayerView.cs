@@ -21,7 +21,6 @@ public class FindPlayerView : MonoBehaviour
     private float horizontalViewHalfAngle = 0f;
 
     [Header("Detect Player")]
-    [SerializeField] private Slider detectiveGaugeSlider;
     [SerializeField] private float detectTime;
     [SerializeField] private float minDistance;
     private bool findPlayer = false;
@@ -34,16 +33,10 @@ public class FindPlayerView : MonoBehaviour
 		horizontalViewHalfAngle = horizontalViewAngle * 0.5f;
         brain = GetComponent<AIBrain>();
         spotLight = transform.Find("Light")?.gameObject;
+        detectTime = MissionData.Instance.detectTime;
     }
 
-	private void Update()
-	{
-		FindViewTargets();
-        //detectiveGaugeSlider.value = brain.isNotice ? (brain.DetectiveGauge = detectTime) / detectTime : brain.DetectiveGauge / detectTime;
-        //detectiveGaugeSlider?.gameObject.SetActive(brain.DetectiveGauge > 0);
-    }
-
-	private void FindViewTargets() //플레이어 감지 함수
+	public void FindViewTargets() //플레이어 감지 함수
 	{
         Vector2 originPos = transform.position;
         Collider2D hitedTargets = Physics2D.OverlapCircle(originPos, viewRadius, playerLayerMask); //OverlapCircle을 이용해 범위 내 적을 감지
@@ -77,36 +70,35 @@ public class FindPlayerView : MonoBehaviour
 
 					if (rayHitedTarget.distance < minDistance)
 					{
-						brain.Notice();
+                        brain.Notice();
 					}
 				}
             }
 		}
 
+        brain.isPlayerInView = findPlayer;
         FindPlayer();
 	}
 
     private void FindPlayer()
 	{
-        brain.DetectiveGauge = brain.isNotice ? detectTime : brain.DetectiveGauge;
-
-        if (findPlayer == true)
+        if (MissionData.Instance.detectTime <= brain.DetectiveGauge)
 		{
-            brain.DetectiveGauge += Time.deltaTime;
-            brain.IsPlayerInView = true;
+		    brain.Notice();
 		}
 		else
 		{
-            brain.DetectiveGauge -= Time.deltaTime * 0.5f;
-            brain.IsPlayerInView = false;
+            if (findPlayer == true)
+		    {
+                brain.DetectiveGauge += Time.deltaTime;
+		    }
+		    else
+		    {
+                brain.DetectiveGauge -= Time.deltaTime * 0.5f;
+		    }
 		}
 
         brain.DetectiveGauge = Mathf.Clamp(brain.DetectiveGauge, 0, detectTime);
-
-		if (brain.DetectiveGauge >= detectTime)
-		{
-			brain.Notice();
-		}
 	}
 
     public void LookAt(Vector2 targetPos)

@@ -31,7 +31,7 @@ public class NodeScan : MonoBehaviour
 		ScanNodes();
 	}
 
-	private void ScanNodes()
+	public void ScanNodes()
 	{
 		//nodeArray의 사이즈 지정, isWall, x, y 대입
 		sizeX = topRight.x - bottomLeft.x + 1;
@@ -56,10 +56,13 @@ public class NodeScan : MonoBehaviour
 		}
 	}
 
+#if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
 		if (drawGizmos)
 		{
+			ScanNodes();
+
 			for (int i = 0; i < sizeX; i++)
 			{
 				for (int j = 0; j < sizeY; j++)
@@ -82,4 +85,5 @@ public class NodeScan : MonoBehaviour
 			}
 		}
 	}
+#endif
 }

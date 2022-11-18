@@ -22,9 +22,11 @@ MonoBehaviour:
   reloadTime: 2
   bulletData: {fileID: 11400000, guid: 938a8c57581e2c1479f08d679310b7d2, type: 2}
   isAuto: 0
+  bulletPerShot: 1
+  bulletSpreadAngle: 0
   muzzle: {fileID: 0}
   fireRate: 0.15
-  spreadAngle: 15
+  recoilSpreadAngle: 15
   minAimRange: 0.5
   gunSlerpSpeed: 0.25
   shootClip: {fileID: 8300000, guid: b59445f00907b3b48a72a09a93ee2966, type: 3}

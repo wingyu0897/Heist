@@ -7,19 +7,20 @@ public class ActionScout : AIAction
 	[SerializeField] private float scoutDelayMin;
 	[SerializeField] private float scoutDelayMax;
 	[SerializeField] private List<Vector2Int> scoutPoints = new List<Vector2Int>();
+	private Vector3 basePosition;
 
 	private Vector2Int currentTargetPoint;
 	private bool move = true;
 
 	private void Start()
 	{
-		currentTargetPoint = scoutPoints[0];
+		basePosition = brain.BasePosition.position;
 	}
 
 	public override void EnterAction()
 	{
-		move = true;
-		currentTargetPoint = scoutPoints[0];
+		move = false;
+		StartCoroutine(SelectNextPoint());
 	}
 
 	public override void TakeAction()
@@ -47,20 +48,30 @@ public class ActionScout : AIAction
 
 	IEnumerator SelectNextPoint() //다음 위치를 랜덤으로 지정
 	{
-		currentTargetPoint = scoutPoints[Random.Range(0, scoutPoints.Count)];
-
 		yield return new WaitForSeconds(Random.Range(scoutDelayMin, scoutDelayMax));
 
-		move = true;
+		if (scoutPoints.Count != 0)
+		{
+			currentTargetPoint = new Vector2Int(Mathf.RoundToInt(basePosition.x), Mathf.RoundToInt(basePosition.y)) + scoutPoints[Random.Range(0, scoutPoints.Count)];
+			move = true;
+		}
 	}
 
+#if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
+		if (brain == null)
+		{
+			brain = transform.parent.parent.GetComponent<AIBrain>();
+		}
+		Vector2 basePosition = !Application.isPlaying ? brain.BasePosition.position : this.basePosition;
+
 		for (int i = 0; i < scoutPoints.Count; i++)
 		{
 			Gizmos.color = Color.magenta;
-			Gizmos.DrawWireSphere((Vector2)scoutPoints[i], 0.5f);
-			Gizmos.DrawLine((Vector2)scoutPoints[i], (Vector2)scoutPoints[i == 0 ? scoutPoints.Count - 1 : i - 1]);
+			Gizmos.DrawWireSphere(basePosition + scoutPoints[i], 0.5f);
+			Gizmos.DrawLine(basePosition + scoutPoints[i], basePosition + scoutPoints[i == 0 ? scoutPoints.Count - 1 : i - 1]);
 		}
 	}
+#endif
 }

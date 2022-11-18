@@ -36,7 +36,7 @@ public class Interaction : MonoBehaviour
 		if (Vector3.Distance(transform.position, pointer) <= interactableRange && hit.collider != null)
 		{
 			//상호작용하던 오브젝트가 바뀜
-			if (hit.collider.gameObject != interactable?.gameObject)
+			if (interactable == null ||  hit.collider.gameObject != interactable?.gameObject)
 			{
 				interactable = hit.collider.GetComponent<Interactable>();
 				time = 0;

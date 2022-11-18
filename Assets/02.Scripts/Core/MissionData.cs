@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class MissionData : MonoBehaviour
 {
@@ -14,11 +15,18 @@ public class MissionData : MonoBehaviour
 	[SerializeField] private CinemachineVirtualCamera playerCamera;
 	[SerializeField] private TextMeshProUGUI earnMoney;
 	[SerializeField] private TextMeshProUGUI moneyText;
+	[SerializeField] private Slider detectGaugeSlider;
+
+	[Header("--Parameters--")]
+	public float detectTime;
+	public float detectGauge = 0f;
 
 	[Header("--Properties--")]
 	public GameObject player;
+	public NodeScan nodeScanner;
 	public bool isSilencer = false;
 	public bool isDetected = false;
+	public bool isDetecting = false;
 	public bool isLoud = false;
 
 	[Header("--Datas--")]
@@ -29,6 +37,8 @@ public class MissionData : MonoBehaviour
 	public UnityEvent OnReadyGame;
 	public UnityEvent OnRunGame;
 	public UnityEvent OnEndGame;
+	public UnityEvent OnGameFailure;
+	public UnityEvent OnGameSuccess;
 
 	private void Awake()
 	{
@@ -39,11 +49,6 @@ public class MissionData : MonoBehaviour
 		else
 		{
 			Instance = this;
-
-			if (PoolManager.Instance == null)
-			{
-				PoolManager.Instance = new PoolManager(GameManager.Instance.transform);
-			}
 
 			try
 			{
@@ -58,8 +63,15 @@ public class MissionData : MonoBehaviour
 
 	private void Start()
 	{
+		if (PoolManager.Instance == null)
+		{
+			PoolManager.Instance = new PoolManager(GameManager.Instance.transform);
+		}
 		CreatePool();
-		player.SetActive(false);
+		if (player)
+		{
+			player?.SetActive(false);
+		}
 		OnReadyGame?.Invoke();
 	}
 
@@ -71,9 +83,23 @@ public class MissionData : MonoBehaviour
 		}
 	}
 
+	private void LateUpdate()
+	{
+		if (!isDetecting && !isDetected && !isLoud)
+		{
+			detectGauge -= Time.deltaTime * 0.5f;
+			detectGauge = Mathf.Clamp(detectGauge, 0, detectTime);
+		}
+
+		DetectGauge();
+	}
+
 	private void FixedUpdate()
 	{
-		moneyText.text = string.Format("{0:#,##0$}", PlayerData.Instance.Money);
+		if (moneyText)
+		{
+			moneyText.text = string.Format("{0:#,##0$}", PlayerData.Instance.Money);
+		}
 	}
 
 	public void Louded()
@@ -106,7 +132,18 @@ public class MissionData : MonoBehaviour
 		player.SetActive(false);
 		playerCamera.Priority = 9;
 
-		earnMoney.text = $"Earn Money : {string.Format("{0:#,##0}", EarnedMoney())}";
+
+		if (isSuccess)
+		{
+			earnMoney.text = $"Earn Money : {string.Format("{0:#,##0}", EarnedMoney())}";
+			OnGameSuccess?.Invoke();
+		}
+		else
+		{
+			earnMoney.text = "0";
+			OnGameFailure?.Invoke();
+		}
+
 		OnEndGame?.Invoke();
 	}
 
@@ -120,5 +157,36 @@ public class MissionData : MonoBehaviour
 		}
 
 		return money;
+	}
+
+	private void DetectGauge()
+	{
+		if (detectGauge > 0 && !isLoud)
+		{
+			detectGaugeSlider?.gameObject.SetActive(true);
+		}
+		else
+		{
+			detectGaugeSlider?.gameObject.SetActive(false);
+		}
+
+		isDetecting = false;
+
+		if (detectGaugeSlider)
+		{
+			detectGaugeSlider.value = detectGauge / detectTime;
+		}
+	}
+
+	public void DetectInput(float value)
+	{
+		isDetecting = true;
+
+		if (value > detectGauge)
+		{
+			detectGauge = value;
+		}
+
+		detectGauge = Mathf.Clamp(detectGauge, 0, detectTime);
 	}
 }

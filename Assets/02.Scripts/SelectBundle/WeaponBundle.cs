@@ -10,6 +10,7 @@ public class WeaponBundle : Bundle
 	public override bool CanUnEquip => canUnEquip;
 
 	[Header("--Parameter--")]
+	[SerializeField] private int price;
 	[SerializeField] private Weapon weaponPrimary;
 	public Weapon Primary => weaponPrimary;
 	[SerializeField] private Weapon weaponSecondary;
@@ -38,13 +39,18 @@ public class WeaponBundle : Bundle
 
 	public override void OnEquip()
 	{
-		isEquiped = true;
-		equipChecker.color = Color.white;
-		weaponManager?.SetWeapon(weaponPrimary, weaponSecondary, weaponMelee);
+		if (PlayerData.Instance.UseMoney(price))
+		{
+			PlayerData.Instance.AddMoney(-price);
+			isEquiped = true;
+			equipChecker.color = Color.white;
+			weaponManager?.SetWeapon(weaponPrimary, weaponSecondary, weaponMelee);
+		}
 	}
 
 	public override void OnUnEquip()
 	{
+		PlayerData.Instance.AddMoney(price);
 		isEquiped = false;
 		equipChecker.color = Color.grey;
 	}
@@ -52,5 +58,10 @@ public class WeaponBundle : Bundle
 	public override void OnSelection()
 	{
 		
+	}
+
+	public override bool CanEquip()
+	{
+		return PlayerData.Instance.UseMoney(price);
 	}
 }

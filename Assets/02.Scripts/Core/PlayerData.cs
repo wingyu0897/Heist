@@ -46,4 +46,9 @@ public class PlayerData : MonoBehaviour
 	{
 		Money = money + value;
 	}
+
+	public bool UseMoney(int value)
+	{
+		return money >= value;
+	}
 }

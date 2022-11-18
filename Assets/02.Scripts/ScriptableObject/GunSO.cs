@@ -29,11 +29,14 @@ public class GunSO : ScriptableObject
 
     [Header("Shoot")]
     public bool isAuto;
+    public int bulletPerShot = 1;
+    [Range(0, 360)]
+    public float bulletSpreadAngle;
     [HideInInspector]
     public Transform muzzle;
     public float fireRate;
     [Range(0, 360)]
-    public float spreadAngle;
+    public float recoilSpreadAngle;
     public float minAimRange;
     [Range(0, 1)]
     public float gunSlerpSpeed;

@@ -17,11 +17,13 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
 	[Header("--Flags--")]
 	[SerializeField] private bool readyOnAwake;
 
 	[Header("--Properties--")]
 	public GameState currentGameState = GameState.None;
+	public bool isOption;
 
 	[Header("--Event--")]
 	public UnityEvent OnStartGame;
@@ -52,7 +54,7 @@ public class GameManager : MonoBehaviour
 
 	public void LoadGame(string scene)
 	{
-		SceneManager.LoadScene(scene);
+		LoadingSceneController.LoadScene(scene);
 
 		OnStartGame?.Invoke();
 	}

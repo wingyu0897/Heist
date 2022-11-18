@@ -23,7 +23,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2287701685837163894
 Transform:
   m_ObjectHideFlags: 0
@@ -145,12 +145,13 @@ MonoBehaviour:
   currentAction: {fileID: 2287701687902484738}
   isNotice: 0
   canTransition: 0
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 12544
   basePosition: {fileID: 2287701687245119592}
   target: {fileID: 0}
   targetPos: {x: 0, y: 0}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 12544
+  isPlayerInView: 0
   OnMovementKeyPress:
     m_PersistentCalls:
       m_Calls:
@@ -288,7 +289,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 12544
   lookAtLerp: 0.1
-  detectiveGaugeSlider: {fileID: 0}
   detectTime: 2
   minDistance: 3
   OnDetectionPlayer:
@@ -323,6 +323,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnDirectionChange:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerEnter:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2287701685837163901
@@ -389,6 +392,9 @@ MonoBehaviour:
   weapons:
   - {fileID: 4983470501025500400}
   currentWeapon: {fileID: 4983470501025500400}
+  primaryWeapon: {fileID: 0}
+  secondaryWeapon: {fileID: 0}
+  meleeWeapon: {fileID: 0}
   basePosition: {fileID: 2287701687245119592}
   slerpHolder: 0.5
   OnAttack:
@@ -831,9 +837,9 @@ MonoBehaviour:
   scoutDelayMax: 3
   scoutPoints:
   - {x: 0, y: 0}
-  - {x: 12, y: 6}
-  - {x: 12, y: -3}
-  - {x: 0, y: -6}
+  - {x: 14, y: 0}
+  - {x: 14, y: -6}
+  - {x: 0, y: -7}
 --- !u!1 &2287701686666195379
 GameObject:
   m_ObjectHideFlags: 0

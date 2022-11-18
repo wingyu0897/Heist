@@ -7,6 +7,7 @@ public abstract class Bundle : MonoBehaviour
     public abstract void OnSelection();
     public abstract void OnEquip();
     public abstract void OnUnEquip();
+    public abstract bool CanEquip();
 
     public abstract Sprite BundleImage { get; }
     public abstract bool IsEquiped { get; }

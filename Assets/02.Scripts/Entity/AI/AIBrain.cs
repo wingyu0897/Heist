@@ -9,6 +9,7 @@ public class AIBrain : MonoBehaviour
 	public AIState currentAction;
 	private AIPathFinding pathFinding;
 	public AIState CurrentAction { get => currentAction; set => currentAction = value; }
+	private FindPlayerView fpv;
 
 	[Header("Properties")]
 	public bool isNotice = false;
@@ -22,7 +23,7 @@ public class AIBrain : MonoBehaviour
 	public Vector2 TargetPos { get => targetPos; set => targetPos = value; }
 	[SerializeField] private LayerMask obstacleLayer;
 	public LayerMask ObstacleLayer => obstacleLayer;
-	private bool isPlayerInView = false;
+	public bool isPlayerInView = false;
 	public bool IsPlayerInView { get => isPlayerInView; set => isPlayerInView = value; }
 	private bool isDead = false;
 	public bool IsDead { get => isDead; set => isDead = value; }
@@ -43,15 +44,21 @@ public class AIBrain : MonoBehaviour
 	{
 		enemy = GetComponent<Enemy>();
 		pathFinding = GetComponent<AIPathFinding>();
+		fpv = GetComponent<FindPlayerView>();
 		target = MissionData.Instance.player.transform;
 		currentAction?.StartState();
 	}
 
 	private void Update()
 	{
+		fpv.FindViewTargets(); //시야 내 플레이어 감지
 		currentAction?.UpdateState(); //현재 액션을 계속 실행한다
 		isNotice = MissionData.Instance.isLoud ? true : isNotice;
-		if (MissionData.Instance.isLoud) print("Louded!");
+
+		if (isPlayerInView || isNotice)
+		{
+			MissionData.Instance?.DetectInput(detectiveGauge);
+		}
 	}
 
 	public void ChangeState(AIState nextAction) //액션을 받아 전환하는 함수
@@ -104,9 +111,9 @@ public class AIBrain : MonoBehaviour
 
 	public void Notice()
 	{
-
 		if (!MissionData.Instance.isDetected && !isNotice)
 		{
+			detectiveGauge = MissionData.Instance.detectTime;
 			isNotice = true;
 			StartCoroutine(Report());
 		}

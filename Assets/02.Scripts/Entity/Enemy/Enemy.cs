@@ -5,11 +5,11 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-	private int health = 1000;
+	protected int health = 1000;
 	public int Health { get => health; set => health = value; }
-	private AIBrain brain;
+	protected AIBrain brain;
 
-	private void Awake()
+	protected void Awake()
 	{
 		brain = GetComponent<AIBrain>();
 	}

@@ -102,11 +102,15 @@ public class Gun : Weapon, IWeaponinfo
 
 	private void SpawnBullet() //Ç®¸Å´ÏÂ¡À¸·Î ÃÑ¾Ë »ý¼º
 	{
-		Bullet bullet = PoolManager.Instance.Pop(gunData.bulletData.prefab.name) as Bullet;
-		if (bullet)
+		for (int i = 0; i < gunData.bulletPerShot; i++)
 		{
-			bullet.BulletData = gunData?.bulletData;
-			bullet.SetPositionAndRotation(muzzle.position, muzzle.rotation);
+			Bullet bullet = PoolManager.Instance.Pop(gunData.bulletData.prefab.name) as Bullet;
+			if (bullet)
+			{
+				bullet.BulletData = gunData?.bulletData;
+				bullet.SetPositionAndRotation(muzzle.position, muzzle.rotation);
+				bullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, bullet.transform.eulerAngles.z + Random.Range(-gunData.bulletSpreadAngle, gunData.bulletSpreadAngle)));
+			}
 		}
 	}
 
@@ -120,7 +124,7 @@ public class Gun : Weapon, IWeaponinfo
 	{
 		if (doRecoil)
 		{
-			float spread = weaponHolder.localScale.y > 0 ? gunData.spreadAngle : -gunData.spreadAngle;
+			float spread = weaponHolder.localScale.y > 0 ? gunData.recoilSpreadAngle : -gunData.recoilSpreadAngle;
 			Quaternion spreadRot = Quaternion.Euler(new Vector3(0, 0, spread));
 			transform.rotation *= spreadRot;
 		}

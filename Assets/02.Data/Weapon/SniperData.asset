@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38674b7298220d42867a040a81f0aae, type: 3}
+  m_Name: SniperData
+  m_EditorClassIdentifier: 
+  gunName: Sniper
+  weaponType: 3
+  prefab: {fileID: 2242552904418692001, guid: 6b81246bbcbb16f428a970c445e760dc, type: 3}
+  weaponSprite: {fileID: 2800000, guid: f4839dd50260420468c9e0cea7fd87c9, type: 3}
+  magSize: 7
+  maxAmmo: 49
+  currentAmmo: 49
+  reloadTime: 5
+  bulletData: {fileID: 11400000, guid: 4329ee2a49551834a96d12ae94124c18, type: 2}
+  isAuto: 0
+  bulletPerShot: 1
+  bulletSpreadAngle: 0
+  muzzle: {fileID: 0}
+  fireRate: 1
+  recoilSpreadAngle: 5
+  minAimRange: 1
+  gunSlerpSpeed: 0.05
+  shootClip: {fileID: 8300000, guid: b59445f00907b3b48a72a09a93ee2966, type: 3}
+  noAmmoClip: {fileID: 8300000, guid: a6f1cd015bce92340b9d5414bf92dd16, type: 3}
+  reloadClip: {fileID: 8300000, guid: b121e80e93a816742aa1253dbd9ad90a, type: 3}

@@ -39,6 +39,8 @@ public class AIPathFinding : MonoBehaviour
 	private Vector2Int bottomLeft;
 	private Vector2Int topRight;
 
+	private int moveIdx = 0;
+
 	private void Start()
 	{
 		brain = GetComponent<AIBrain>();
@@ -52,20 +54,26 @@ public class AIPathFinding : MonoBehaviour
 		this.targetPos = targetPos;
 		startPos = new Vector2Int(Mathf.RoundToInt(brain.BasePosition.position.x), Mathf.RoundToInt(brain.BasePosition.position.y));
 
-		if (node.nodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y] != targetNode ||
-			node.nodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y] != startNode)
+		if (node.nodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y] != targetNode) //타깃이 움직였을 때 다시 길찾기
 		{
 			if (!node.nodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y].isWall)
 			{
 				PathFinding();
+				moveIdx = 0;
 			}
 		}
 
-		if (finalNodeList.Count > 1)
+		if (finalNodeList.Count - 1 > moveIdx)
 		{
-			Vector2 direction = new Vector2(finalNodeList[1].x, finalNodeList[1].y) - (Vector2)brain.BasePosition.position;
-			brain.MoveByDirection(direction, point == Vector2.zero ? new Vector2(finalNodeList[1].x, finalNodeList[1].y) : point);
+			Vector2 targetNode = new Vector2(finalNodeList[moveIdx + 1].x, finalNodeList[moveIdx + 1].y);
+			Vector2 direction = targetNode - (Vector2)brain.BasePosition.position;
+			brain.MoveByDirection(direction, point == Vector2.zero ? targetNode : point);
 			Debug.DrawRay(new Vector2(finalNodeList[finalNodeList.Count - 1].x, finalNodeList[finalNodeList.Count - 1].y), targetPos - new Vector2(finalNodeList[finalNodeList.Count - 1].x, finalNodeList[finalNodeList.Count - 1].y), Color.yellow);
+		
+			if (Vector2.Distance(targetNode, brain.BasePosition.position) < 0.1f)
+			{
+				moveIdx++;
+			}
 		}
 		else
 		{
@@ -182,8 +190,10 @@ public class AIPathFinding : MonoBehaviour
 				openList.Add(neighborNode);
 			}
 		}
+		return;
 	}
-
+	
+#if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
 		if (finalNodeList.Count != 0)
@@ -195,4 +205,5 @@ public class AIPathFinding : MonoBehaviour
 			}
 		}
 	}
+#endif
 }

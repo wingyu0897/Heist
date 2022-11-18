@@ -39,8 +39,11 @@ public class BundleSelect : MonoBehaviour
 	{
 		if (currentSelection.TryGetComponent(out WeaponBundle currentWeapon))
 		{
-			currentWeaponBundle?.OnUnEquip();
-			currentWeaponBundle = currentWeapon;
+			if (currentWeapon.CanEquip())
+			{
+				currentWeaponBundle?.OnUnEquip();
+				currentWeaponBundle = currentWeapon;
+			}
 		}
 
 		currentSelection?.OnEquip();

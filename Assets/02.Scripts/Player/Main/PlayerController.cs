@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 	private void Start()
 	{
-		//transform.Find("WeaponHolder").GetComponent<WeaponManager>().SetWeapon(PlayerData.Instance.primaryWeapon, PlayerData.Instance.secondaryWeapon, PlayerData.Instance.meleeWeapon);
 		health = PlayerData.Instance.MaxHealth;
 		healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
 	}
@@ -82,15 +81,14 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 	private void UseWeapon()
 	{
-		if (!PlayerData.Instance.isRunning)
+		if (!PlayerData.Instance.isRunning && !GameManager.Instance.isOption)
 		{
 			if (Input.GetKeyDown(KeyCode.Mouse0))
 			{
 				OnAttackButtonPressed?.Invoke();
 			}
-		
 		}
-		if (Input.GetKeyUp(KeyCode.Mouse0) || PlayerData.Instance.isRunning)
+		if (Input.GetKeyUp(KeyCode.Mouse0) || PlayerData.Instance.isRunning || GameManager.Instance.isOption)
 		{
 			OnAttackButtonReleased?.Invoke();
 		}
@@ -105,8 +103,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 	{
 		health -= damage;
 		healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
-
-		print((PlayerData.Instance.MaxHealth));
 
 		if (health <= 0)
 		{

@@ -208,14 +208,15 @@ GameObject:
   - component: {fileID: 4888783444236498659}
   - component: {fileID: 4888783444236498663}
   - component: {fileID: 4888783444236498660}
-  - component: {fileID: 4888783444236498661}
+  - component: {fileID: 2319360}
+  - component: {fileID: 8852448065078954873}
   m_Layer: 0
   m_Name: CCTV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4888783444236498664
 Transform:
   m_ObjectHideFlags: 0
@@ -273,7 +274,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
+  m_Color: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -314,12 +315,13 @@ MonoBehaviour:
   currentAction: {fileID: 4888783446092910777}
   isNotice: 0
   canTransition: 1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 12544
   basePosition: {fileID: 4888783444236498664}
   target: {fileID: 0}
   targetPos: {x: 0, y: 0}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 12544
+  isPlayerInView: 0
   OnMovementKeyPress:
     m_PersistentCalls:
       m_Calls: []
@@ -373,12 +375,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 12544
   lookAtLerp: 0.03
-  detectiveGaugeSlider: {fileID: 0}
   detectTime: 2
+  minDistance: 0
   OnDetectionPlayer:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4888783444236498661
+--- !u!114 &2319360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -387,9 +389,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4888783444236498665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb6817920adf9e4a8c52494c42c52bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 3376924813c7bf64897c449145a708e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionTime: 3
+  infoText: Hold [F] to break Camera
+--- !u!114 &8852448065078954873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4888783444236498665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023f706060a177846987fb78402179e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  observer: {fileID: 0}
 --- !u!1 &4888783444572726427
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,14 +656,9 @@ MonoBehaviour:
   scoutDelayMin: 5
   scoutDelayMax: 10
   scoutPoints:
-  - {x: 6, y: 2}
-  - {x: 6, y: 2}
-  - {x: 7, y: 2}
-  - {x: 8, y: 2}
-  - {x: 8, y: 3}
-  - {x: 8, y: 4}
-  - {x: 7, y: 4}
-  - {x: 6, y: 4}
+  - {x: 1, y: 1}
+  - {x: 0, y: 1}
+  - {x: 1, y: 0}
 --- !u!1 &4888783446092910779
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,13 +30,15 @@ public class SilencerBundle : Bundle
 
 	public override void OnEquip()
 	{
-		isEquiped = true;
-		equipChecker.color = Color.white;
-
 		if (!MissionData.Instance.isSilencer)
 		{
-			PlayerData.Instance?.AddMoney(-price);
-			MissionData.Instance.isSilencer = true;
+			if (PlayerData.Instance.UseMoney(price))
+			{
+				PlayerData.Instance.AddMoney(-price);
+				MissionData.Instance.isSilencer = true;
+				isEquiped = true;
+				equipChecker.color = Color.white;
+			}
 		}
 	}
 
@@ -55,5 +57,10 @@ public class SilencerBundle : Bundle
 	public override void OnSelection()
 	{
 
+	}
+
+	public override bool CanEquip()
+	{
+		return !MissionData.Instance.isSilencer && PlayerData.Instance.UseMoney(price);
 	}
 }

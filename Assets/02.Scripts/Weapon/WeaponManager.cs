@@ -23,7 +23,8 @@ public class WeaponManager : MonoBehaviour
 
 	private void Awake()
 	{
-		SetWeapon(primaryWeapon, secondaryWeapon, meleeWeapon);		
+		if (weapons.Count == 0)
+			SetWeapon(primaryWeapon, secondaryWeapon, meleeWeapon);		
 	}
 
 	private void Start()
@@ -33,9 +34,15 @@ public class WeaponManager : MonoBehaviour
 
 	public void SetWeapon(Weapon primary = null, Weapon secondary = null, Weapon melee = null)
 	{
+		primaryWeapon = primary;
+		secondaryWeapon = secondary;
+		meleeWeapon = melee;
+
 		primary?.Init();
 		secondary?.Init();
 		melee?.Init();
+
+		weapons.Clear();
 
 		weapons.Add(primary);
 		weapons.Add(secondary);

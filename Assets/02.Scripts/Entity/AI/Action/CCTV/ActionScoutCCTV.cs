@@ -31,7 +31,7 @@ public class ActionScoutCCTV : AIAction
 		}
 		else if (move)
 		{
-			brain.MoveByDirection(Vector2.zero, currentTargetPoint);
+			brain.MoveByDirection(Vector2.zero, (Vector2)transform.position + currentTargetPoint);
 		}
 	}
 
@@ -54,7 +54,7 @@ public class ActionScoutCCTV : AIAction
 		for (int i = 0; i < scoutPoints.Count; i++)
 		{
 			Gizmos.color = Color.magenta;
-			Gizmos.DrawLine((Vector2)scoutPoints[i], (Vector2)scoutPoints[i == 0 ? scoutPoints.Count - 1 : i - 1]);
+			Gizmos.DrawLine((Vector2)transform.position + scoutPoints[i], (Vector2)transform.position + scoutPoints[i == 0 ? scoutPoints.Count - 1 : i - 1]);
 		}
 	}
 }
