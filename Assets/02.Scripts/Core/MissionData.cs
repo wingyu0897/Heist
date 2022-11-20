@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Cinemachine;
 using UnityEngine.UI;
+using System;
 
 public class MissionData : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class MissionData : MonoBehaviour
 	[SerializeField] private PoolingListSO poolingList;
 	[SerializeField] private CinemachineVirtualCamera playerCamera;
 	[SerializeField] private TextMeshProUGUI earnMoney;
+	[SerializeField] private TextMeshProUGUI playTimeText;
 	[SerializeField] private TextMeshProUGUI moneyText;
 	[SerializeField] private Slider detectGaugeSlider;
 
@@ -132,6 +134,9 @@ public class MissionData : MonoBehaviour
 		player.SetActive(false);
 		playerCamera.Priority = 9;
 
+		float playTime = GetComponent<StopWatch>().playTime;
+		TimeSpan time = TimeSpan.FromSeconds(playTime + 1);
+		playTimeText.text = $"Play Time : {time.Minutes}:{time.Seconds}";
 
 		if (isSuccess)
 		{

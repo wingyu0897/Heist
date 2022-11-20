@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df4228bcde778d243af66832424fba77, type: 3}
-  m_Name: EnemyBullet
+  m_Name: EnemyNormalBullet
   m_EditorClassIdentifier: 
   prefab: {fileID: 2197284621462357796, guid: e9620fa1610de114e92c26b445316b09, type: 3}
-  damage: 200
+  damage: 100
   speed: 25
   lifeTime: 3
   targetLayer:

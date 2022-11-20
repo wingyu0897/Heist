@@ -10,18 +10,22 @@ public class StopWatch : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI timeText;
 
 	[Header("--Properties--")]
-	[SerializeField] private int timerDefaultTime;
-	[SerializeField] private Color StopWatchColor;
-	[SerializeField] private Color TimerColor;
+	[SerializeField] 
+	private int timerDefaultTime;
+	[SerializeField] 
+	private Color StopWatchColor;
+	[SerializeField] 
+	private Color TimerColor;
 
     private bool isActive = false;
 	private bool isTimer = false;
 
-    private float currentTime;
+    public float playTime;
+	private float timerTime;
 
 	private void Start()
 	{
-		currentTime = 0;
+		playTime = 0;
 		timeText.color = StopWatchColor;
 	}
 
@@ -29,14 +33,15 @@ public class StopWatch : MonoBehaviour
 	{
 		if (isActive)
 		{
-			currentTime += isTimer ? -Time.deltaTime : Time.deltaTime;
+			playTime += Time.deltaTime;
+			timerTime += isTimer ? -Time.deltaTime : 0;
 
-			if (isTimer && currentTime <= 0)
+			if (isTimer && timerTime <= 0)
 			{
 				MissionData.Instance?.EndTheGame(false);
 			}
 		}
-		TimeSpan time = TimeSpan.FromSeconds(currentTime + 1);
+		TimeSpan time = TimeSpan.FromSeconds((isTimer ? timerTime : playTime) + 1);
 		timeText.text = $"{time.Minutes} : {time.Seconds}";
 	}
 
@@ -51,7 +56,7 @@ public class StopWatch : MonoBehaviour
 
 		if (this.isTimer)
 		{
-			currentTime = timerDefaultTime;
+			timerTime = timerDefaultTime;
 			timeText.color = TimerColor;
 		}
 		else
