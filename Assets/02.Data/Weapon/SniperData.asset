@@ -26,6 +26,7 @@ MonoBehaviour:
   bulletSpreadAngle: 0
   muzzle: {fileID: 0}
   fireRate: 1
+  camShake: 5
   recoilSpreadAngle: 5
   minAimRange: 1
   gunSlerpSpeed: 0.05

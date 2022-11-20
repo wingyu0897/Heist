@@ -11,11 +11,14 @@ public class Bullet : Poolable
 		set => bulletData = value;
 	}
 
+	private bool isDead = false;
+
 	private Rigidbody2D myRigid;
 	private float time;
 
 	public override void Initialize()
 	{
+		isDead = false;
 		myRigid.velocity = Vector2.zero;
 		time = 0;
 	}
@@ -38,8 +41,10 @@ public class Bullet : Poolable
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if ((bulletData.targetLayer & (1 << collision.gameObject.layer)) > 0)
+		if ((bulletData.targetLayer & (1 << collision.gameObject.layer)) > 0 && !isDead)
 		{
+			isDead = true;
+
 			IDamageable damageable = collision.GetComponent<IDamageable>();
 			damageable?.GetHit(bulletData.damage);
 

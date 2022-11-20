@@ -120,6 +120,9 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: d1b6cd1f706c2e948b82ddf485b40ea8, type: 2}
   muzzle: {fileID: 8301025899583919487}
   doRecoil: 1
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8301025899267139903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +227,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 100
   m_PointLightOuterAngle: 100
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 7
+  m_PointLightOuterRadius: 5
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -528,14 +531,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf65237f718bc6445a84a3710f1368e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camShake: {fileID: 0}
   weapons:
   - {fileID: 8301025899267139899}
   currentWeapon: {fileID: 8301025899267139899}
   primaryWeapon: {fileID: 0}
   secondaryWeapon: {fileID: 0}
   meleeWeapon: {fileID: 0}
+  muzzleFlash: {fileID: 0}
   basePosition: {fileID: 8334994115035611438}
   slerpHolder: 0.5
+  isAttack: 0
   OnAttack:
     m_PersistentCalls:
       m_Calls: []
@@ -1156,7 +1162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8334994115472297793}
   - component: {fileID: 8334994115472297855}
-  - component: {fileID: 8334994115472297792}
+  - component: {fileID: 8729721599854198535}
   m_Layer: 10
   m_Name: TransitionChase
   m_TagString: Untagged
@@ -1191,10 +1197,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decisions:
-  - {fileID: 8334994115472297792}
+  - {fileID: 8729721599854198535}
   postiveState: {fileID: 8334994114922084819}
   negativeState: {fileID: 0}
---- !u!114 &8334994115472297792
+--- !u!114 &8729721599854198535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1203,7 +1209,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8334994115472297794}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc7202cf745d6a4d948a1b48452865e, type: 3}
+  m_Script: {fileID: 11500000, guid: e93cc9031ae6ad2458ac638324ce550e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8334994115783517083

@@ -9,7 +9,7 @@ public class Gun : Weapon, IWeaponinfo
 	[SerializeField] private GunSO gunData;
 	public GunSO WeaponData { get => gunData; }
 
-	[SerializeField] private Transform muzzle;
+	public Transform muzzle;
 	[SerializeField] private bool doRecoil = true;
 
 	private int currentAmmo;
@@ -26,9 +26,18 @@ public class Gun : Weapon, IWeaponinfo
 
 	private Transform weaponHolder;
 	private WeaponAudio gunAudio;
+	private WeaponManager weaponManager;
 	private Animator myAnimator;
 	private readonly int shootHash = Animator.StringToHash("Shoot");
 	private readonly int reloadingHash = Animator.StringToHash("Reloading");
+
+	[Header("--Events--")]
+	public UnityEvent OnShoot;
+
+	private void Awake()
+	{
+		weaponManager = transform.parent.GetComponent<WeaponManager>();		
+	}
 
 	private void Start()
 	{
@@ -38,7 +47,7 @@ public class Gun : Weapon, IWeaponinfo
 	private void OnEnable()
 	{
 		StopAllCoroutines(); //활성화 되었을 때 모든 코루틴 정지 (재장전, 발사 딜레이)
-		isReloading = false; //재장전 중지
+		weaponManager?.muzzleFlash?.flash?.transform.SetPositionAndRotation(muzzle.position, Quaternion.identity);
 		canAttack = true;  //발사 가능
 		isFire = false;
 }
@@ -91,7 +100,12 @@ public class Gun : Weapon, IWeaponinfo
 
 			SpawnBullet();													//총알 발사
 			Recoil();														//반동
+			weaponManager.camShake?.StopAllCoroutines();
+			weaponManager.camShake?.ShakeCamera(gunData.camShake);			//카메라 흔들림
+			weaponManager.muzzleFlash?.ToggleLight();
 			StartCoroutine(FireDelay());									//발사 딜레이
+
+			OnShoot?.Invoke();
 		}
 		else if (magAmmo == 0 && isFire && !isReloading) //남은 총알이 없을 때 && 발사 && 재장전 중이 아닐 때
 		{
@@ -182,6 +196,7 @@ public class Gun : Weapon, IWeaponinfo
 		return gunData.prefab;
 	}
 
+#if UNITY_EDITOR
 	private void OnDrawGizmos() //에임 최소거리를 나타내는 기즈모(빨간 원)
 	{
 		Gizmos.color = Color.red;
@@ -189,4 +204,5 @@ public class Gun : Weapon, IWeaponinfo
 		Gizmos.DrawWireSphere(transform.position, gunData.minAimRange);
 		Gizmos.color = Color.white;
 	}
+#endif
 }

@@ -4,17 +4,27 @@ using UnityEngine.Events;
 
 public class WeaponManager : MonoBehaviour
 {
+	[HideInInspector]
+	public CameraShake camShake;
+
 	[Header("--Weapon--")]
-	[SerializeField] private List<Weapon> weapons = new List<Weapon>();
+	[SerializeField] 
+	private List<Weapon> weapons = new List<Weapon>();
 	public Weapon currentWeapon;
-	[SerializeField] Weapon primaryWeapon;
-	[SerializeField] Weapon secondaryWeapon;
-	[SerializeField] Weapon meleeWeapon;
+	[SerializeField] 
+	private Weapon primaryWeapon;
+	[SerializeField] 
+	private Weapon secondaryWeapon;
+	[SerializeField] 
+	private Weapon meleeWeapon;
+	public MuzzleFlash muzzleFlash;
 
 	[Header("--Properties--")]
-	[SerializeField] private Transform basePosition;
-	[Range(0, 1)][Tooltip("GunHolder의 Slerp 값")]
-	[SerializeField] private float slerpHolder;
+	[SerializeField] 
+	private Transform basePosition;
+	[SerializeField][Range(0, 1)][Tooltip("GunHolder의 Slerp 값")] 
+	private float slerpHolder;
+	public bool isAttack = false;
 
 	private WeaponRenderer weaponRenderer;
 
@@ -23,6 +33,9 @@ public class WeaponManager : MonoBehaviour
 
 	private void Awake()
 	{
+		camShake = GetComponent<CameraShake>();
+		muzzleFlash = GetComponent<MuzzleFlash>();
+
 		if (weapons.Count == 0)
 			SetWeapon(primaryWeapon, secondaryWeapon, meleeWeapon);		
 	}
@@ -30,6 +43,14 @@ public class WeaponManager : MonoBehaviour
 	private void Start()
 	{
 		currentWeapon?.Init();
+	}
+
+	private void Update()
+	{
+		if (isAttack)
+		{
+			OnAttack?.Invoke();
+		}
 	}
 
 	public void SetWeapon(Weapon primary = null, Weapon secondary = null, Weapon melee = null)
@@ -79,13 +100,18 @@ public class WeaponManager : MonoBehaviour
 	{
 		if (currentWeapon.TryAttack())
 		{
+			isAttack = true;
 			currentWeapon?.StartAttack();
-			OnAttack?.Invoke();
+		}
+		else
+		{
+			isAttack = false;
 		}
 	}
 
 	public void StopAttack()
 	{
+		isAttack = false;
 		currentWeapon?.StopAttack();
 	}
 

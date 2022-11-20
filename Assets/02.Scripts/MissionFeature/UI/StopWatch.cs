@@ -21,7 +21,7 @@ public class StopWatch : MonoBehaviour
 	private bool isTimer = false;
 
     public float playTime;
-	private float timerTime;
+	public float timerTime;
 
 	private void Start()
 	{

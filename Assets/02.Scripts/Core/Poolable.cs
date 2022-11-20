@@ -5,4 +5,8 @@ using UnityEngine;
 public abstract class Poolable : MonoBehaviour
 {
 	public abstract void Initialize();
+	public void Destroy()
+	{
+		Destroy(gameObject);
+	}
 }

@@ -35,6 +35,8 @@ public class GunSO : ScriptableObject
     [HideInInspector]
     public Transform muzzle;
     public float fireRate;
+    [Range(0, 5f)]
+    public float camShake = 1f;
     [Range(0, 360)]
     public float recoilSpreadAngle;
     public float minAimRange;

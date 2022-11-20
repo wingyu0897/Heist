@@ -29,6 +29,7 @@ public class PoolManager
 		{ 
 			Debug.Log($"ERROR:PoolManager: {obj.gameObject.name}은 풀에 존재하지 않습니다.");
 			obj.gameObject.SetActive(false);
+			obj.Destroy();
 		}
 	}
 

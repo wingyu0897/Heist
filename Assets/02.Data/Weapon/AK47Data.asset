@@ -15,7 +15,7 @@ MonoBehaviour:
   gunName: AK47
   weaponType: 3
   prefab: {fileID: 3802506562545740535, guid: 97e12b2b803101747bea7560d0998807, type: 3}
-  weaponSprite: {fileID: 2800000, guid: f3ffbbc7673acb64eac25aff8e50f905, type: 3}
+  weaponSprite: {fileID: 2800000, guid: d79fbeb06088aaa48863be86ce54d0fd, type: 3}
   magSize: 30
   maxAmmo: 300
   currentAmmo: 300
@@ -26,6 +26,7 @@ MonoBehaviour:
   bulletSpreadAngle: 0
   muzzle: {fileID: 0}
   fireRate: 0.1
+  camShake: 1
   recoilSpreadAngle: 15
   minAimRange: 0.85
   gunSlerpSpeed: 0.15

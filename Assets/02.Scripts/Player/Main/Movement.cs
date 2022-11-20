@@ -9,6 +9,9 @@ public class Movement : MonoBehaviour
 	private bool isRunning = false;
 	public bool IsRunning { get => isRunning; set => isRunning = value; }
 
+	private float maxWalkSpeed;
+	private float maxRunSpeed;
+
 	private float currentVelocity;
 	private Vector2 currentDirection;
 
@@ -21,6 +24,12 @@ public class Movement : MonoBehaviour
 	private void Awake()
 	{
 		myRigid = GetComponent<Rigidbody2D>();
+	}
+
+	private void Start()
+	{
+		maxWalkSpeed = moveData.maxWalkSpeed - moveData.maxWalkSpeed * Random.Range(0, moveData.speedRandomness);
+		maxRunSpeed = moveData.maxRunSpeed - moveData.maxRunSpeed * Random.Range(0, moveData.speedRandomness);
 	}
 
 	private void FixedUpdate()
@@ -56,7 +65,7 @@ public class Movement : MonoBehaviour
 			currentVelocity -= moveData.deAcceleration * Time.deltaTime;
 		}
 
-		return Mathf.Clamp(currentVelocity, 0, isRunning ? moveData.maxRunSpeed : moveData.maxWalkSpeed);
+		return Mathf.Clamp(currentVelocity, 0, isRunning ? maxRunSpeed : maxWalkSpeed);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

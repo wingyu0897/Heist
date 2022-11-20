@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ceb994377e4e4143a0ab651ca6347fb, type: 3}
   m_Name: SWATSniperMovementData
   m_EditorClassIdentifier: 
+  speedRandomness: 0.2
   maxWalkSpeed: 1
   maxRunSpeed: 2
   acceleration: 5

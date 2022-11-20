@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : Poolable, IDamageable
 {
 	protected int health = 1000;
 	public int Health { get => health; set => health = value; }
@@ -23,5 +23,11 @@ public class Enemy : MonoBehaviour, IDamageable
 		{
 			brain.Dead();
 		}
+	}
+
+	public override void Initialize()
+	{
+		brain.IsDead = false;
+		health = 1000;
 	}
 }
