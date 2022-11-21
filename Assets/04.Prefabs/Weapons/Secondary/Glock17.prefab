@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6527779179978009772}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.43, y: 0.25, z: 0}
+  m_LocalPosition: {x: -0.22, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6527779180966069163}
@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6527779180966069163
 Transform:
   m_ObjectHideFlags: 0
@@ -57,9 +57,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6527779180966069160}
-  m_LocalRotation: {x: 0, y: 0, z: -0.11472654, w: 0.9933971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.65, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: -1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 6527779179978009775}
   m_Father: {fileID: 0}
@@ -105,7 +105,7 @@ SpriteRenderer:
   m_SortingLayerID: -810852549
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: a34152f8858d2df498a6b1b0713030cb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 176b06c130d260049b15b3bd552a6e4b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -150,6 +150,9 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: ace60370c33fef94588f742b802d424e, type: 2}
   muzzle: {fileID: 6527779179978009775}
   doRecoil: 1
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6527779180966069167
 MonoBehaviour:
   m_ObjectHideFlags: 0

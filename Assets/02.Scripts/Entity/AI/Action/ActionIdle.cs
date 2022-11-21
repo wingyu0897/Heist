@@ -6,6 +6,8 @@ public class ActionIdle : AIAction
 {
 	[SerializeField] private float transitionDelay;
 
+	private float time = 0;
+
 	public override void EnterAction()
 	{
 		StopAllCoroutines();
@@ -15,6 +17,13 @@ public class ActionIdle : AIAction
 
 	public override void TakeAction()
 	{
+		time += Time.deltaTime;
+
+		if (time >= transitionDelay)
+		{
+			brain.canTransition = true;
+		}
+
 		if (brain.isNotice)
 		{
 			brain.MoveByDirection(Vector2.zero, brain.Target.position);

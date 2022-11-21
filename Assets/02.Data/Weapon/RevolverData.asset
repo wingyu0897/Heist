@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a38674b7298220d42867a040a81f0aae, type: 3}
-  m_Name: SniperData
+  m_Name: RevolverData
   m_EditorClassIdentifier: 
-  gunName: Sniper
-  weaponType: 3
-  prefab: {fileID: 2242552904418692001, guid: 6b81246bbcbb16f428a970c445e760dc, type: 3}
-  weaponSprite: {fileID: 2800000, guid: 064680bd1df50ab45a7e64097a4bea56, type: 3}
-  magSize: 7
-  maxAmmo: 49
-  currentAmmo: 49
-  reloadTime: 5
-  bulletData: {fileID: 11400000, guid: 4329ee2a49551834a96d12ae94124c18, type: 2}
+  gunName: Revolver
+  weaponType: 2
+  prefab: {fileID: 6765212861045047024, guid: 68f9f92a41e6f324ebb3d6dd1453d5e5, type: 3}
+  weaponSprite: {fileID: 2800000, guid: d58d271b4927f784999e5262532a54e4, type: 3}
+  magSize: 6
+  maxAmmo: 42
+  currentAmmo: 42
+  reloadTime: 2
+  bulletData: {fileID: 11400000, guid: 0917c5b3644b97942bf9d15a6f247e0a, type: 2}
   isAuto: 0
   bulletPerShot: 1
   bulletSpreadAngle: 0
   muzzle: {fileID: 0}
-  fireRate: 1
-  camShake: 5
-  recoilSpreadAngle: 5
-  minAimRange: 1
-  gunSlerpSpeed: 0.05
+  fireRate: 0.5
+  camShake: 1
+  recoilSpreadAngle: 30
+  minAimRange: 0.5
+  gunSlerpSpeed: 0.1
   shootClip: {fileID: 8300000, guid: b59445f00907b3b48a72a09a93ee2966, type: 3}
   noAmmoClip: {fileID: 8300000, guid: a6f1cd015bce92340b9d5414bf92dd16, type: 3}
   reloadClip: {fileID: 8300000, guid: b121e80e93a816742aa1253dbd9ad90a, type: 3}

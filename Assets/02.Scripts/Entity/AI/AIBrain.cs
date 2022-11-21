@@ -105,6 +105,8 @@ public class AIBrain : MonoBehaviour
 
 	public void Dead()
 	{
+		isDead = true;
+
 		StopAllCoroutines();
 		PoolManager.Instance.Push(enemy);
 	}

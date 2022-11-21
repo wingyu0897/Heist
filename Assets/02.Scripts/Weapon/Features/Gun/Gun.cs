@@ -99,10 +99,11 @@ public class Gun : Weapon, IWeaponinfo
 			isFire = gunData.isAuto ? magAmmo == 0 ? false : true : false;	//발사 blabla
 
 			SpawnBullet();													//총알 발사
-			Recoil();														//반동
+			Recoil();                                                       //반동
+
 			weaponManager.camShake?.StopAllCoroutines();
 			weaponManager.camShake?.ShakeCamera(gunData.camShake);			//카메라 흔들림
-			weaponManager.muzzleFlash?.ToggleLight();
+			weaponManager.muzzleFlash.ToggleLight();
 			StartCoroutine(FireDelay());									//발사 딜레이
 
 			OnShoot?.Invoke();
