@@ -82,7 +82,7 @@ public class FindPlayerView : MonoBehaviour
 
     private void FindPlayer()
 	{
-        if (MissionData.Instance.detectTime <= brain.DetectiveGauge)
+        if (brain.DetectiveGauge >= detectTime)
 		{
 		    brain.Notice();
 		}
@@ -91,7 +91,8 @@ public class FindPlayerView : MonoBehaviour
             if (MissionData.Instance.isLoud)
 			{
                 brain.DetectiveGauge = detectTime;
-			}
+                brain.Notice();
+            }
 
             if (findPlayer == true)
 		    {
