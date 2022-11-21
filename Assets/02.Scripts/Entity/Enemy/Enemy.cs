@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class Enemy : Poolable, IDamageable
 {
+	[SerializeField]
 	protected int health = 1000;
 	public int Health { get => health; set => health = value; }
 	protected AIBrain brain;

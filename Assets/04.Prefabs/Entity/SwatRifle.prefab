@@ -496,7 +496,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 387943291691446164}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &387943291201278400
 MonoBehaviour:
@@ -719,7 +719,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 387943292139423449}
   - {fileID: 387943291201278402}
   m_Father: {fileID: 387943291940799190}
   m_RootOrder: 1
@@ -739,7 +738,6 @@ MonoBehaviour:
   actions:
   - {fileID: 387943291691446167}
   transitions:
-  - {fileID: 387943292139423451}
   - {fileID: 387943291201278400}
 --- !u!114 &387943291691446167
 MonoBehaviour:
@@ -965,66 +963,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!1 &387943292139423398
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 387943292139423449}
-  - component: {fileID: 387943292139423451}
-  - component: {fileID: 387943292139423448}
-  m_Layer: 10
-  m_Name: TransitionIdle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &387943292139423449
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 387943292139423398}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 387943291691446164}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &387943292139423451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 387943292139423398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce78d2a07ca8f1468e3a597f608116f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  decisions:
-  - {fileID: 387943292139423448}
-  postiveState: {fileID: 387943292210532709}
-  negativeState: {fileID: 0}
---- !u!114 &387943292139423448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 387943292139423398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 752969f715aaf7547aaf3010436aeadd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &387943292210532706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,14 +1073,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf65237f718bc6445a84a3710f1368e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camShake: {fileID: 0}
   weapons:
   - {fileID: 3577960147055725367}
   currentWeapon: {fileID: 3577960147055725367}
   primaryWeapon: {fileID: 0}
   secondaryWeapon: {fileID: 0}
   meleeWeapon: {fileID: 0}
+  muzzleFlash: {fileID: 0}
   basePosition: {fileID: 387943291784063207}
   slerpHolder: 0.5
+  isAttack: 0
   OnAttack:
     m_PersistentCalls:
       m_Calls: []
@@ -1359,6 +1300,10 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 978e4575e19b31a4da3806ea5514c99d, type: 2}
   muzzle: {fileID: 3577960147191675385}
   doRecoil: 1
+  fireCount: 0
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3577960147055725366
 MonoBehaviour:
   m_ObjectHideFlags: 0

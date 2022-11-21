@@ -29,6 +29,8 @@ public class GunSO : ScriptableObject
 
     [Header("Shoot")]
     public bool isAuto;
+    public bool isBurst = false;
+    public int burstCount = 3;
     public int bulletPerShot = 1;
     [Range(0, 360)]
     public float bulletSpreadAngle;

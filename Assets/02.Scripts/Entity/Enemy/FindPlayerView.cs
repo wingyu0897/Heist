@@ -88,6 +88,11 @@ public class FindPlayerView : MonoBehaviour
 		}
 		else
 		{
+            if (MissionData.Instance.isLoud)
+			{
+                brain.DetectiveGauge = detectTime;
+			}
+
             if (findPlayer == true)
 		    {
                 brain.DetectiveGauge += Time.deltaTime;

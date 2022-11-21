@@ -14,6 +14,8 @@ public class Gun : Weapon, IWeaponinfo
 
 	private int currentAmmo;
 	private int magAmmo;
+	[SerializeField]
+	private int fireCount = 0;
 
 	private bool canAttack = true;
 	private bool isReloading = false;
@@ -50,6 +52,7 @@ public class Gun : Weapon, IWeaponinfo
 		weaponManager?.muzzleFlash?.flash?.transform.SetPositionAndRotation(muzzle.position, Quaternion.identity);
 		canAttack = true;  //발사 가능
 		isFire = false;
+		isReloading = false;
 }
 
 	private void Update()
@@ -80,6 +83,7 @@ public class Gun : Weapon, IWeaponinfo
 	public override void StopAttack()
 	{
 		isFire = false;
+		fireCount = 0;
 	}
 
 	public override void StartAttack() //공격 실행 함수
@@ -89,8 +93,15 @@ public class Gun : Weapon, IWeaponinfo
 
 	private void Attack()
 	{
+		if (gunData.isBurst && fireCount >= gunData.burstCount)
+		{
+			return;
+		}
+
 		if (canAttack && !isReloading && magAmmo > 0) //공격중이 아닐 때 && 재장전 중이 아닐 때 && 남은 총알이 있을 때
 		{
+			++fireCount;
+
 			myAnimator?.SetTrigger(shootHash);								//발사 애니메이션 재생
 			gunAudio?.PlayClips(gunData.shootClip);							//공격 사운드 재생
 
@@ -103,7 +114,7 @@ public class Gun : Weapon, IWeaponinfo
 
 			weaponManager.camShake?.StopAllCoroutines();
 			weaponManager.camShake?.ShakeCamera(gunData.camShake);			//카메라 흔들림
-			weaponManager.muzzleFlash.ToggleLight();
+			weaponManager.muzzleFlash?.ToggleLight();
 			StartCoroutine(FireDelay());									//발사 딜레이
 
 			OnShoot?.Invoke();
@@ -132,6 +143,14 @@ public class Gun : Weapon, IWeaponinfo
 	public override bool TryAttack() //공격 가능 여부를 확인하는 함수
 	{
 		bool result = canAttack && !isReloading;
+		if (gunData.isBurst)
+		{
+			if (fireCount >= gunData.burstCount)
+			{
+				result = false;
+			}
+		}
+
 		return result;
 	}
 

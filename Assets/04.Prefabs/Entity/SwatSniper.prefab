@@ -29,7 +29,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 232284971661819399}
   - {fileID: 232284970785742928}
   m_Father: {fileID: 232284971233720200}
   m_RootOrder: 1
@@ -49,7 +48,6 @@ MonoBehaviour:
   actions:
   - {fileID: 232284969906898480}
   transitions:
-  - {fileID: 232284971661819397}
   - {fileID: 232284970785742942}
 --- !u!114 &232284969906898480
 MonoBehaviour:
@@ -573,14 +571,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf65237f718bc6445a84a3710f1368e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camShake: {fileID: 0}
   weapons:
   - {fileID: 6344496052335090220}
   currentWeapon: {fileID: 6344496052335090220}
   primaryWeapon: {fileID: 0}
   secondaryWeapon: {fileID: 0}
   meleeWeapon: {fileID: 0}
+  muzzleFlash: {fileID: 0}
   basePosition: {fileID: 232284970994942219}
   slerpHolder: 0.5
+  isAttack: 0
   OnAttack:
     m_PersistentCalls:
       m_Calls: []
@@ -786,7 +787,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 232284969906898481}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &232284970785742942
 MonoBehaviour:
@@ -1167,66 +1168,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!1 &232284971661819416
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 232284971661819399}
-  - component: {fileID: 232284971661819397}
-  - component: {fileID: 232284971661819398}
-  m_Layer: 10
-  m_Name: TransitionIdle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &232284971661819399
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 232284971661819416}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 232284969906898481}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &232284971661819397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 232284971661819416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce78d2a07ca8f1468e3a597f608116f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  decisions:
-  - {fileID: 232284971661819398}
-  postiveState: {fileID: 232284971314927713}
-  negativeState: {fileID: 0}
---- !u!114 &232284971661819398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 232284971661819416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 752969f715aaf7547aaf3010436aeadd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &232284971749035718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,6 +1320,10 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 54449c6023029414da07d795ee396d3c, type: 2}
   muzzle: {fileID: 6344496052725112609}
   doRecoil: 1
+  fireCount: 0
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6344496052335090223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1574,6 +1519,10 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 083f6ee1acfabc645b0daaed0c505e03, type: 2}
   muzzle: {fileID: 6462218407360512662}
   doRecoil: 0
+  fireCount: 0
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6462218408453549462
 MonoBehaviour:
   m_ObjectHideFlags: 0

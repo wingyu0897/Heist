@@ -13,12 +13,20 @@ public class OpenDoor : Interactable
 
 	private bool isOpen = false;
 
+	[SerializeField]
 	private Collider2D col;
 
 	public override void Awake()
 	{
 		base.Awake();
-		col = GetComponent<Collider2D>();
+	}
+
+	private void Update()
+	{
+		if (MissionData.Instance.isLoud)
+		{
+			col.enabled = false;
+		}
 	}
 
 	public override bool CanInteractable()
@@ -37,5 +45,13 @@ public class OpenDoor : Interactable
 		isOpen = true;
 		col.enabled = false;
 		MissionData.Instance.nodeScanner.ScanNodes();
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.transform.TryGetComponent(out Enemy enemy))
+		{
+			OnInteraction();
+		}
 	}
 }

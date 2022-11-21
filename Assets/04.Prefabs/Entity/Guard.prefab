@@ -389,14 +389,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf65237f718bc6445a84a3710f1368e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camShake: {fileID: 0}
   weapons:
   - {fileID: 4983470501025500400}
   currentWeapon: {fileID: 4983470501025500400}
   primaryWeapon: {fileID: 0}
   secondaryWeapon: {fileID: 0}
   meleeWeapon: {fileID: 0}
+  muzzleFlash: {fileID: 0}
   basePosition: {fileID: 2287701687245119592}
   slerpHolder: 0.5
+  isAttack: 0
   OnAttack:
     m_PersistentCalls:
       m_Calls: []
@@ -837,9 +840,9 @@ MonoBehaviour:
   scoutDelayMax: 3
   scoutPoints:
   - {x: 0, y: 0}
-  - {x: 14, y: 0}
-  - {x: 14, y: -6}
-  - {x: 0, y: -7}
+  - {x: 12, y: 0}
+  - {x: 12, y: -6}
+  - {x: 0, y: -6}
 --- !u!1 &2287701686666195379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,6 +1996,10 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 083f6ee1acfabc645b0daaed0c505e03, type: 2}
   muzzle: {fileID: 4983470500134560757}
   doRecoil: 0
+  fireCount: 0
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4983470501025500405
 MonoBehaviour:
   m_ObjectHideFlags: 0

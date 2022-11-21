@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134af479b2963924bb98ee103dc7d4a1, type: 3}
+  m_Name: KatanaData
+  m_EditorClassIdentifier: 
+  meleeName: Katana
+  weaponType: 1
+  prefab: {fileID: 2110972720984953569, guid: e797c25d09e8eb0469c401412c0a272c, type: 3}
+  weaponSprite: {fileID: 2800000, guid: 36c21c0fb8239da428e7e086e95db32c, type: 3}
+  damage: 1000
+  minAimRange: 1.5
+  range: 0.8
+  attackDelay: 0.5
+  attackPoint: {fileID: 0}
+  weaponSlerpSpeed: 0.1
+  attackClip: {fileID: 0}

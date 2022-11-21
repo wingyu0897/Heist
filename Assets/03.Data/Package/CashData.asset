@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c203d7d4a8b06ff4aa4a3299f42fd9ff, type: 3}
+  m_Name: CashData
+  m_EditorClassIdentifier: 
+  price: 100000
+  weight: 1
+  interactiveTime: 1
+  defaultSprite: {fileID: 21300000, guid: 4da118a8502bd8d47ad11911fa7b02af, type: 3}
+  packedSprite: {fileID: 21300000, guid: e6e75cb56960e5d42958f58239632446, type: 3}

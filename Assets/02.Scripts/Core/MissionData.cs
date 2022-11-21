@@ -136,7 +136,7 @@ public class MissionData : MonoBehaviour
 
 		float playTime = GetComponent<StopWatch>().playTime;
 		TimeSpan time = TimeSpan.FromSeconds(playTime + 1);
-		playTimeText.text = $"Play Time : {time.Minutes}:{time.Seconds}";
+		playTimeText.text = $"Play Time : {string.Format("{0:00}", time.Minutes)}:{string.Format("{0:00}", time.Seconds)}";
 
 		if (isSuccess)
 		{
