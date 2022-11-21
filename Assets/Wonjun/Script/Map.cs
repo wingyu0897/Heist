@@ -28,9 +28,6 @@ public class Map : MonoBehaviour
             map[1].color = Color.cyan;
             map[2].color = Color.cyan;
             map[3].color = Color.cyan;
-            map[4].color = Color.cyan;
-            map[5].color = Color.cyan;
-            map[6].color = Color.cyan;
             map[7].color = Color.cyan;
 
         }
