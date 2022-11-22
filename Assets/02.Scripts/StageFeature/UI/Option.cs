@@ -29,7 +29,7 @@ public class Option : MonoBehaviour
     public void ChangeSceneWithLoad(string sceneName)
 	{
         Active(false);
-        MissionData.Instance.EndTheGame(false);
+        StageManager.Instance.EndTheGame(false);
         LoadingSceneController.LoadScene(sceneName);
 	}
 

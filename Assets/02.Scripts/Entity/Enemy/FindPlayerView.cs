@@ -33,7 +33,7 @@ public class FindPlayerView : MonoBehaviour
 		horizontalViewHalfAngle = horizontalViewAngle * 0.5f;
         brain = GetComponent<AIBrain>();
         spotLight = transform.Find("Light")?.gameObject;
-        detectTime = MissionData.Instance.detectTime;
+        detectTime = StageManager.Instance.detectTime;
     }
 
 	public void FindViewTargets() //플레이어 감지 함수
@@ -88,7 +88,7 @@ public class FindPlayerView : MonoBehaviour
 		}
 		else
 		{
-            if (MissionData.Instance.isLoud)
+            if (StageManager.Instance.isLoud)
 			{
                 brain.DetectiveGauge = detectTime;
                 brain.Notice();

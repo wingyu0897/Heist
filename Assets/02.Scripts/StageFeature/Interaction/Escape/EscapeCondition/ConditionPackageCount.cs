@@ -8,6 +8,6 @@ public class ConditionPackageCount : EscapeCondition
 
 	public override bool Result()
 	{
-		return MissionData.Instance?.gains.Count >= count;
+		return StageManager.Instance?.gains.Count >= count;
 	}
 }

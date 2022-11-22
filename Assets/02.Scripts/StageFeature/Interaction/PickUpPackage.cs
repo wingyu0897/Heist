@@ -32,7 +32,7 @@ public class PickUpPackage : Interactable
 
 	public override void Initialization() //√ ±‚»≠
 	{
-		backPackHolder = MissionData.Instance.player.transform.Find("BackPackHolder").transform;
+		backPackHolder = StageManager.Instance.player.transform.Find("BackPackHolder").transform;
 		transform.parent = null;
 		transform.localRotation = Quaternion.identity;
 		spriteRenderer.sprite = packageData.defaultSprite;

@@ -7,9 +7,9 @@ using Cinemachine;
 using UnityEngine.UI;
 using System;
 
-public class MissionData : MonoBehaviour
+public class StageManager : MonoBehaviour
 {
-	public static MissionData Instance;
+	public static StageManager Instance;
 
 	[Header("--References--")]
 	[SerializeField] private PoolingListSO poolingList;
@@ -30,6 +30,7 @@ public class MissionData : MonoBehaviour
 	public bool isDetected = false;
 	public bool isDetecting = false;
 	public bool isLoud = false;
+	public bool isEnd = false;
 
 	[Header("--Datas--")]
 	public List<PickUpPackage> gains;
@@ -130,6 +131,8 @@ public class MissionData : MonoBehaviour
 	{
 		GameManager.Instance.EndGame();
 		PoolManager.Instance.DestroyPools();
+
+		isEnd = true;
 
 		player.SetActive(false);
 		playerCamera.Priority = 9;

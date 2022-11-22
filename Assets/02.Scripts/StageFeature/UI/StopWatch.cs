@@ -38,7 +38,7 @@ public class StopWatch : MonoBehaviour
 
 			if (isTimer && timerTime <= 0)
 			{
-				MissionData.Instance?.EndTheGame(false);
+				StageManager.Instance?.EndTheGame(false);
 			}
 		}
 		TimeSpan time = TimeSpan.FromSeconds((isTimer ? timerTime : playTime) + 1);
@@ -48,6 +48,7 @@ public class StopWatch : MonoBehaviour
 	public void SetStopWatch(bool active)
 	{
 		isActive = active;
+		timeText.gameObject.SetActive(active);
 	}
 
 	public void Timer(bool isTimer)

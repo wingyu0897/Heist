@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 		if (health <= 0)
 		{
-			MissionData.Instance.EndTheGame(false);
+			StageManager.Instance.EndTheGame(false);
 		}
 	}
 }

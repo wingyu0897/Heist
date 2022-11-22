@@ -23,7 +23,7 @@ public class OpenDoor : Interactable
 
 	private void Update()
 	{
-		if (MissionData.Instance.isLoud)
+		if (StageManager.Instance.isLoud)
 		{
 			col.enabled = false;
 		}
@@ -44,7 +44,7 @@ public class OpenDoor : Interactable
 	{
 		isOpen = true;
 		col.enabled = false;
-		MissionData.Instance.nodeScanner.ScanNodes();
+		StageManager.Instance.nodeScanner.ScanNodes();
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

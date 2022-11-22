@@ -6,6 +6,6 @@ public class ConditionLouded : EscapeCondition
 {
 	public override bool Result()
 	{
-		return MissionData.Instance.isLoud;
+		return StageManager.Instance.isLoud;
 	}
 }

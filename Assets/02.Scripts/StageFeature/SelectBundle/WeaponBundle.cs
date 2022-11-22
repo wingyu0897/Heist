@@ -34,7 +34,7 @@ public class WeaponBundle : Bundle
 
 	private void Start()
 	{
-		weaponManager = MissionData.Instance.player.transform.Find("WeaponManager").GetComponent<WeaponManager>();
+		weaponManager = StageManager.Instance.player.transform.Find("WeaponManager").GetComponent<WeaponManager>();
 	}
 
 	public override void OnEquip()

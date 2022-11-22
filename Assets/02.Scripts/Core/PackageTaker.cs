@@ -14,7 +14,7 @@ public class PackageTaker : MonoBehaviour
 				package.canInteract = false;
 				package.GetComponent<Collider2D>().enabled = false;
 
-				MissionData.Instance.gains.Add(package);
+				StageManager.Instance.gains.Add(package);
 			}
 		}
 	}

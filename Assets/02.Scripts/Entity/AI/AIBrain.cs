@@ -45,7 +45,7 @@ public class AIBrain : MonoBehaviour
 		enemy = GetComponent<Enemy>();
 		pathFinding = GetComponent<AIPathFinding>();
 		fpv = GetComponent<FindPlayerView>();
-		target = MissionData.Instance.player.transform;
+		target = StageManager.Instance.player.transform;
 		currentAction?.StartState();
 	}
 
@@ -53,11 +53,11 @@ public class AIBrain : MonoBehaviour
 	{
 		fpv.FindViewTargets(); //시야 내 플레이어 감지
 		currentAction?.UpdateState(); //현재 액션을 계속 실행한다
-		isNotice = MissionData.Instance.isLoud ? true : isNotice;
+		isNotice = StageManager.Instance.isLoud ? true : isNotice;
 
 		if (isPlayerInView || isNotice)
 		{
-			MissionData.Instance?.DetectInput(detectiveGauge);
+			StageManager.Instance?.DetectInput(detectiveGauge);
 		}
 	}
 
@@ -90,7 +90,7 @@ public class AIBrain : MonoBehaviour
 	public void StartAttack()
 	{
 		OnAttackButtonPressed?.Invoke();
-		MissionData.Instance.isDetected = true;
+		StageManager.Instance.isDetected = true;
 	}
 
 	public void StopAttack()
@@ -113,9 +113,9 @@ public class AIBrain : MonoBehaviour
 
 	public void Notice()
 	{
-		if (!MissionData.Instance.isDetected && !isNotice)
+		if (!StageManager.Instance.isDetected && !isNotice)
 		{
-			detectiveGauge = MissionData.Instance.detectTime;
+			detectiveGauge = StageManager.Instance.detectTime;
 			isNotice = true;
 			StartCoroutine(Report());
 		}
@@ -125,7 +125,7 @@ public class AIBrain : MonoBehaviour
 	{
 		yield return new WaitForSeconds(4f);
 
-		MissionData.Instance.Louded();
+		StageManager.Instance.Louded();
 		print("Reported!");
 	}
 }
