@@ -325,7 +325,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 863623932}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1050,7 +1050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531ef107290d65e44bc9bd7bc279a3ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixer: {fileID: 0}
+  effectMixer: {fileID: 24100000, guid: dca020ddd9e8edd489300b8cc6c1164c, type: 2}
   bgmMixer: {fileID: 24100000, guid: 66d94c66749c4b74cac0a95e4479c856, type: 2}
 --- !u!114 &700115810
 MonoBehaviour:
@@ -1104,8 +1104,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 700115809}
-        m_TargetAssemblyTypeName: MainSound, Assembly-CSharp
-        m_MethodName: BGM
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: SetBGMMixer
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1356,9 +1356,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 8514176301730057673}
   - {fileID: 908841136}
   - {fileID: 164375552}
+  - {fileID: 8514176301730057673}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1494,7 +1494,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 863623932}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1774,8 +1774,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1602827189}
-        m_TargetAssemblyTypeName: MainSound, Assembly-CSharp
-        m_MethodName: SetLevel
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: SetSoundEffectMixer
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1797,8 +1797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531ef107290d65e44bc9bd7bc279a3ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixer: {fileID: 24100000, guid: dca020ddd9e8edd489300b8cc6c1164c, type: 2}
-  bgmMixer: {fileID: 0}
+  effectMixer: {fileID: 24100000, guid: dca020ddd9e8edd489300b8cc6c1164c, type: 2}
+  bgmMixer: {fileID: 24100000, guid: 66d94c66749c4b74cac0a95e4479c856, type: 2}
 --- !u!1 &1710899328
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,7 +2143,7 @@ RectTransform:
   - {fileID: 1786261845}
   - {fileID: 572803133}
   m_Father: {fileID: 863623932}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
