@@ -115,12 +115,12 @@ TextureImporter:
       name: sound_bar-Sheet-export_0
       rect:
         serializedVersion: 2
-        x: 60
+        x: 69
         y: 60
-        width: 200
+        width: 182
         height: 200
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -136,12 +136,12 @@ TextureImporter:
       name: sound_bar-Sheet-export_1
       rect:
         serializedVersion: 2
-        x: 380
+        x: 390
         y: 60
-        width: 200
+        width: 181
         height: 200
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -162,7 +162,7 @@ TextureImporter:
         width: 240
         height: 280
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
