@@ -2,13 +2,14 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class ChatController : MonoBehaviour
 {
-    [SerializeField] private Text _chatText;
-    [SerializeField] private Text _charactorText;
+    [SerializeField] private TextMeshProUGUI _chatText;
+    [SerializeField] private TextMeshProUGUI _charactorText;
     [SerializeField] private float _chatCoolTime = 5f;
 
     [SerializeField] private string[] _texts;
