@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class Map
+public class Maze
 {
 	public GameObject mapObj;
 	public Image targetSprite;
@@ -15,7 +15,7 @@ public class MazeHacking : Hacking
 {
 	[Header("--Reference--")]
 	[SerializeField] private Movement playerMovement;
-	[SerializeField] private List<Map> maps = new List<Map>();
+	[SerializeField] private List<Maze> mazes = new List<Maze>();
 
 	[Header("--Setting--")]
 	[SerializeField] private Vector2 basePosition;
@@ -95,9 +95,9 @@ public class MazeHacking : Hacking
 
 	public void MoveToNextLevel()
 	{
-		maps[currentLevel-1].targetSprite.color = Color.green;
+		mazes[currentLevel-1].targetSprite.color = Color.green;
 
-		if (currentLevel < maps.Count)
+		if (currentLevel < mazes.Count)
 		{
 			isActive = true;
 			StartCoroutine(ActiveNextLevel());
@@ -138,8 +138,8 @@ public class MazeHacking : Hacking
 	{
 		yield return new WaitForSeconds(1f);
 
-		maps[currentLevel - 1].mapObj.SetActive(false);
-		maps[currentLevel].mapObj.SetActive(true);
+		mazes[currentLevel - 1].mapObj.SetActive(false);
+		mazes[currentLevel].mapObj.SetActive(true);
 		currentLevel++;
 
 		playerMovement.transform.localPosition = basePosition;

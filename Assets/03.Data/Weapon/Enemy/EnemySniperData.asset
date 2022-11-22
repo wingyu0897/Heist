@@ -22,13 +22,16 @@ MonoBehaviour:
   reloadTime: 5
   bulletData: {fileID: 11400000, guid: 1c4ed91864dfbc94e93edaac93569f37, type: 2}
   isAuto: 0
+  isBurst: 0
+  burstCount: 3
   bulletPerShot: 1
   bulletSpreadAngle: 0
   muzzle: {fileID: 0}
   fireRate: 1
+  camShake: 1
   recoilSpreadAngle: 0
   minAimRange: 1
   gunSlerpSpeed: 0.05
-  shootClip: {fileID: 8300000, guid: b59445f00907b3b48a72a09a93ee2966, type: 3}
-  noAmmoClip: {fileID: 8300000, guid: a6f1cd015bce92340b9d5414bf92dd16, type: 3}
-  reloadClip: {fileID: 8300000, guid: b121e80e93a816742aa1253dbd9ad90a, type: 3}
+  shootClip: {fileID: 8300000, guid: 96be1965668c57c45b6c39db6c145779, type: 3}
+  noAmmoClip: {fileID: 8300000, guid: 93fbe14161b957f49a129754c22fc4fa, type: 3}
+  reloadClip: {fileID: 8300000, guid: c6efcf3a6d6f50e47bf1c0092d02baff, type: 3}

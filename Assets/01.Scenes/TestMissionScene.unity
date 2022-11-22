@@ -10344,6 +10344,10 @@ PrefabInstance:
       propertyPath: cmCam
       value: 
       objectReference: {fileID: 764590320}
+    - target: {fileID: 1658280653145448723, guid: 44677f815dbe07f4587aacf7d55d15bb, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: dca020ddd9e8edd489300b8cc6c1164c, type: 2}
     - target: {fileID: 1658280653777805849, guid: 44677f815dbe07f4587aacf7d55d15bb, type: 3}
       propertyPath: m_Name
       value: Player
