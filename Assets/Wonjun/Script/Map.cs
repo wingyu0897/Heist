@@ -16,6 +16,31 @@ public class Map : MonoBehaviour
     {
         SceneManager.LoadScene(mapname);
     }
+    public void California(string mapname)//워싱턴 스테이지로 이동
+    {
+        SceneManager.LoadScene(mapname);
+    }
+    public void New_york(string mapname)//워싱턴 스테이지로 이동
+    {
+        SceneManager.LoadScene(mapname);
+    }
+    public void Texas(string mapname)//워싱턴 스테이지로 이동
+    {
+        SceneManager.LoadScene(mapname);
+    }
+    public void Florida(string mapname)//워싱턴 스테이지로 이동
+    {
+        SceneManager.LoadScene(mapname);
+    }
+    public void Georgia(string mapname)//워싱턴 스테이지로 이동
+    {
+        SceneManager.LoadScene(mapname);
+    }
+    public void Ohio(string mapname)//워싱턴 스테이지로 이동
+    {
+        SceneManager.LoadScene(mapname);
+    }
+
 
 
 
