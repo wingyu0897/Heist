@@ -3429,7 +3429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolingList: {fileID: 11400000, guid: e0605354e116f074084945eed0da4e42, type: 2}
   playerCamera: {fileID: 764590320}
-  earnMoney: {fileID: 1453428094}
+  earnMoneyText: {fileID: 1453428094}
   playTimeText: {fileID: 1695055270}
   moneyText: {fileID: 1138147046}
   detectGaugeSlider: {fileID: 1738915111}
@@ -4771,8 +4771,31 @@ MonoBehaviour:
       spawnCount: 3
     spawnTime: 120
     isSpawn: 0
+  - spawns:
+    - prefab: {fileID: 387943290759441515, guid: c4dfd687c7fa79243bafdddb114fdbd9, type: 3}
+      spawnCount: 6
+    spawnTime: 180
+    isSpawn: 0
   spawnPosition: {x: 3.25, y: -9.62, z: 0}
   entityParent: {fileID: 5580405}
+--- !u!1 &983835849 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1658280652603717213, guid: 44677f815dbe07f4587aacf7d55d15bb, type: 3}
+  m_PrefabInstance: {fileID: 2011982971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &983835851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983835849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e2f38b62331094f8581ff3d16f15fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  packs: []
 --- !u!1 &988875724
 GameObject:
   m_ObjectHideFlags: 0
@@ -5146,6 +5169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: Get Package!
+  packHolder: {fileID: 983835851}
+  targetPackage: {fileID: 1760272549}
 --- !u!1 &1029109520
 GameObject:
   m_ObjectHideFlags: 0
@@ -7779,7 +7804,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1149, y: -698.04346}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1590481866
 MonoBehaviour:
@@ -8466,6 +8491,17 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1760272549 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8150720959648657118, guid: dff3b1c5348f52c408490133a19a4bc9, type: 3}
+  m_PrefabInstance: {fileID: 1869317703}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02340ec89e9c78e44a337f8ae8dc3019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1762512704
 GameObject:
   m_ObjectHideFlags: 0

@@ -61,8 +61,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402f9c33f8d6b774e9d29992bc94cfd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCycleDelay: 1.2
-  delayRandomness: 0.6
+  attackCycleDelay: 0.8
+  delayRandomness: 0.2
 --- !u!1 &387943290759441515
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb6817920adf9e4a8c52494c42c52bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1000
 --- !u!114 &387943290759441517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,7 +1027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df5f28c12bf1ce428fe95aa35b872b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionDelay: 2
+  transitionDelay: 1
 --- !u!1 &387943292232119884
 GameObject:
   m_ObjectHideFlags: 0

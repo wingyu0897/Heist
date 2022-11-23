@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private void Start()
+	{
+		DataManager.Instance?.LoadData();
+	}
+
 	public void LoadGame(string scene)
 	{
 		LoadingSceneController.LoadScene(scene);
@@ -76,6 +81,8 @@ public class GameManager : MonoBehaviour
 	public void EndGame()
 	{
 		currentGameState = GameState.End;
+
+		DataManager.Instance?.SaveData();
 
 		OnEndGame?.Invoke();
 	}

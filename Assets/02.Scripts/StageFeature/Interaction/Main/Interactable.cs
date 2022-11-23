@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-	protected Transform backPackHolder;
-
 	public virtual void Awake()
 	{
 		gameObject.layer = LayerMask.NameToLayer("Interactable");

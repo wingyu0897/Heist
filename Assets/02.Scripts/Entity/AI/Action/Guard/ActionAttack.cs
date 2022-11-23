@@ -47,6 +47,7 @@ public class ActionAttack : AIAction
 	{
 		yield return new WaitForSeconds(Random.Range(attackCycleDelay - delayRandomness, attackCycleDelay + delayRandomness));
 
+		canAttack = true;
 		if (randomAim != 0)
 		{
 			randomAim = 0;
@@ -55,7 +56,7 @@ public class ActionAttack : AIAction
 		{
 			randomAim = Random.Range(-1f, 1f);
 		}
-		canAttack = true;
+		brain.StopAttack();
 		brain.StartAttack();
 	}
 }

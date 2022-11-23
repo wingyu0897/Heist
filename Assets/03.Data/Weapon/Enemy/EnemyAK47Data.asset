@@ -17,13 +17,13 @@ MonoBehaviour:
   prefab: {fileID: 3802506562545740535, guid: 97e12b2b803101747bea7560d0998807, type: 3}
   weaponSprite: {fileID: 2800000, guid: f3ffbbc7673acb64eac25aff8e50f905, type: 3}
   magSize: 30
-  maxAmmo: 300
-  currentAmmo: 300
+  maxAmmo: 3000
+  currentAmmo: 3000
   reloadTime: 3
   bulletData: {fileID: 11400000, guid: 000f3b65b6a903943ab19c4061f5cea8, type: 2}
   isAuto: 1
-  isBurst: 0
-  burstCount: 3
+  isBurst: 1
+  burstCount: 10
   bulletPerShot: 1
   bulletSpreadAngle: 0
   muzzle: {fileID: 0}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8050588565579963534}
   - component: {fileID: 8050588565579963535}
+  - component: {fileID: 9214587036973263672}
   - component: {fileID: 8050588565579963532}
   m_Layer: 0
   m_Name: Core
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   readyOnAwake: 0
   currentGameState: 0
+  isOption: 0
   OnStartGame:
     m_PersistentCalls:
       m_Calls: []
@@ -58,6 +60,21 @@ MonoBehaviour:
   OnEndGame:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9214587036973263672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050588565579963533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acab7f6c75976234095754dd4b87d78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nowData:
+    money: 0
+    clearStages: 0
 --- !u!114 &8050588565579963532
 MonoBehaviour:
   m_ObjectHideFlags: 0

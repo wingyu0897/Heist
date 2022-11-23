@@ -14,7 +14,7 @@ public class StageManager : MonoBehaviour
 	[Header("--References--")]
 	[SerializeField] private PoolingListSO poolingList;
 	[SerializeField] private CinemachineVirtualCamera playerCamera;
-	[SerializeField] private TextMeshProUGUI earnMoney;
+	[SerializeField] private TextMeshProUGUI earnMoneyText;
 	[SerializeField] private TextMeshProUGUI playTimeText;
 	[SerializeField] private TextMeshProUGUI moneyText;
 	[SerializeField] private Slider detectGaugeSlider;
@@ -116,22 +116,18 @@ public class StageManager : MonoBehaviour
 
 	public void StartGame()
 	{
-		GameManager.Instance.StartGame();
-
 		player.SetActive(true);
 		playerCamera.Priority = 11;
 
 		gains = new List<PickUpPackage>();
 
-
 		OnRunGame?.Invoke();
+
+		GameManager.Instance.StartGame();
 	}
 
 	public void EndTheGame(bool isSuccess)
 	{
-		GameManager.Instance.EndGame();
-		PoolManager.Instance.DestroyPools();
-
 		isEnd = true;
 
 		player.SetActive(false);
@@ -143,16 +139,20 @@ public class StageManager : MonoBehaviour
 
 		if (isSuccess)
 		{
-			earnMoney.text = $"Earn Money : {string.Format("{0:#,##0}", EarnedMoney())}";
+			earnMoneyText.text = $"Earn Money : {string.Format("{0:#,##0}", EarnedMoney())}$";
+			PlayerData.Instance?.AddMoney(EarnedMoney());
 			OnGameSuccess?.Invoke();
 		}
 		else
 		{
-			earnMoney.text = "0";
+			earnMoneyText.text = "0$";
 			OnGameFailure?.Invoke();
 		}
 
 		OnEndGame?.Invoke();
+
+		GameManager.Instance.EndGame();
+		PoolManager.Instance.DestroyPools();
 	}
 
 	public int EarnedMoney()
@@ -183,6 +183,11 @@ public class StageManager : MonoBehaviour
 		if (detectGaugeSlider)
 		{
 			detectGaugeSlider.value = detectGauge / detectTime;
+		}
+
+		if (detectGauge >= detectTime && !isLoud)
+		{
+			Invoke("Louded", 4f);
 		}
 	}
 

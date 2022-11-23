@@ -1791,6 +1791,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9214587036973263672, guid: 3ba51d5ce56d90c47b9265aa9fe17a26, type: 3}
+      propertyPath: nowData.money
+      value: 1000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214587036973263672, guid: 3ba51d5ce56d90c47b9265aa9fe17a26, type: 3}
+      propertyPath: nowData.bgmVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214587036973263672, guid: 3ba51d5ce56d90c47b9265aa9fe17a26, type: 3}
+      propertyPath: nowData.clearStages
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214587036973263672, guid: 3ba51d5ce56d90c47b9265aa9fe17a26, type: 3}
+      propertyPath: nowData.effectVolume
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ba51d5ce56d90c47b9265aa9fe17a26, type: 3}
 --- !u!1 &665161235
@@ -2284,7 +2300,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectMixer: {fileID: 24100000, guid: dca020ddd9e8edd489300b8cc6c1164c, type: 2}
+  effectSlider: {fileID: 1721365253}
   bgmMixer: {fileID: 24100000, guid: 66d94c66749c4b74cac0a95e4479c856, type: 2}
+  bgmSlider: {fileID: 647611459}
 --- !u!1 &991861131
 GameObject:
   m_ObjectHideFlags: 0

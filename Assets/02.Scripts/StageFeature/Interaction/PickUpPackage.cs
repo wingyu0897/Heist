@@ -10,11 +10,11 @@ public class PickUpPackage : Interactable
 	public int Price => packageData.price;
 	public bool canInteract = true;
 	public bool isHolding = false;
-
 	public override float InteractionTime => packageData.interactiveTime;
 	[SerializeField] private string infoText = "Hold [F] To Grab Package";
 	public override string InfoText => infoText;
 
+	private PackageHolder holder;
 	private SpriteRenderer spriteRenderer;
 	private Collider2D mCollider;
 
@@ -32,7 +32,7 @@ public class PickUpPackage : Interactable
 
 	public override void Initialization() //초기화
 	{
-		backPackHolder = StageManager.Instance.player.transform.Find("BackPackHolder").transform;
+		holder = StageManager.Instance.player.transform.Find("BackPackHolder").GetComponent<PackageHolder>();
 		transform.parent = null;
 		transform.localRotation = Quaternion.identity;
 		spriteRenderer.sprite = packageData.defaultSprite;
@@ -48,7 +48,8 @@ public class PickUpPackage : Interactable
 	public override void OnInteraction() //상호작용할 시
 	{
 		++PlayerData.Instance.backPacks;
-		transform.SetParent(backPackHolder);
+		holder.packs.Add(this);
+		transform.SetParent(holder.transform);
 		transform.localPosition = Vector3.zero;
 		transform.localRotation = Quaternion.identity;
 		spriteRenderer.sprite = packageData.packedSprite;
@@ -61,6 +62,7 @@ public class PickUpPackage : Interactable
 		if (transform.parent != null && Input.GetKeyDown(KeyCode.G))
 		{
 			PlayerData.Instance.backPacks -= 1;
+			holder.packs.Remove(this);
 			transform.parent = null;
 			transform.position = transform.localPosition - new Vector3(0, 0.5f, 0);
 			transform.localRotation = Quaternion.identity;
