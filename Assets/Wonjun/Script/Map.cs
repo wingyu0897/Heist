@@ -2,35 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Map : MonoBehaviour
 {
-    [SerializeField] private Image[] map;
-    [SerializeField] private SpriteRenderer sr;
-    private void Start()
+    public void Washington(string mapname)//워싱턴 스테이지로 이동
     {
-        for(int i = 0; i < map.Length; i++)
-        {
-            
-
-        sr = map[i].GetComponent<SpriteRenderer>();
-            map[i].color = Color.gray;
-        }
-
+        SceneManager.LoadScene(mapname);
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("gkgk");
-            map[0].color = Color.cyan;
-            map[1].color = Color.cyan;
-            map[2].color = Color.cyan;
-            map[3].color = Color.cyan;
-            map[7].color = Color.cyan;
 
-        }
+    public void Michigan(string mapname)//워싱턴 스테이지로 이동
+    {
+        SceneManager.LoadScene(mapname);
     }
 
 
