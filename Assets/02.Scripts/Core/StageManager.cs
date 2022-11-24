@@ -12,12 +12,16 @@ public class StageManager : MonoBehaviour
 	public static StageManager Instance;
 
 	[Header("--References--")]
-	[SerializeField] private PoolingListSO poolingList;
-	[SerializeField] private CinemachineVirtualCamera playerCamera;
-	[SerializeField] private TextMeshProUGUI earnMoneyText;
-	[SerializeField] private TextMeshProUGUI playTimeText;
-	[SerializeField] private TextMeshProUGUI moneyText;
-	[SerializeField] private Slider detectGaugeSlider;
+	[SerializeField] 
+	private PoolingListSO poolingList;
+	[SerializeField] 
+	private CinemachineVirtualCamera playerCamera;
+	[SerializeField] 
+	private StageSO currentStageData;
+	[SerializeField] 
+	private Slider detectGaugeSlider;
+
+	private StageInfoManager endManager;
 
 	[Header("--Parameters--")]
 	public float detectTime;
@@ -62,6 +66,8 @@ public class StageManager : MonoBehaviour
 				Debug.Log("ERROR:MissionData: Missing GameManager");
 			}
 		}
+
+		endManager = GetComponent<StageInfoManager>();
 	}
 
 	private void Start()
@@ -97,13 +103,6 @@ public class StageManager : MonoBehaviour
 		DetectGauge();
 	}
 
-	private void FixedUpdate()
-	{
-		if (moneyText)
-		{
-			moneyText.text = string.Format("{0:#,##0$}", PlayerData.Instance.Money);
-		}
-	}
 
 	public void Louded()
 	{
@@ -135,17 +134,17 @@ public class StageManager : MonoBehaviour
 
 		float playTime = GetComponent<StopWatch>().playTime;
 		TimeSpan time = TimeSpan.FromSeconds(playTime + 1);
-		playTimeText.text = $"Play Time : {string.Format("{0:00}", time.Minutes)}:{string.Format("{0:00}", time.Seconds)}";
+		endManager.ShowEndStats(isSuccess, EarnedMoney(), time);
 
 		if (isSuccess)
 		{
-			earnMoneyText.text = $"Earn Money : {string.Format("{0:#,##0}", EarnedMoney())}$";
 			PlayerData.Instance?.AddMoney(EarnedMoney());
+			if (PlayerData.Instance.clearStageCount == currentStageData.stageNumber)
+				PlayerData.Instance.clearStageCount++;
 			OnGameSuccess?.Invoke();
 		}
 		else
 		{
-			earnMoneyText.text = "0$";
 			OnGameFailure?.Invoke();
 		}
 

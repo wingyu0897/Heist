@@ -7,7 +7,7 @@ using System.IO;
 public class SaveData
 {
     public int money;
-    public int clearStages;
+    public int clearStageCount;
 	public float effectVolume;
 	public float bgmVolume;
 }
@@ -44,6 +44,9 @@ public class DataManager : MonoBehaviour
 		if (!File.Exists(path))
 		{
 			PlayerData.Instance.Money = 100000;
+			PlayerData.Instance.clearStageCount = 0;
+			SoundController.bgmVolume = 1;
+			SoundController.effectVolume = 1;
 		}
 		else
 		{
@@ -51,6 +54,7 @@ public class DataManager : MonoBehaviour
 			nowData = JsonUtility.FromJson<SaveData>(loadJson);
 
 			PlayerData.Instance.Money = nowData.money;
+			PlayerData.Instance.clearStageCount = nowData.clearStageCount;
 			SoundController.bgmVolume = nowData.bgmVolume;
 			SoundController.effectVolume = nowData.effectVolume;
 
@@ -63,7 +67,7 @@ public class DataManager : MonoBehaviour
 		nowData = new SaveData();
 
 		nowData.money = PlayerData.Instance.Money;
-		nowData.clearStages = 1;
+		nowData.clearStageCount = PlayerData.Instance.clearStageCount;
 		nowData.effectVolume = SoundController.effectVolume;
 		nowData.bgmVolume = SoundController.bgmVolume;
 

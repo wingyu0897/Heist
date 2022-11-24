@@ -3389,6 +3389,7 @@ GameObject:
   - component: {fileID: 695452398}
   - component: {fileID: 695452399}
   - component: {fileID: 695452400}
+  - component: {fileID: 695452395}
   m_Layer: 0
   m_Name: StageCore
   m_TagString: Untagged
@@ -3396,6 +3397,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &695452395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695452394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72bfffe073f507142a8ea728e7612b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  earnMoneyText: {fileID: 1453428094}
+  playTimeText: {fileID: 1695055270}
+  moneyText: {fileID: 1138147046}
 --- !u!4 &695452396
 Transform:
   m_ObjectHideFlags: 0
@@ -3429,9 +3445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolingList: {fileID: 11400000, guid: e0605354e116f074084945eed0da4e42, type: 2}
   playerCamera: {fileID: 764590320}
-  earnMoneyText: {fileID: 1453428094}
-  playTimeText: {fileID: 1695055270}
-  moneyText: {fileID: 1138147046}
+  currentStageData: {fileID: 11400000, guid: 23f079e34fefa4b45a8a7a1b06d9138e, type: 2}
   detectGaugeSlider: {fileID: 1738915111}
   detectTime: 2
   detectGauge: 0
