@@ -14,6 +14,14 @@ public class SoundController : MonoBehaviour
     public static float effectVolume;
     public static float bgmVolume;
 
+	private void Start()
+	{
+		effectVolume = DataManager.Instance.nowData.effectVolume;
+		bgmVolume = DataManager.Instance.nowData.bgmVolume;
+        effectSlider.value = effectVolume;
+        bgmSlider.value = bgmVolume;
+	}
+
 	private void FixedUpdate()
 	{
         if (effectSlider.value != effectVolume)

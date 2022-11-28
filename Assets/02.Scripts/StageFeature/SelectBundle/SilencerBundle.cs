@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SilencerBundle : Bundle
 {
+	[SerializeField]
+	private bool canEquip = true;
 	[SerializeField] 
 	private bool canUnEquip;
 	public override bool CanUnEquip => canUnEquip;
@@ -73,6 +75,6 @@ public class SilencerBundle : Bundle
 
 	public override bool CanEquip()
 	{
-		return !StageManager.Instance.isSilencer && PlayerData.Instance.UseMoney(price);
+		return !StageManager.Instance.isSilencer && PlayerData.Instance.UseMoney(price) && canEquip;
 	}
 }

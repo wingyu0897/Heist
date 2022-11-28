@@ -49,8 +49,6 @@ public class FindPlayerView : MonoBehaviour
             float dirAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + viewRotateZ - 90;
             float angle = Vector3.Angle(AngleToDirZ(viewRotateZ), dir);
 
-            Vector2 muzzleDir = (targetPos - (Vector2)brain.currentGun?.muzzle.position).normalized;
-
             Debug.DrawRay(originPos, AngleToDirZ(-dirAngle + viewRotateZ + 5f) * Vector2.Distance(originPos, targetPos), Color.green);
             Debug.DrawRay(originPos, AngleToDirZ(-dirAngle + viewRotateZ - 5f) * Vector2.Distance(originPos, targetPos), Color.green);
 
@@ -58,7 +56,27 @@ public class FindPlayerView : MonoBehaviour
 			{
                 RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, dir, viewRadius + 1, playerLayerMask);
                 RaycastHit2D rayHitedObstacle = Physics2D.Raycast(originPos, dir, rayHitedTarget.distance, obstacleLayerMask);
-                RaycastHit2D rayCanShootTarget = Physics2D.Raycast(brain.currentGun.muzzle.position, muzzleDir, viewRadius, playerLayerMask | obstacleLayerMask);
+                if (brain.currentGun)
+			    {
+                    Vector2 muzzleDir = (targetPos - (Vector2)brain.currentGun?.muzzle.position).normalized;
+                    RaycastHit2D rayCanShootTarget = Physics2D.Raycast(brain.currentGun.muzzle.position, muzzleDir, viewRadius, playerLayerMask | obstacleLayerMask);
+
+                    if (rayCanShootTarget)
+				    {
+                        if (rayCanShootTarget.collider.gameObject == brain.Target.gameObject)
+					    {
+                            brain.canShootPlayer = true;
+					    }
+					    else
+					    {
+                            brain.canShootPlayer = false;
+					    }
+				    }
+				    else
+				    {
+                        brain.canShootPlayer = false;
+				    }
+                }
 
                 if (rayHitedObstacle)
 				{
@@ -75,22 +93,6 @@ public class FindPlayerView : MonoBehaviour
 					{
                         brain.Notice();
 					}
-				}
-
-                if (rayCanShootTarget)
-				{
-                    if (rayCanShootTarget.collider.gameObject == brain.Target.gameObject)
-					{
-                        brain.canShootPlayer = true;
-					}
-					else
-					{
-                        brain.canShootPlayer = false;
-					}
-				}
-				else
-				{
-                    brain.canShootPlayer = false;
 				}
             }
 		}

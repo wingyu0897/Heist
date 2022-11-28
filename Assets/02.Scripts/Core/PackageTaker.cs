@@ -6,7 +6,12 @@ public class PackageTaker : MonoBehaviour
 {
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.TryGetComponent(out PickUpPackage package))
+		Take(collision);
+	}
+
+	public void Take(Collider2D pack)
+	{
+		if (pack.TryGetComponent(out PickUpPackage package))
 		{
 			if (!package.isHolding)
 			{

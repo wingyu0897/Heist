@@ -43,16 +43,23 @@ public class BundleSelect : MonoBehaviour
 
 	public void Equip()
 	{
-		if (currentSelection.TryGetComponent(out WeaponBundle currentWeapon))
+		if (currentSelection.CanEquip())
 		{
-			if (currentWeapon.CanEquip())
+			if (currentSelection.TryGetComponent(out WeaponBundle currentWeapon))
 			{
-				currentWeaponBundle?.OnUnEquip();
-				currentWeaponBundle = currentWeapon;
+				if (currentWeapon.CanEquip())
+				{
+					currentWeaponBundle?.OnUnEquip();
+					currentWeaponBundle = currentWeapon;
+				}
 			}
-		}
 
-		currentSelection?.OnEquip();
-		equipButtonText.text = currentSelection.IsEquiped ? "ÀåÂøµÊ" : "ÀåÂøÇÏ±â";
+			currentSelection?.OnEquip();
+			equipButtonText.text = currentSelection.IsEquiped ? "ÀåÂøµÊ" : "ÀåÂøÇÏ±â";
+		}
+		else
+		{
+			equipButtonText.text = "ÀåÂøºÒ°¡";
+		}
 	}
 }

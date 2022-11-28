@@ -12,7 +12,7 @@ public class RotObject : MonoBehaviour
 
     public UnityEvent<Vector2> OnPointer;
 
-	private void Update()
+	private void FixedUpdate()
 	{
         Vector2 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -24,7 +24,7 @@ public class RotObject : MonoBehaviour
     {
         Vector2 dir = (targetPos - (Vector2)transform.position);
         float targetAngle = -(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90);
-        viewRotateZ = Mathf.LerpAngle(viewRotateZ, targetAngle, 0.007f);
+        viewRotateZ = Mathf.LerpAngle(viewRotateZ, targetAngle, 0.15f);
         spotLight.transform.localRotation = Quaternion.Euler(0, 0, -viewRotateZ);
     }
 }

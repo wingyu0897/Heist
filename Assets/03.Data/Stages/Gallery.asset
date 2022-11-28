@@ -17,5 +17,5 @@ MonoBehaviour:
   mapName: Art Gallery
   address: "\uB274\uC695"
   stageLevel: 1
-  stageImage: {fileID: 0}
+  stageImage: {fileID: 21300000, guid: 7ac2635a2d292e64a835ce810bbdf849, type: 3}
   tip: "\uACBD\uBE44\uB97C \uC8FD\uC774\uC9C0 \uB9D0 \uAC83"

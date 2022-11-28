@@ -90,13 +90,16 @@ public class AIBrain : MonoBehaviour
 		OnMovementKeyPress?.Invoke(moveDirection);
 		if (aimPosition != Vector2.zero)
 		{
-			if (weaponManager && !isNotice)
+			if (weaponManager)
 			{
-				weaponManager.basePosition = basePosition;
-			}
-			else
-			{
-				weaponManager.basePosition = weaponManager.transform;
+				if (!isNotice)
+				{
+					weaponManager.basePosition = basePosition;
+				}
+				else
+				{
+					weaponManager.basePosition = weaponManager.transform;
+				}
 			}
 			OnPointerPositionChanged?.Invoke(aimPosition);
 		}
