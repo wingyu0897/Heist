@@ -320,7 +320,7 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 12544
+    m_Bits: 8448
   isPlayerInView: 0
   OnMovementKeyPress:
     m_PersistentCalls:
@@ -373,7 +373,7 @@ MonoBehaviour:
     m_Bits: 128
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 12544
+    m_Bits: 8448
   lookAtLerp: 0.03
   detectTime: 2
   minDistance: 0
@@ -406,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023f706060a177846987fb78402179e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1000
   observer: {fileID: 0}
 --- !u!1 &4888783444572726427
 GameObject:

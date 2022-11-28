@@ -18,6 +18,7 @@ public class Movement : MonoBehaviour
 	private Rigidbody2D myRigid;
 
 	public UnityEvent<float> OnVelocityChange;
+	public UnityEvent<bool> OnRunning;
 	public UnityEvent<Vector2> OnDirectionChange;
 	public UnityEvent<Collider2D> OnTriggerEnter;
 
@@ -37,6 +38,7 @@ public class Movement : MonoBehaviour
 		myRigid.velocity = currentVelocity * currentDirection;
 
 		OnVelocityChange?.Invoke(currentVelocity);
+		OnRunning?.Invoke(isRunning);
 	}
 
 	public void Move(Vector2 moveInput)

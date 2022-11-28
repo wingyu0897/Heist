@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2c19bf463f24f47bbe9d31b930af4b, type: 3}
+  m_Name: Gallery
+  m_EditorClassIdentifier: 
+  stageNumber: 1
+  stageSceneName: Gallery
+  mapName: Art Gallery
+  address: "\uB274\uC695"
+  stageLevel: 1
+  stageImage: {fileID: 0}
+  tip: "\uACBD\uBE44\uB97C \uC8FD\uC774\uC9C0 \uB9D0 \uAC83"

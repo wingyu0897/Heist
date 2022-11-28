@@ -24,8 +24,6 @@ public class PoliceSpawn : MonoBehaviour
 	private List<WaveEntities> waves = new List<WaveEntities>();
 
 	[SerializeField]
-	private Vector3 spawnPosition;
-	[SerializeField]
 	private Transform entityParent;
 
 	private float time = 0;
@@ -59,7 +57,7 @@ public class PoliceSpawn : MonoBehaviour
 						for (int i = 0; i < es.spawnCount; i++)
 						{
 							Enemy enemy = PoolManager.Instance.Pop(es.prefab.name) as Enemy;
-							enemy.transform.position = spawnPosition;
+							enemy.transform.position = transform.position;
 							enemy.transform.SetParent(entityParent);
 						}
 					}

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -20,8 +21,8 @@ public class WeaponManager : MonoBehaviour
 	public MuzzleFlash muzzleFlash;
 
 	[Header("--Properties--")]
-	[SerializeField] 
-	private Transform basePosition;
+	public Transform basePosition;
+	public Image reloadImg;
 	[SerializeField][Range(0, 1)][Tooltip("GunHolderÀÇ Slerp °ª")] 
 	private float slerpHolder;
 	public bool isAttack = false;
@@ -93,6 +94,7 @@ public class WeaponManager : MonoBehaviour
 			weaponRenderer.Init();
 		}
 
+		reloadImg?.transform.parent.gameObject.SetActive(false);
 		OnChangeWeapon?.Invoke(currentWeapon);
 	}
 

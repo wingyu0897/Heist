@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedRandomness: 0.3
   maxWalkSpeed: 1.9
-  maxRunSpeed: 3.5
+  maxRunSpeed: 1.9
   acceleration: 5
   deAcceleration: 7

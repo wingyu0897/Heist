@@ -28,6 +28,7 @@ public class GunSO : ScriptableObject
     public BulletSO bulletData;
 
     [Header("Shoot")]
+    public bool canSilence = true;
     public bool isAuto;
     public bool isBurst = false;
     public int burstCount = 3;
@@ -47,6 +48,7 @@ public class GunSO : ScriptableObject
 
     [Header("AudioClip")]
     public AudioClip shootClip;
+    public AudioClip silenceShootAudioClip;
     public AudioClip noAmmoClip;
     public AudioClip reloadClip;
 }

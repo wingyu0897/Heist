@@ -21,6 +21,7 @@ MonoBehaviour:
   currentAmmo: 30000
   reloadTime: 2
   bulletData: {fileID: 11400000, guid: 000f3b65b6a903943ab19c4061f5cea8, type: 2}
+  canSilence: 0
   isAuto: 0
   isBurst: 0
   burstCount: 3

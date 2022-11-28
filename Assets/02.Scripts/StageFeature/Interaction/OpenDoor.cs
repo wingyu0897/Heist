@@ -8,24 +8,32 @@ public class OpenDoor : Interactable
 	private float time = 1f;
 	public override float InteractionTime => time;
 	[SerializeField]
+	private bool openAtLoud = true;
+	[SerializeField]
 	private string infoText;
 	public override string InfoText => infoText;
+	[SerializeField]
+	private Sprite openImage;
 
 	private bool isOpen = false;
 
 	[SerializeField]
 	private Collider2D col;
 
+	private SpriteRenderer spriteRen;
+
 	public override void Awake()
 	{
 		base.Awake();
+		spriteRen = GetComponent<SpriteRenderer>();
 	}
 
 	private void Update()
 	{
-		if (StageManager.Instance.isLoud)
+		if (StageManager.Instance.isLoud && openAtLoud)
 		{
 			col.enabled = false;
+			spriteRen.sprite = openImage;
 		}
 	}
 
@@ -44,7 +52,7 @@ public class OpenDoor : Interactable
 	{
 		isOpen = true;
 		col.enabled = false;
-		StageManager.Instance.nodeScanner.ScanNodes();
+		spriteRen.sprite = openImage;
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

@@ -6,9 +6,12 @@ public class ActionAttack : AIAction
 {
 	[Header("Attack Action Properties")]
 	[Range(0, 10f)]
-	[SerializeField] private float attackCycleDelay = 0f;
-	[Range(0, 10f)]
-	[SerializeField] private float delayRandomness = 0f;
+	[SerializeField] 
+	private float attackCycleDelay = 0f;
+	[SerializeField][Range(0, 1f)]
+	private float delayRandomness = 0f;
+	[SerializeField]
+	private float noRecoilMaxDistance = 5f;
 
 	private bool canAttack = true;
 	private float randomAim;
@@ -21,13 +24,16 @@ public class ActionAttack : AIAction
 
 	public override void TakeAction()
 	{
-		if (Vector2.Distance(brain.Target.position, transform.position) > 3)
+		if (Vector2.Distance(brain.Target.position, transform.position) > noRecoilMaxDistance)
 		{
-			brain.AimAtTarget(brain.Target.position + new Vector3(randomAim, randomAim, 0));
+			Vector3 dir = brain.Target.position + new Vector3(randomAim, randomAim, 0);
+			brain.AimAtTarget(dir);
+			brain.MoveByDirection(Vector2.zero, dir);
 		}
 		else
 		{
 			brain.AimAtTarget(brain.Target.position);
+			brain.MoveByDirection(Vector2.zero, brain.Target.position);
 		}
 		brain.MoveByDirection(Vector2.zero, Vector2.zero);
 
@@ -45,7 +51,8 @@ public class ActionAttack : AIAction
 
 	IEnumerator Attack()
 	{
-		yield return new WaitForSeconds(Random.Range(attackCycleDelay - delayRandomness, attackCycleDelay + delayRandomness));
+		float attackDelay = attackCycleDelay + attackCycleDelay * Random.Range(-delayRandomness, delayRandomness);
+		yield return new WaitForSeconds(attackDelay);
 
 		canAttack = true;
 		if (randomAim != 0)

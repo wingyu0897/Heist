@@ -6,19 +6,21 @@ using TMPro;
 
 public class Gun : Weapon, IWeaponinfo
 {
-	[SerializeField] private GunSO gunData;
+	[SerializeField] 
+	private GunSO gunData;
 	public GunSO WeaponData { get => gunData; }
-
 	public Transform muzzle;
-	[SerializeField] private bool doRecoil = true;
+	[SerializeField] 
+	private bool doRecoil = true;
 
 	private int currentAmmo;
 	private int magAmmo;
+	public float reloadTime = 0;
 	[SerializeField]
 	private int fireCount = 0;
 
-	private bool canAttack = true;
-	private bool isReloading = false;
+	public bool canAttack = true;
+	public bool isReloading = false;
 	private bool isFire = false;
 	public bool IsFire { get => isFire; set => isFire = value; }
 
@@ -33,12 +35,15 @@ public class Gun : Weapon, IWeaponinfo
 	private readonly int shootHash = Animator.StringToHash("Shoot");
 	private readonly int reloadingHash = Animator.StringToHash("Reloading");
 
+	private Camera mainCam;
+
 	[Header("--Events--")]
 	public UnityEvent OnShoot;
 
 	private void Awake()
 	{
-		weaponManager = transform.parent.GetComponent<WeaponManager>();		
+		weaponManager = transform.parent.GetComponent<WeaponManager>();	
+		mainCam = Camera.main;
 	}
 
 	private void Start()
@@ -61,6 +66,8 @@ public class Gun : Weapon, IWeaponinfo
 		{
 			Attack();
 		}
+
+		Reloading();
 	}
 
 	public override void Aiming(Vector2 pointerPos) //에임 시스템 함수 //WeaponHolder의 에임 시스템과 별개
@@ -93,17 +100,24 @@ public class Gun : Weapon, IWeaponinfo
 
 	private void Attack()
 	{
-		if (gunData.isBurst && fireCount >= gunData.burstCount)
-		{
+		if (gunData.isBurst && fireCount >= gunData.burstCount) 
 			return;
-		}
 
 		if (canAttack && !isReloading && magAmmo > 0) //공격중이 아닐 때 && 재장전 중이 아닐 때 && 남은 총알이 있을 때
 		{
-			++fireCount;
+			if (!gunData.canSilence || !StageManager.Instance.isSilencer)
+			{
+				StageManager.Instance.isDetected = true;
+				gunAudio?.PlayClips(gunData.shootClip);						//공격 사운드 재생
+			}
+			else
+			{
+				gunAudio?.PlayClips(gunData.silenceShootAudioClip);         //소음기 착용 공격 사운드 재생
+			}
 
 			myAnimator?.SetTrigger(shootHash);								//발사 애니메이션 재생
-			gunAudio?.PlayClips(gunData.shootClip);							//공격 사운드 재생
+
+			++fireCount;
 
 			--magAmmo;														//총알 - 1
 			canAttack = false;												//공격 불가
@@ -170,25 +184,42 @@ public class Gun : Weapon, IWeaponinfo
 		{
 			isReloading = true;
 			myAnimator?.SetTrigger(reloadingHash);
-			StartCoroutine(Reloading());
+			reloadTime = 0;
 		}
 	}
 
-	IEnumerator Reloading() //탄창 재장전 실행 코루틴
+	private void Reloading()
 	{
-		yield return new WaitForSeconds(gunData.reloadTime);
+		if (isReloading)
+		{
+			reloadTime += Time.deltaTime;
+			if (weaponManager.reloadImg)
+			{
+				Transform parent = weaponManager.reloadImg.transform.parent;
+				parent.transform.position = mainCam.WorldToScreenPoint(transform.position);
+				parent.gameObject.SetActive(true);
+				weaponManager.reloadImg.fillAmount = reloadTime / gunData.reloadTime;
+			}
+			if (reloadTime >= gunData.reloadTime)
+			{
+				if (weaponManager.reloadImg)
+				{
+					weaponManager.reloadImg.transform.parent.gameObject.SetActive(false);
+				}
 
-		if (currentAmmo >= gunData.magSize - magAmmo)
-		{
-			currentAmmo -= gunData.magSize - magAmmo;
-			magAmmo = gunData.magSize;
+				if (currentAmmo >= gunData.magSize - magAmmo)
+				{
+					currentAmmo -= gunData.magSize - magAmmo;
+					magAmmo = gunData.magSize;
+				}
+				else
+				{
+					magAmmo += currentAmmo;
+					currentAmmo = 0;
+				}
+				isReloading = false;
+			}
 		}
-		else
-		{
-			magAmmo += currentAmmo;
-			currentAmmo = 0;
-		}
-		isReloading = false;
 	}
 
 	IEnumerator FireDelay() //발사 딜레이 코루틴

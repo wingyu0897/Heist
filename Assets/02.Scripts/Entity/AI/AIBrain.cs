@@ -10,21 +10,29 @@ public class AIBrain : MonoBehaviour
 	private AIPathFinding pathFinding;
 	public AIState CurrentAction { get => currentAction; set => currentAction = value; }
 	private FindPlayerView fpv;
+	[HideInInspector]
+	public WeaponManager weaponManager;
 
 	[Header("Properties")]
 	public bool isNotice = false;
 	public bool canTransition = true;
 
-	[SerializeField] private Transform basePosition;
+	[SerializeField] 
+	private Transform basePosition;
 	public Transform BasePosition => basePosition;
-	[SerializeField] private Transform target;
+	[SerializeField] 
+	private Transform target;
 	public Transform Target { get => target; set => target = value; }
-	[SerializeField] private Vector2 targetPos;
+	[SerializeField] 
+	private Vector2 targetPos;
 	public Vector2 TargetPos { get => targetPos; set => targetPos = value; }
-	[SerializeField] private LayerMask obstacleLayer;
+	[SerializeField] 
+	private LayerMask obstacleLayer;
 	public LayerMask ObstacleLayer => obstacleLayer;
+	public Gun currentGun;
 	public bool isPlayerInView = false;
 	public bool IsPlayerInView { get => isPlayerInView; set => isPlayerInView = value; }
+	public bool canShootPlayer;
 	private bool isDead = false;
 	public bool IsDead { get => isDead; set => isDead = value; }
 	private float detectiveGauge = 0f;
@@ -45,6 +53,7 @@ public class AIBrain : MonoBehaviour
 		enemy = GetComponent<Enemy>();
 		pathFinding = GetComponent<AIPathFinding>();
 		fpv = GetComponent<FindPlayerView>();
+		weaponManager = transform.Find("WeaponHolder")?.GetComponent<WeaponManager>();
 		target = StageManager.Instance.player.transform;
 		currentAction?.StartState();
 	}
@@ -53,11 +62,19 @@ public class AIBrain : MonoBehaviour
 	{
 		fpv.FindViewTargets(); //시야 내 플레이어 감지
 		currentAction?.UpdateState(); //현재 액션을 계속 실행한다
-		isNotice = StageManager.Instance.isLoud ? true : isNotice;
+		if (StageManager.Instance.isLoud || StageManager.Instance.isDetected)
+		{
+			Notice();
+		}
+
+		if (currentGun != weaponManager?.currentWeapon)
+		{
+			currentGun = weaponManager?.currentWeapon as Gun;
+		}
 
 		if (isPlayerInView || isNotice)
 		{
-			StageManager.Instance?.DetectInput(detectiveGauge);
+			StageManager.Instance?.detectManager.DetectInput(detectiveGauge);
 		}
 	}
 
@@ -68,12 +85,20 @@ public class AIBrain : MonoBehaviour
 		currentAction?.StartState(); //상태 입장 함수 실행 (1회)
 	}
 
-	public void MoveByDirection(Vector2 direction, Vector2 targetPos) //목표를 향하여 직선으로 이동, 장애물 판단 안 함
+	public void MoveByDirection(Vector2 moveDirection, Vector2 aimPosition) //목표를 향하여 직선으로 이동, 장애물 판단 안 함
 	{
-		OnMovementKeyPress?.Invoke(direction);
-		if (targetPos != Vector2.zero)
+		OnMovementKeyPress?.Invoke(moveDirection);
+		if (aimPosition != Vector2.zero)
 		{
-			OnPointerPositionChanged?.Invoke(targetPos);
+			if (weaponManager && !isNotice)
+			{
+				weaponManager.basePosition = basePosition;
+			}
+			else
+			{
+				weaponManager.basePosition = weaponManager.transform;
+			}
+			OnPointerPositionChanged?.Invoke(aimPosition);
 		}
 	}
 
@@ -84,13 +109,16 @@ public class AIBrain : MonoBehaviour
 
 	public void AimAtTarget(Vector2 targetPoint)
 	{
+		if (weaponManager)
+		{
+			weaponManager.basePosition = weaponManager.transform;
+		}
 		OnFindPlayer?.Invoke(targetPoint);
 	}
 
 	public void StartAttack()
 	{
 		OnAttackButtonPressed?.Invoke();
-		StageManager.Instance.isDetected = true;
 	}
 
 	public void StopAttack()
@@ -113,7 +141,7 @@ public class AIBrain : MonoBehaviour
 
 	public void Notice()
 	{
-		if (!StageManager.Instance.isDetected && !isNotice)
+		if (!isNotice)
 		{
 			detectiveGauge = StageManager.Instance.detectTime;
 			isNotice = true;

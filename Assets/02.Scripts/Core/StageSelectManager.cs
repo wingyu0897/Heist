@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class StageSelectManager : MonoBehaviour
 {
+	[SerializeField]
+	private List<GameObject> buttons = new List<GameObject>();
 	[SerializeField] 
 	private GameObject stageInfo;
 	[SerializeField] 
@@ -22,6 +24,13 @@ public class StageSelectManager : MonoBehaviour
 
 	private void Start()
 	{
+		for (int i = 0; i <= PlayerData.Instance.clearStageCount; i++)
+		{
+			if (buttons.Count > i)
+			{
+				buttons[i]?.SetActive(true);
+			}
+		}
 		stageInfo?.SetActive(false);
 		currentStage = null;
 	}
@@ -35,8 +44,8 @@ public class StageSelectManager : MonoBehaviour
 		currentStage = data;
 		mapImage.sprite = data.stageImage;
 		mapNameText.text = data.stageSceneName;
-		mapAddressText.text = $"위치 : {data.address}";
-		stageLevelText.text = $"난이도 : {data.stageLevel}";
+		mapAddressText.text = $"위치  {data.address}";
+		stageLevelText.text = $"난이도  {data.stageLevel}";
 	}
 
 	public void StartGame()

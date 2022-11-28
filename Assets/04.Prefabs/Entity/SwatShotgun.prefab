@@ -228,7 +228,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 100
   m_PointLightOuterAngle: 100
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 5
+  m_PointLightOuterRadius: 7
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -303,7 +303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCycleDelay: 1.2
-  delayRandomness: 0.6
+  delayRandomness: 0.5
+  noRecoilMaxDistance: 5
 --- !u!1 &8334994114896494152
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,14 +511,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8334994115199013293}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children:
   - {fileID: 8301025899267139902}
   m_Father: {fileID: 8334994115380663352}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &8334994115199013292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,7 +680,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8334994115358826652}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -687,7 +688,7 @@ Transform:
   - {fileID: 8334994114896494151}
   m_Father: {fileID: 8334994115380663352}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &8334994115380663297
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +701,9 @@ GameObject:
   - component: {fileID: 8334994115380663353}
   - component: {fileID: 8334994115380663354}
   - component: {fileID: 8334994115380663355}
+  - component: {fileID: 5890983528803222884}
   - component: {fileID: 8334994115380663356}
+  - component: {fileID: 7556845671433174979}
   - component: {fileID: 8334994115380663357}
   - component: {fileID: 8334994115380663358}
   - component: {fileID: 8334994115380663359}
@@ -770,8 +773,8 @@ SpriteRenderer:
   m_SortingLayerID: -810852549
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
-  m_Color: {r: 0, g: 0.3142953, b: 1, a: 1}
+  m_Sprite: {fileID: -2749608540483863391, guid: 96a5dfd4a71703e4db246fbebb17278d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -818,6 +821,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!95 &5890983528803222884
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334994115380663297}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 5f7f2cecd371d324db5eb0011995e9e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &8334994115380663356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,6 +853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAction: {fileID: 8334994115901953122}
+  weaponManager: {fileID: 0}
   isNotice: 0
   canTransition: 0
   basePosition: {fileID: 8334994115035611438}
@@ -838,14 +861,28 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 12544
+    m_Bits: 8448
+  currentGun: {fileID: 8301025899267139899}
   isPlayerInView: 0
+  canShootPlayer: 0
   OnMovementKeyPress:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8334994115380663359}
         m_TargetAssemblyTypeName: Movement, Assembly-CSharp
         m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7556845671433174979}
+        m_TargetAssemblyTypeName: EntityRenderer, Assembly-CSharp
+        m_MethodName: Flip
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -954,6 +991,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7556845671433174979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334994115380663297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192e034f37f7e4d47b2721ec0034568c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8334994115380663357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,14 +1017,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 1
   horizontalViewAngle: 100
-  viewRadius: 5
-  viewRotateZ: 90
+  viewRadius: 7
+  viewRotateZ: -90
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 128
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 12544
+    m_Bits: 8448
   lookAtLerp: 0.1
   detectTime: 2
   minDistance: 3
@@ -1009,6 +1058,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveData: {fileID: 11400000, guid: 503810e2fb7886446a4570de7bbd97ab, type: 2}
   OnVelocityChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7556845671433174979}
+        m_TargetAssemblyTypeName: EntityRenderer, Assembly-CSharp
+        m_MethodName: Animation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRunning:
     m_PersistentCalls:
       m_Calls: []
   OnDirectionChange:

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0825583041120d3418b7a750fb1964e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  readyOnAwake: 0
+  readyOnAwake: 1
   currentGameState: 0
   isOption: 0
   OnStartGame:
@@ -74,7 +74,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nowData:
     money: 0
-    clearStages: 0
+    clearStageCount: 0
+    effectVolume: 0
+    bgmVolume: 0
 --- !u!114 &8050588565579963532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +90,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 100000000
+  clearStageCount: 0
   isRunning: 0
   canRun: 1
   backPacks: 0
+  maxPack: 2
   maxHealth: 1000

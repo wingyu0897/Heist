@@ -6,9 +6,12 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
+	[Header("--Reference--")]
+	[SerializeField] 
+	private Slider healthSlider;
 	private Movement movement;
+
 	private Vector2 mousePos;
-	[SerializeField] private Slider healthSlider;
 	private float health;
 	public int Health { get => (int)health; set => health = value; }
 
@@ -29,7 +32,10 @@ public class PlayerController : MonoBehaviour, IDamageable
 	private void Start()
 	{
 		health = PlayerData.Instance.MaxHealth;
-		healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
+		if (healthSlider)
+		{
+			healthSlider.value = (health / PlayerData.Instance.MaxHealth) * 0.75f;
+		}
 	}
 
 	private void FixedUpdate()

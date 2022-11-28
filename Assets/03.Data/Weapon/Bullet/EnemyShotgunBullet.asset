@@ -18,4 +18,4 @@ MonoBehaviour:
   lifeTime: 3
   targetLayer:
     serializedVersion: 2
-    m_Bits: 12672
+    m_Bits: 8576

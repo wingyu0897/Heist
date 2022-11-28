@@ -10,6 +10,9 @@ public abstract class Bundle : MonoBehaviour
     public abstract bool CanEquip();
 
     public abstract Sprite BundleImage { get; }
+    public abstract string BundleName { get; }
+    public abstract string BundleDesc { get; }
+    public abstract int Price { get; }
     public abstract bool IsEquiped { get; }
     public abstract bool CanUnEquip { get; }
 }

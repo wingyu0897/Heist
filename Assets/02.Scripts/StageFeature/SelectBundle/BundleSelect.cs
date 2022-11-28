@@ -9,6 +9,8 @@ public class BundleSelect : MonoBehaviour
 {
 	[Header("--Reference--")]
 	[SerializeField] private Image bundleImage;
+	[SerializeField] private TextMeshProUGUI bundleNameText;
+	[SerializeField] private TextMeshProUGUI bundleDescText;
 	[SerializeField] private WeaponBundle defaultWeaponBundle;
 	[SerializeField] private TextMeshProUGUI equipButtonText;
 
@@ -23,6 +25,8 @@ public class BundleSelect : MonoBehaviour
 	{
 		currentSelection = defaultWeaponBundle;
 		bundleImage.sprite = currentSelection.BundleImage;
+		bundleNameText.text = currentSelection.BundleName;
+		bundleDescText.text = $"{currentSelection.BundleDesc}\n\n°¡°Ý  {string.Format("{0:#,##0}", currentSelection.Price)}";
 		OnInitialize?.Invoke();
 		Equip();
 	}
@@ -32,7 +36,9 @@ public class BundleSelect : MonoBehaviour
 		currentSelection = bundle;
 		currentSelection.OnSelection();
 		bundleImage.sprite = currentSelection.BundleImage;
-		equipButtonText.text = currentSelection.IsEquiped ? "EQUIPED" : "EQUIP";
+		bundleNameText.text = currentSelection.BundleName;
+		bundleDescText.text = $"{currentSelection.BundleDesc}\n\n°¡°Ý  {string.Format("{0:#,##0}", currentSelection.Price)}";
+		equipButtonText.text = currentSelection.IsEquiped ? "ÀåÂøµÊ" : "ÀåÂøÇÏ±â";
 	}
 
 	public void Equip()
@@ -47,6 +53,6 @@ public class BundleSelect : MonoBehaviour
 		}
 
 		currentSelection?.OnEquip();
-		equipButtonText.text = currentSelection.IsEquiped ? "EQUIPED" : "EQUIP";
+		equipButtonText.text = currentSelection.IsEquiped ? "ÀåÂøµÊ" : "ÀåÂøÇÏ±â";
 	}
 }

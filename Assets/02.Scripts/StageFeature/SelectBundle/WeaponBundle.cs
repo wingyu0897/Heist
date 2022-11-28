@@ -8,9 +8,16 @@ public class WeaponBundle : Bundle
 	[Header("--Setting--")]
 	[SerializeField] private bool canUnEquip;
 	public override bool CanUnEquip => canUnEquip;
+	[SerializeField]
+	private string bundleName;
+	public override string BundleName => bundleName;
+	[SerializeField]
+	private string bundleDesc;
+	public override string BundleDesc => bundleDesc;
 
 	[Header("--Parameter--")]
 	[SerializeField] private int price;
+	public override int Price => price;
 	[SerializeField] private Weapon weaponPrimary;
 	public Weapon Primary => weaponPrimary;
 	[SerializeField] private Weapon weaponSecondary;

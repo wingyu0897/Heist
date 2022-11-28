@@ -21,6 +21,7 @@ MonoBehaviour:
   currentAmmo: 300
   reloadTime: 3
   bulletData: {fileID: 11400000, guid: febc14daf03ef3141b687c4a6259b45e, type: 2}
+  canSilence: 1
   isAuto: 0
   isBurst: 0
   burstCount: 3
@@ -33,5 +34,6 @@ MonoBehaviour:
   minAimRange: 0.7
   gunSlerpSpeed: 0.12
   shootClip: {fileID: 8300000, guid: 96be1965668c57c45b6c39db6c145779, type: 3}
+  silenceShootAudioClip: {fileID: 8300000, guid: 2275c450789a82849b9c24fe3a9fafbf, type: 3}
   noAmmoClip: {fileID: 8300000, guid: 93fbe14161b957f49a129754c22fc4fa, type: 3}
   reloadClip: {fileID: 8300000, guid: c6efcf3a6d6f50e47bf1c0092d02baff, type: 3}

@@ -5,15 +5,27 @@ using UnityEngine.UI;
 
 public class SilencerBundle : Bundle
 {
-	[SerializeField] private bool canUnEquip;
-	[SerializeField] private Sprite bundleImage;
-	[SerializeField] private int price;
+	[SerializeField] 
+	private bool canUnEquip;
 	public override bool CanUnEquip => canUnEquip;
+	[SerializeField] 
+	private Sprite bundleImage;
 	public override Sprite BundleImage => bundleImage;
+	[SerializeField]
+	private string bundleName;
+	public override string BundleName => bundleName;
+	[SerializeField]
+	private string bundleDesc;
+	public override string BundleDesc => bundleDesc;
+	[SerializeField] 
+	private int price;
+	public override int Price => price;
 
-	[SerializeField] private bool isEquiped = false;
-	private Image equipChecker;
+	[SerializeField] 
+	private bool isEquiped = false;
 	public override bool IsEquiped => isEquiped;
+	private Image equipChecker;
+
 
 	private void Awake()
 	{

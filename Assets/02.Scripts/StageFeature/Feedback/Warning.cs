@@ -35,8 +35,8 @@ public class Warning : MonoBehaviour
 		_audio.PlayOneShot(warningSound);
 		redScreen.DOFade(0f, 2f).SetLoops(redscrLoops, LoopType.Yoyo);
 
-		Tween sirenOut = DOTween.To(() => siren.anchoredPosition, x => siren.anchoredPosition = x, new Vector2(siren.anchoredPosition.x + siren.sizeDelta.x, siren.anchoredPosition.y), 2f);
-		Tween sirenIn = DOTween.To(() => siren.anchoredPosition, x => siren.anchoredPosition = x, new Vector2(siren.anchoredPosition.x - siren.sizeDelta.x, siren.anchoredPosition.y), 1f);
+		Tween sirenOut = DOTween.To(() => siren.anchoredPosition, x => siren.anchoredPosition = x, new Vector2(0, -(Screen.height * 0.5f)), 2f);
+		Tween sirenIn = DOTween.To(() => siren.anchoredPosition, x => siren.anchoredPosition = x, Vector2.zero, 1f);
 
 		Sequence seq = DOTween.Sequence();
 		print(siren.position.x);

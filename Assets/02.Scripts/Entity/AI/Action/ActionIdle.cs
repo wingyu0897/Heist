@@ -12,6 +12,7 @@ public class ActionIdle : AIAction
 	{
 		StopAllCoroutines();
 		brain.canTransition = false;
+		time = 0;
 		StartCoroutine(TransitionDelay());
 	}
 
@@ -23,15 +24,8 @@ public class ActionIdle : AIAction
 		{
 			brain.canTransition = true;
 		}
-
-		if (brain.isNotice)
-		{
-			brain.MoveByDirection(Vector2.zero, brain.Target.position);
-		}
-		else
-		{
-			brain.MoveByDirection(Vector2.zero, Vector2.zero);
-		}
+		
+		brain.MoveByDirection(Vector2.zero, Vector2.zero);
 	}
 
 	public override void ExitAction()

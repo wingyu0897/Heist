@@ -22,7 +22,7 @@ public class MazeHacking : Hacking
 	[SerializeField] private string targetLayer;
 	[SerializeField] private string obstacleLayer;
 	[Tooltip("해킹이 성공하거나 실패할 때 해킹 패널이 닫히는 시간")]
-	[SerializeField] private float setOffDelay = 0f;
+	//[SerializeField] private float setOffDelay = 0f;
 	[SerializeField] private float speed;
 	[SerializeField] private Vector2 direction;
 

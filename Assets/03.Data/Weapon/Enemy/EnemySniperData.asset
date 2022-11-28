@@ -15,12 +15,13 @@ MonoBehaviour:
   gunName: EnemySniper
   weaponType: 3
   prefab: {fileID: 2242552904418692001, guid: 6b81246bbcbb16f428a970c445e760dc, type: 3}
-  weaponSprite: {fileID: 2800000, guid: f4839dd50260420468c9e0cea7fd87c9, type: 3}
+  weaponSprite: {fileID: 2800000, guid: 064680bd1df50ab45a7e64097a4bea56, type: 3}
   magSize: 7
   maxAmmo: 49
   currentAmmo: 49
   reloadTime: 5
   bulletData: {fileID: 11400000, guid: 1c4ed91864dfbc94e93edaac93569f37, type: 2}
+  canSilence: 0
   isAuto: 0
   isBurst: 0
   burstCount: 3
@@ -33,5 +34,6 @@ MonoBehaviour:
   minAimRange: 1
   gunSlerpSpeed: 0.05
   shootClip: {fileID: 8300000, guid: 96be1965668c57c45b6c39db6c145779, type: 3}
+  silenceShootAudioClip: {fileID: 0}
   noAmmoClip: {fileID: 8300000, guid: 93fbe14161b957f49a129754c22fc4fa, type: 3}
   reloadClip: {fileID: 8300000, guid: c6efcf3a6d6f50e47bf1c0092d02baff, type: 3}

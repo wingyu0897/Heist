@@ -20,4 +20,5 @@ public class StageSO : ScriptableObject
     public string address;
     public StageLevel stageLevel;
     public Sprite stageImage;
+    public string tip;
 }

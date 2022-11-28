@@ -7,6 +7,7 @@ public class EntityRenderer : MonoBehaviour
 	private SpriteRenderer spriteRenderer;
 	private Animator animator;
 	private readonly int speedHash = Animator.StringToHash("Speed");
+	private readonly int runningHash = Animator.StringToHash("Running");
 
 	private void Start()
 	{
@@ -30,5 +31,10 @@ public class EntityRenderer : MonoBehaviour
 	public void Animation(float speed)
 	{
 		animator?.SetFloat(speedHash, speed);
+	}
+
+	public void RunningAnimation(bool isRunning)
+	{
+		animator?.SetBool(runningHash, isRunning);
 	}
 }

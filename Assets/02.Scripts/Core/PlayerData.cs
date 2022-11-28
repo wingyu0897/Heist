@@ -28,6 +28,7 @@ public class PlayerData : MonoBehaviour
 	public bool isRunning = false;
 	public bool canRun = true;
 	public int backPacks = 0;
+	public int maxPack = 2;
 
 	[SerializeField] 
 	private int maxHealth = 1000;

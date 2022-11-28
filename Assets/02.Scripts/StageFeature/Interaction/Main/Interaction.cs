@@ -56,7 +56,7 @@ public class Interaction : MonoBehaviour
 
 					if (time >= interactable.InteractionTime)
 					{
-						interactable.OnInteraction();
+						interactable?.OnInteraction();
 						time = 0;
 					}
 				}
@@ -68,13 +68,13 @@ public class Interaction : MonoBehaviour
 			else
 			{
 				time = 0;
-				interactionObject.SetActive(false);
+				interactionObject?.SetActive(false);
 			}
 		}
 		else
 		{
 			time = 0;
-			interactionObject.SetActive(false);
+			interactionObject?.SetActive(false);
 		}
 	}
 

@@ -119,7 +119,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 100
   m_PointLightOuterAngle: 100
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 7
+  m_PointLightOuterRadius: 9
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -204,10 +204,12 @@ GameObject:
   - component: {fileID: 2671289031729567446}
   - component: {fileID: 2671289031729567445}
   - component: {fileID: 2671289031729567444}
+  - component: {fileID: 981642892455485294}
   - component: {fileID: 2671289031729567451}
   - component: {fileID: 2671289031729567450}
   - component: {fileID: 2671289031729567449}
   - component: {fileID: 2671289031729567448}
+  - component: {fileID: 8066771602236175707}
   - component: {fileID: 2671289031729567455}
   m_Layer: 10
   m_Name: SwatPistol
@@ -274,8 +276,8 @@ SpriteRenderer:
   m_SortingLayerID: -810852549
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
-  m_Color: {r: 0, g: 0.3142953, b: 1, a: 1}
+  m_Sprite: {fileID: -2749608540483863391, guid: 96a5dfd4a71703e4db246fbebb17278d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -322,6 +324,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!95 &981642892455485294
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2671289031729567454}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 5f7f2cecd371d324db5eb0011995e9e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &2671289031729567451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAction: {fileID: 2671289032710908880}
+  weaponManager: {fileID: 0}
   isNotice: 0
   canTransition: 0
   basePosition: {fileID: 2671289032756810322}
@@ -342,8 +364,10 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 12544
+    m_Bits: 8448
+  currentGun: {fileID: 4796050193718599727}
   isPlayerInView: 0
+  canShootPlayer: 0
   OnMovementKeyPress:
     m_PersistentCalls:
       m_Calls:
@@ -377,6 +401,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2671289032665238778}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
         m_MethodName: HolderAiming
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8066771602236175707}
+        m_TargetAssemblyTypeName: EntityRenderer, Assembly-CSharp
+        m_MethodName: Flip
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -472,14 +508,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 1
   horizontalViewAngle: 100
-  viewRadius: 7
-  viewRotateZ: 90
+  viewRadius: 9
+  viewRotateZ: -90
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 128
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 12544
+    m_Bits: 8448
   lookAtLerp: 0.1
   detectTime: 2
   minDistance: 3
@@ -498,6 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb6817920adf9e4a8c52494c42c52bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1000
 --- !u!114 &2671289031729567448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,6 +550,21 @@ MonoBehaviour:
   moveData: {fileID: 11400000, guid: 142563c20d3f5564bb1f9238c80433b0, type: 2}
   OnVelocityChange:
     m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8066771602236175707}
+        m_TargetAssemblyTypeName: EntityRenderer, Assembly-CSharp
+        m_MethodName: Animation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRunning:
+    m_PersistentCalls:
       m_Calls: []
   OnDirectionChange:
     m_PersistentCalls:
@@ -520,6 +572,18 @@ MonoBehaviour:
   OnTriggerEnter:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8066771602236175707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2671289031729567454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192e034f37f7e4d47b2721ec0034568c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2671289031729567455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,6 +662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCycleDelay: 0.6
   delayRandomness: 0.45
+  noRecoilMaxDistance: 5
 --- !u!1 &2671289032565832136
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,14 +761,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2671289032665238777}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children:
   - {fileID: 4796050193718599726}
   m_Father: {fileID: 2671289031729567447}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &2671289032665238778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -905,7 +970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df5f28c12bf1ce428fe95aa35b872b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionDelay: 2
+  transitionDelay: 0
 --- !u!1 &2671289032752061476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1134,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2671289033067608326}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1077,7 +1142,7 @@ Transform:
   - {fileID: 2671289032565832137}
   m_Father: {fileID: 2671289031729567447}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &2671289033112326961
 GameObject:
   m_ObjectHideFlags: 0

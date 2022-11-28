@@ -16,10 +16,8 @@ public class StageManager : MonoBehaviour
 	private PoolingListSO poolingList;
 	[SerializeField] 
 	private CinemachineVirtualCamera playerCamera;
-	[SerializeField] 
-	private StageSO currentStageData;
-	[SerializeField] 
-	private Slider detectGaugeSlider;
+	public StageSO currentStageData;
+	public DetectGuage detectManager;
 
 	private StageInfoManager endManager;
 
@@ -68,6 +66,7 @@ public class StageManager : MonoBehaviour
 		}
 
 		endManager = GetComponent<StageInfoManager>();
+		detectManager = GetComponent<DetectGuage>();
 	}
 
 	private void Start()
@@ -100,7 +99,9 @@ public class StageManager : MonoBehaviour
 			detectGauge = Mathf.Clamp(detectGauge, 0, detectTime);
 		}
 
-		DetectGauge();
+		isDetecting = false;
+
+		detectManager.Guage(detectGauge);
 	}
 
 
@@ -164,41 +165,5 @@ public class StageManager : MonoBehaviour
 		}
 
 		return money;
-	}
-
-	private void DetectGauge()
-	{
-		if (detectGauge > 0 && !isLoud)
-		{
-			detectGaugeSlider?.gameObject.SetActive(true);
-		}
-		else
-		{
-			detectGaugeSlider?.gameObject.SetActive(false);
-		}
-
-		isDetecting = false;
-
-		if (detectGaugeSlider)
-		{
-			detectGaugeSlider.value = detectGauge / detectTime;
-		}
-
-		if (detectGauge >= detectTime && !isLoud)
-		{
-			Invoke("Louded", 4f);
-		}
-	}
-
-	public void DetectInput(float value)
-	{
-		isDetecting = true;
-
-		if (value > detectGauge)
-		{
-			detectGauge = value;
-		}
-
-		detectGauge = Mathf.Clamp(detectGauge, 0, detectTime);
 	}
 }
