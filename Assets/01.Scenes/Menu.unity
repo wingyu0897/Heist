@@ -2833,7 +2833,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &602511517
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4704,7 +4704,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1131282321}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 540016720}
+        m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1131282321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7094,6 +7106,7 @@ MonoBehaviour:
   buttons:
   - {fileID: 1347086169}
   - {fileID: 647612827}
+  - {fileID: 602511516}
   stageInfo: {fileID: 2131316346}
   mapImage: {fileID: 877648590}
   mapNameText: {fileID: 1490796775}
@@ -8655,7 +8668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 0.8392157}
+  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0.8392157}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
